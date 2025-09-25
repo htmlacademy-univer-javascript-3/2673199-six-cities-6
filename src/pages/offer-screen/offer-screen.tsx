@@ -5,7 +5,7 @@ type OfferScreenProps = {
   places: PlaceCard[];
 };
 
-export function OfferScreen({places} : OfferScreenProps) {
+export function OfferScreen({places}: OfferScreenProps) {
   return (
     <main className="page__main page__main--offer">
       <section className="offer">
@@ -73,7 +73,7 @@ export function OfferScreen({places} : OfferScreenProps) {
             </div>
             <div className="offer__rating rating">
               <div className="offer__stars rating__stars">
-                <span style={{ width: '80%' }}></span>
+                <span style={{width: '80%'}}></span>
                 <span className="visually-hidden">Rating</span>
               </div>
               <span className="offer__rating-value rating__value">4.8</span>
@@ -157,7 +157,7 @@ export function OfferScreen({places} : OfferScreenProps) {
                   <div className="reviews__info">
                     <div className="reviews__rating rating">
                       <div className="reviews__stars rating__stars">
-                        <span style={{ width: '80%' }}></span>
+                        <span style={{width: '80%'}}></span>
                         <span className="visually-hidden">Rating</span>
                       </div>
                     </div>

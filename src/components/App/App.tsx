@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import {Routes, Route} from "react-router-dom";
 import {MainScreen} from "../../pages/main-screen/main-screen.tsx";
 import {NotFoundScreen} from "../../pages/not-found-screen/not-found-screen.tsx";
 import {AuthScreen} from "../../pages/auth-screen/auth-screen.tsx";
@@ -16,16 +16,16 @@ type AppProps = {
 };
 
 
-export function App({ places, isLoggedIn, userHeaderPrompts }: AppProps) {
+export function App({places, isLoggedIn, userHeaderPrompts}: AppProps) {
   return (
     <>
-      <Header isLoggedIn={isLoggedIn} userHeaderPrompts={userHeaderPrompts} />
+      <Header isLoggedIn={isLoggedIn} userHeaderPrompts={userHeaderPrompts}/>
       <Routes>
-        <Route path={AppRoute.Main} element={<MainScreen places={places}/>} />
-        <Route path={AppRoute.Login} element={<AuthScreen />} />
-        <Route path={AppRoute.Favorites} element={<FavoritesScreen places={places}/>} />
-        <Route path={AppRoute.Offer} element={<OfferScreen places={places}/>} />
-        <Route path={AppRoute.NotFound} element={<NotFoundScreen />} />
+        <Route path={AppRoute.Main} element={<MainScreen places={places}/>}/>
+        <Route path={AppRoute.Login} element={<AuthScreen/>}/>
+        <Route path={AppRoute.Favorites} element={<FavoritesScreen places={places}/>}/>
+        <Route path={AppRoute.Offer} element={<OfferScreen places={places}/>}/>
+        <Route path={AppRoute.NotFound} element={<NotFoundScreen/>}/>
       </Routes>
     </>
   );

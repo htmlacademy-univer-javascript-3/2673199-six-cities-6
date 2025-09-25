@@ -17,7 +17,7 @@ export function Header({isLoggedIn, userHeaderPrompts}: HeaderProps) {
           {isLoggedIn
             && userHeaderPrompts
             && (<UserHeader email={userHeaderPrompts.email}
-                            favoriteCount={userHeaderPrompts.favoriteCount} />)}
+                            favoriteCount={userHeaderPrompts.favoriteCount}/>)}
         </div>
       </div>
     </header>

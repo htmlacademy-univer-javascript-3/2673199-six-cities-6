@@ -36,14 +36,14 @@ export function PlaceCard({
                           }: PlaceCardProps) {
   return (
     <article className={`${PlaceCardType.ToArticleType(type)} place-card`}>
-      <Mark contents={mark} />
-      <ImageWrapper imageSource={imageSource} type={type} />
+      <Mark contents={mark}/>
+      <ImageWrapper imageSource={imageSource} type={type}/>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
-          <Price price={price} />
-          <BookmarkButton isActive={isBookmarked} />
+          <Price price={price}/>
+          <BookmarkButton isActive={isBookmarked}/>
         </div>
-        <Rating rating={rating} />
+        <Rating rating={rating}/>
         <PlaceTitle
           placeName={placeTitleProps.placeName}
           placeType={placeTitleProps.placeType}

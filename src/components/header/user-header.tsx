@@ -3,7 +3,7 @@ export type UserHeaderProps = {
   favoriteCount: number;
 };
 
-export function UserHeader({ email,  favoriteCount}: UserHeaderProps) {
+export function UserHeader({email, favoriteCount}: UserHeaderProps) {
   return (
     <nav className="header__nav">
       <ul className="header__nav-list">

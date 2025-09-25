@@ -5,7 +5,7 @@ type MainScreenProps = {
   places: PlaceCard[];
 };
 
-export function MainScreen({ places }: MainScreenProps) {
+export function MainScreen({places}: MainScreenProps) {
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
@@ -80,16 +80,16 @@ export function MainScreen({ places }: MainScreenProps) {
             </form>
             <div className="cities__places-list places__list tabs__content">
               {places.map((place) => (
-                  <PlaceCard
-                    type={PlaceCardType.Main}
-                    mark={place.mark}
-                    imageSource={place.imageSource}
-                    price={place.price}
-                    isBookmarked={place.isBookmarked}
-                    rating={place.rating}
-                    placeTitleProps={place.placeTitleProps}
-                  />
-                ))}
+                <PlaceCard
+                  type={PlaceCardType.Main}
+                  mark={place.mark}
+                  imageSource={place.imageSource}
+                  price={place.price}
+                  isBookmarked={place.isBookmarked}
+                  rating={place.rating}
+                  placeTitleProps={place.placeTitleProps}
+                />
+              ))}
             </div>
           </section>
           <div className="cities__right-section">
