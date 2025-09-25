@@ -11,8 +11,8 @@ export function UserHeader({email, favoriteCount}: UserHeaderProps) {
           <a className="header__nav-link header__nav-link--profile" href="#">
             <div className="header__avatar-wrapper user__avatar-wrapper"></div>
             <span className="header__user-name user__name">
-                    {email}
-                  </span>
+              {email}
+            </span>
             <span className="header__favorite-count">{favoriteCount}</span>
           </a>
         </li>

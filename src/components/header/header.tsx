@@ -1,9 +1,9 @@
-import {LogoLink} from "./logo-link.tsx";
-import {UserHeader, UserHeaderProps} from "./user-header.tsx";
+import {LogoLink} from './logo-link.tsx';
+import {UserHeader, UserHeaderProps} from './user-header.tsx';
 
 type HeaderProps = {
   isLoggedIn: boolean;
-  userHeaderPrompts?: UserHeaderProps
+  userHeaderPrompts?: UserHeaderProps;
 };
 
 export function Header({isLoggedIn, userHeaderPrompts}: HeaderProps) {
@@ -12,12 +12,11 @@ export function Header({isLoggedIn, userHeaderPrompts}: HeaderProps) {
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
-            <LogoLink src={"/img/logo.svg"}/>
+            <LogoLink src={'/img/logo.svg'}/>
           </div>
           {isLoggedIn
             && userHeaderPrompts
-            && (<UserHeader email={userHeaderPrompts.email}
-                            favoriteCount={userHeaderPrompts.favoriteCount}/>)}
+            && <UserHeader email={userHeaderPrompts.email} favoriteCount={userHeaderPrompts.favoriteCount}/>}
         </div>
       </div>
     </header>

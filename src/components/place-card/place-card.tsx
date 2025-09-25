@@ -1,10 +1,10 @@
-import {Price} from "./price.tsx";
-import {Rating} from "./rating.tsx";
-import {BookmarkButton} from "./bookmark-button.tsx";
-import {PlaceTitle, PlaceTitleProps} from "./place-title.tsx";
-import {ImageWrapper} from "./image-wrapper.tsx";
-import {Mark} from "./Mark.tsx";
-import {PlaceCardType} from "./cart-type.ts";
+import {Price} from './price.tsx';
+import {Rating} from './rating.tsx';
+import {BookmarkButton} from './bookmark-button.tsx';
+import {PlaceTitle, PlaceTitleProps} from './place-title.tsx';
+import {ImageWrapper} from './image-wrapper.tsx';
+import {Mark} from './Mark.tsx';
+import {PlaceCardType, ToArticleType} from './cart-type.ts';
 
 export type PlaceCardProps = {
   type: PlaceCardType;
@@ -26,16 +26,16 @@ export type PlaceCard = {
 };
 
 export function PlaceCard({
-                            type,
-                            mark,
-                            imageSource,
-                            price,
-                            isBookmarked = false,
-                            rating,
-                            placeTitleProps,
-                          }: PlaceCardProps) {
+  type,
+  mark,
+  imageSource,
+  price,
+  isBookmarked = false,
+  rating,
+  placeTitleProps,
+}: PlaceCardProps) {
   return (
-    <article className={`${PlaceCardType.ToArticleType(type)} place-card`}>
+    <article className={`${ToArticleType(type)} place-card`}>
       <Mark contents={mark}/>
       <ImageWrapper imageSource={imageSource} type={type}/>
       <div className="place-card__info">

@@ -1,5 +1,5 @@
-import {PlaceCard} from "../../components/place-card/place-card.tsx";
-import {PlaceCardType} from "../../components/place-card/cart-type.ts";
+import {PlaceCard} from '../../components/place-card/place-card.tsx';
+import {PlaceCardType} from '../../components/place-card/cart-type.ts';
 
 type OfferScreenProps = {
   places: PlaceCard[];
@@ -298,6 +298,7 @@ export function OfferScreen({places}: OfferScreenProps) {
           <div className="near-places__list places__list">
             {places.map((place) => (
               <PlaceCard
+                key={'1'}
                 type={PlaceCardType.Offer}
                 mark={place.mark}
                 imageSource={place.imageSource}

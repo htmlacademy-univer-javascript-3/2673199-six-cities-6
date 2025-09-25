@@ -1,5 +1,5 @@
-import {PlaceCardType} from "../../components/place-card/cart-type.ts";
-import {PlaceCard} from "../../components/place-card/place-card.tsx";
+import {PlaceCardType} from '../../components/place-card/cart-type.ts';
+import {PlaceCard} from '../../components/place-card/place-card.tsx';
 
 type FavoritesScreenProps = {
   places: PlaceCard[];
@@ -21,8 +21,9 @@ export function FavoritesScreen({places}: FavoritesScreenProps) {
                 </div>
               </div>
               <div className="favorites__places">
-                {places.filter(x => x.isBookmarked).map((place) => (
+                {places.filter((x) => x.isBookmarked).map((place) => (
                   <PlaceCard
+                    key={'1'}
                     type={PlaceCardType.Favourite}
                     mark={place.mark}
                     imageSource={place.imageSource}
@@ -44,15 +45,17 @@ export function FavoritesScreen({places}: FavoritesScreenProps) {
                 </div>
               </div>
               <div className="favorites__places">
-                {places.filter(x => x.isBookmarked).map((place) => (
+                {places.filter((x) => x.isBookmarked).map((place) => (
                   <PlaceCard
+                    key={'1'}
                     type={PlaceCardType.Favourite}
                     mark={place.mark}
                     imageSource={place.imageSource}
                     price={place.price}
                     isBookmarked={place.isBookmarked}
                     rating={place.rating}
-                    placeTitleProps={place.placeTitleProps}/>))}
+                    placeTitleProps={place.placeTitleProps}
+                  />))}
               </div>
             </li>
           </ul>

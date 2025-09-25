@@ -1,5 +1,5 @@
 import {PlaceCard} from '../../components/place-card/place-card.tsx';
-import {PlaceCardType} from "../../components/place-card/cart-type.ts";
+import {PlaceCardType} from '../../components/place-card/cart-type.ts';
 
 type MainScreenProps = {
   places: PlaceCard[];
@@ -81,6 +81,7 @@ export function MainScreen({places}: MainScreenProps) {
             <div className="cities__places-list places__list tabs__content">
               {places.map((place) => (
                 <PlaceCard
+                  key={'1'}
                   type={PlaceCardType.Main}
                   mark={place.mark}
                   imageSource={place.imageSource}
