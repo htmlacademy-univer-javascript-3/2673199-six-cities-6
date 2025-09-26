@@ -5,9 +5,9 @@ import {AuthScreen} from '../../pages/auth-screen/auth-screen.tsx';
 import {AppRoute} from '../app-route.ts';
 import {FavoritesScreen} from '../../pages/favourites-screen/favourites-screen.tsx';
 import {OfferScreen} from '../../pages/offer-screen/offer-screen.tsx';
-import {Header} from '../header/header.tsx';
+import {Header} from '../header';
 import {UserHeaderProps} from '../header/user-header.tsx';
-import {PlaceCard} from '../place-card/place-card.tsx';
+import {PlaceCard} from '../place-card';
 
 type AppProps = {
   places: PlaceCard[];

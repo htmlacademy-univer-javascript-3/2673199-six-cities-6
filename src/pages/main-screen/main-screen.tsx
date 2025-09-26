@@ -1,5 +1,4 @@
-import {PlaceCard} from '../../components/place-card/place-card.tsx';
-import {PlaceCardType} from '../../components/place-card/card-type.ts';
+import {PlaceCard, PlaceCardType} from '../../components/place-card';
 
 type MainScreenProps = {
   places: PlaceCard[];
