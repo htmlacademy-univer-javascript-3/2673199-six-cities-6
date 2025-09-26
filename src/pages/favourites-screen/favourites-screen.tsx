@@ -1,4 +1,4 @@
-import {PlaceCardType} from '../../components/place-card/cart-type.ts';
+import {PlaceCardType} from '../../components/place-card/card-type.ts';
 import {PlaceCard} from '../../components/place-card/place-card.tsx';
 
 type FavoritesScreenProps = {

@@ -1,4 +1,4 @@
-import {PlaceCardType, ToImageHight, ToImageWidth, ToImageWrapperType} from './cart-type.ts';
+import {PlaceCardType, ToImageHight, ToImageWidth, ToImageWrapperType} from './card-type.ts';
 
 type ImageWrapperProps = {
   type: PlaceCardType;

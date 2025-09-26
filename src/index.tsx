@@ -1,12 +1,13 @@
 import ReactDOM from 'react-dom/client';
-import {App} from './components/App/App.tsx';
+import {App} from './components/app/app.tsx';
 import {BrowserRouter} from 'react-router-dom';
 import {UserHeaderProps} from './components/header/user-header.tsx';
-import {PlaceCard} from './components/place-card/place-card.tsx';
+import {PlaceCard} from './components/place-card';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
 
 const isLoggedIn = true;
 const userHeaderProps: UserHeaderProps = {
