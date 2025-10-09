@@ -17,7 +17,7 @@ type AppProps = {
   reviews: Reviews;
   activeCity: string;
   authStatus: AuthorizationStatus;
-  userHeaderPrompts?: UserHeaderProps;
+  userHeaderPrompts: UserHeaderProps;
 };
 
 

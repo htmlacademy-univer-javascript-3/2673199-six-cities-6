@@ -32,7 +32,7 @@ export function Layout() {
 }
 
 type layoutUserPrompts = {
-  userHeaderPrompts?: UserHeaderProps;
+  userHeaderPrompts: UserHeaderProps;
 };
 
 export function LayoutWithUser({userHeaderPrompts}: layoutUserPrompts) {
@@ -40,8 +40,9 @@ export function LayoutWithUser({userHeaderPrompts}: layoutUserPrompts) {
     <LayoutBase
       headerContent={
         <UserHeader
-          email={userHeaderPrompts?.email}
-          favoriteCount={userHeaderPrompts?.favoriteCount}
+          email={userHeaderPrompts.email}
+          favoriteCount={userHeaderPrompts.favoriteCount}
+          authState={userHeaderPrompts.authState}
         />
       }
     />
