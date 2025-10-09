@@ -1,45 +1,30 @@
 import {Price} from './price.tsx';
 import {Rating} from './rating.tsx';
 import {BookmarkButton} from './bookmark-button.tsx';
-import {PlaceTitle, PlaceTitleProps} from './place-title.tsx';
+import {PlaceTitle} from './place-title.tsx';
 import {ImageWrapper} from './image-wrapper.tsx';
 import {Mark} from './mark.tsx';
 import {PlaceCardType, ToArticleType} from './card-type.ts';
+import {Offer} from '../../models/offer.ts';
 
-export type PlaceCardProps = {
-  type: PlaceCardType;
-} & PlaceCard;
+export type OfferProps = {
+  innerType: PlaceCardType;
+} & Offer;
 
-export type PlaceCard = {
-  mark?: string;
-  imageSource: string;
-  price: number;
-  isBookmarked?: boolean;
-  rating: number;
-  placeTitleProps: PlaceTitleProps;
-};
-export function PlaceCard({
-  type,
-  mark,
-  imageSource,
-  price,
-  isBookmarked = false,
-  rating,
-  placeTitleProps,
-}: PlaceCardProps) {
+export function PlaceCard(offerProps: OfferProps) {
   return (
-    <article className={`${ToArticleType(type)} place-card`}>
-      <Mark contents={mark}/>
-      <ImageWrapper imageSource={imageSource} type={type}/>
+    <article className={`${ToArticleType(offerProps.innerType)} place-card`}>
+      <Mark isPremium={offerProps.isPremium}/>
+      <ImageWrapper imageSource={offerProps.previewImage} type={offerProps.innerType}/>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
-          <Price price={price}/>
-          <BookmarkButton isActive={isBookmarked}/>
+          <Price price={offerProps.price} />
+          <BookmarkButton isActive={offerProps.isFavorite}/>
         </div>
-        <Rating rating={rating}/>
+        <Rating rating={offerProps.rating} />
         <PlaceTitle
-          placeName={placeTitleProps.placeName}
-          placeType={placeTitleProps.placeType}
+          placeName={offerProps.title}
+          placeType={offerProps.type}
         />
       </div>
     </article>

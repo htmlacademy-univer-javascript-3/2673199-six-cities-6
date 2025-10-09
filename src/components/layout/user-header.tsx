@@ -10,9 +10,7 @@ export type UserHeaderProps = {
 export function UserHeader({email, favoriteCount}: UserHeaderProps) {
   return (
     <>
-      <div className="header__left">
-        <LogoLink src={'/img/logo.svg'}/>
-      </div>
+      <LogoLink src={'/img/logo.svg'}/>
 
       <nav className="header__nav">
         <ul className="header__nav-list">
