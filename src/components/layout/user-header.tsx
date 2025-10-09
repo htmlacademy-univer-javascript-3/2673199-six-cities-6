@@ -15,7 +15,7 @@ export function UserHeader({authState, email, favoriteCount}: UserHeaderProps) {
 
       <nav className="header__nav">
         <ul className="header__nav-list">
-          {authState == AuthorizationStatus.Auth && email !== undefined && favoriteCount !== undefined ? (
+          {authState === AuthorizationStatus.Auth && email !== undefined && favoriteCount !== undefined ? (
             <>
               <li className="header__nav-item user">
                 <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites}>
