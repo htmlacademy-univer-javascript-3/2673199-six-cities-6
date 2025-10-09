@@ -1,15 +1,16 @@
 import ReactDOM from 'react-dom/client';
 import {App} from './components/app/app.tsx';
 import {BrowserRouter} from 'react-router-dom';
-import {UserHeaderProps} from './components/header/user-header.tsx';
+import {UserHeaderProps} from './components/layout/user-header.tsx';
 import {PlaceCard} from './components/place-card';
+import {AuthorizationStatus} from './components/consts.ts';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
 
-const isLoggedIn = true;
+const authStatus = AuthorizationStatus.Auth;
 const userHeaderProps: UserHeaderProps = {
   email: 'Oliver.conner@gmail.com',
   favoriteCount: 3
@@ -57,6 +58,6 @@ const places: PlaceCard[] = [
 
 root.render(
   <BrowserRouter>
-    <App places={places} isLoggedIn={isLoggedIn} userHeaderPrompts={userHeaderProps}/>
+    <App places={places} authStatus={authStatus} userHeaderPrompts={userHeaderProps}/>
   </BrowserRouter>
 );
