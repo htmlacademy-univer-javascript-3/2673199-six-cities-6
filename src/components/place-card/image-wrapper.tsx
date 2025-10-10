@@ -1,4 +1,6 @@
 import {PlaceCardType, ToImageHight, ToImageWidth, ToImageWrapperType} from './card-type.ts';
+import {Link} from 'react-router-dom';
+import {AppRoute} from '../consts.ts';
 
 type ImageWrapperProps = {
   type: PlaceCardType;
@@ -8,7 +10,7 @@ type ImageWrapperProps = {
 export function ImageWrapper({ type, imageSource }: ImageWrapperProps) {
   return (
     <div className={`${ToImageWrapperType(type)} place-card__image-wrapper`}>
-      <a href="#">
+      <Link to={AppRoute.Main}>
         <img
           className="place-card__image"
           src={imageSource}
@@ -16,7 +18,7 @@ export function ImageWrapper({ type, imageSource }: ImageWrapperProps) {
           height={ToImageHight(type)}
           alt="Place image"
         />
-      </a>
+      </Link>
     </div>
   );
 }

@@ -1,4 +1,11 @@
-export function AuthScreen() {
+import {Link} from 'react-router-dom';
+import { AppRoute } from '../../components/consts';
+
+export type AuthScreenProps = {
+  activeCity: string;
+};
+
+export function AuthScreen({activeCity}: AuthScreenProps) {
   return (
     <main className="page__main page__main--login">
       <div className="page__login-container container">
@@ -32,9 +39,9 @@ export function AuthScreen() {
         </section>
         <section className="locations locations--login locations--current">
           <div className="locations__item">
-            <a className="locations__item-link" href="#">
-              <span>Amsterdam</span>
-            </a>
+            <Link className="locations__item-link" to={AppRoute.Main}>
+              <span>{activeCity}</span>
+            </Link>
           </div>
         </section>
       </div>

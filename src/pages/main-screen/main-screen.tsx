@@ -1,46 +1,33 @@
 import {PlaceCard, PlaceCardType} from '../../components/place-card';
+import {Offers} from '../../models/offer.ts';
+import {Link} from 'react-router-dom';
+import {AppRoute} from '../../components/consts.ts';
 
 type MainScreenProps = {
-  places: PlaceCard[];
+  places: Offers;
+  activeCity: string;
 };
 
-export function MainScreen({places}: MainScreenProps) {
+export function MainScreen({places, activeCity}: MainScreenProps) {
+  const cities = Array.from(new Set(places.map((offer) => offer.city.name)));
+  const filteredPlaces = places.filter((offer) => offer.city.name === activeCity);
+
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
         <section className="locations container">
           <ul className="locations__list tabs__list">
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Paris</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Cologne</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Brussels</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item tabs__item--active">
-                <span>Amsterdam</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Hamburg</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Dusseldorf</span>
-              </a>
-            </li>
+            {cities.map((cityName) => (
+              <li className="locations__item" key={cityName}>
+                <Link
+                  className={`locations__item-link tabs__item ${cityName === activeCity ? 'tabs__item--active' : ''}`}
+                  to={AppRoute.Main}
+                >
+                  <span>{cityName}</span>
+                </Link>
+              </li>
+            ))}
           </ul>
         </section>
       </div>
@@ -49,7 +36,7 @@ export function MainScreen({places}: MainScreenProps) {
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
             <b className="places__found">
-              {places.length} places to stay in Amsterdam
+              {filteredPlaces.length} places to stay in {activeCity}
             </b>
             <form className="places__sorting" action="#" method="get">
               <span className="places__sorting-caption">Sort by</span>
@@ -78,16 +65,11 @@ export function MainScreen({places}: MainScreenProps) {
               </ul>
             </form>
             <div className="cities__places-list places__list tabs__content">
-              {places.map((place) => (
+              {filteredPlaces.map((place) => (
                 <PlaceCard
-                  key={'1'}
-                  type={PlaceCardType.Main}
-                  mark={place.mark}
-                  imageSource={place.imageSource}
-                  price={place.price}
-                  isBookmarked={place.isBookmarked}
-                  rating={place.rating}
-                  placeTitleProps={place.placeTitleProps}
+                  key={place.id}
+                  innerType={PlaceCardType.Main}
+                  {...place}
                 />
               ))}
             </div>

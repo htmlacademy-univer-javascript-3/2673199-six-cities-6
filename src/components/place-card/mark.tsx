@@ -1,14 +1,14 @@
 type MarkProps = {
-  contents?: string;
+  isPremium: boolean;
 };
 
-export function Mark({ contents }: MarkProps) {
-  if (!contents) {
+export function Mark({ isPremium }: MarkProps) {
+  if (!isPremium) {
     return null;
   }
   return (
     <div className="place-card__mark">
-      <span>{contents}</span>
+      <span>Premium</span>
     </div>
   );
 }
