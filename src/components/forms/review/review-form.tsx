@@ -1,5 +1,5 @@
 import {Reviews} from '../../../types/review.ts';
-import {useState} from "react";
+import {useState} from 'react';
 
 type ReviewsFormProps = {
   reviews: Reviews;
@@ -8,7 +8,6 @@ type ReviewsFormProps = {
 export function ReviewsForm({ reviews }: ReviewsFormProps) {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
-  console.log(rating, comment);
 
   return (
     <section className="offer__reviews reviews">
@@ -71,7 +70,6 @@ export function ReviewsForm({ reviews }: ReviewsFormProps) {
                 id={`${stars}-stars`}
                 onChange={() => setRating(stars)}
                 type="radio"
-                wfd-id={5 - stars}
               />
               <label
                 htmlFor={`${stars}-stars`}

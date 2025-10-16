@@ -5,17 +5,20 @@ type ApplyFn = (id: Id, next: boolean) => void;
 
 type UseToggleBookmarkOptions = {
   request?: (id: Id, next: boolean) => Promise<void>;
-  mockDelayMs?: number;
 };
 
 export function useToggleBookmark(opts: UseToggleBookmarkOptions = {}) {
-  const { request, mockDelayMs = 300 } = opts;
+  const { request } = opts;
   const [pendingIds, setPendingIds] = useState<Set<Id>>(new Set());
 
   const setPending = useCallback((id: Id, val: boolean) => {
-    setPendingIds(prev => {
+    setPendingIds((prev) => {
       const next = new Set(prev);
-      val ? next.add(id) : next.delete(id);
+      if (val) {
+        next.add(id);
+      } else {
+        next.delete(id);
+      }
       return next;
     });
   }, []);
@@ -31,7 +34,7 @@ export function useToggleBookmark(opts: UseToggleBookmarkOptions = {}) {
         if (request) {
           await request(id, next);
         } else {
-          await new Promise(res => setTimeout(res, 300));
+          await new Promise((res) => setTimeout(res, 300));
         }
       } catch (e) {
         apply(id, !next);
@@ -40,7 +43,7 @@ export function useToggleBookmark(opts: UseToggleBookmarkOptions = {}) {
         setPending(id, false);
       }
     },
-    [request, mockDelayMs, setPending]
+    [request, setPending]
   );
 
   return { pendingIds, isPending, toggle };

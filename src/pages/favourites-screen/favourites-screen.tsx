@@ -2,8 +2,8 @@ import {PlaceCardType, PlaceCard} from '../../components/place-card';
 import {Offers} from '../../types/offer.ts';
 import {AppRoute} from '../../components/consts.ts';
 import {Link} from 'react-router-dom';
-import {useState} from "react";
-import {useToggleBookmark} from "../../hooks.ts";
+import {useState} from 'react';
+import {useToggleBookmark} from '../../hooks.ts';
 
 type FavoritesScreenProps = {
   offers: Offers;
@@ -13,8 +13,8 @@ export function FavoritesScreen({offers}: FavoritesScreenProps) {
   const [items, setItems] = useState<Offers>(offers);
   const { isPending, toggle } = useToggleBookmark();
   const handleToggleBookmark = (id: string, next: boolean) =>
-    toggle(id, next, (changedId, changedVal) => {
-      setItems(prev => prev.map(o => (o.id === changedId ? { ...o, isFavorite: changedVal } : o)));
+    void toggle(id, next, (changedId, changedVal) => {
+      setItems((prev) => prev.map((o) => (o.id === changedId ? { ...o, isFavorite: changedVal } : o)));
     });
 
   const favoriteOffersByCity = items

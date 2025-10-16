@@ -2,8 +2,8 @@ import {OfferBookmarkButton, PlaceCard, PlaceCardType} from '../../components/pl
 import {OfferDetailed, Offers} from '../../types/offer.ts';
 import {Reviews} from '../../types/review.ts';
 import {ReviewsForm} from '../../components/forms/review/review-form.tsx';
-import {useToggleBookmark} from "../../hooks.ts";
-import {useState} from "react";
+import {useToggleBookmark} from '../../hooks.ts';
+import {useState} from 'react';
 
 type OfferScreenProps = {
   detailOffer: OfferDetailed;
@@ -17,9 +17,9 @@ export function OfferScreen({detailOffer, nearPlaces, reviews}: OfferScreenProps
 
   const { isPending, toggle } = useToggleBookmark();
   const handleToggleBookmark = (id: string, next: boolean) =>
-    toggle(id, next, (changedId, changedVal) => {
-      setItems(prev => prev.map(o => (o.id === changedId ? { ...o, isFavorite: changedVal } : o)));
-      setOffer(prev =>
+    void toggle(id, next, (changedId, changedVal) => {
+      setItems((prev) => prev.map((o) => (o.id === changedId ? { ...o, isFavorite: changedVal } : o)));
+      setOffer((prev) =>
         prev.id === changedId ? { ...prev, isFavorite: changedVal } : prev
       );
     });
@@ -47,7 +47,7 @@ export function OfferScreen({detailOffer, nearPlaces, reviews}: OfferScreenProps
               <h1 className="offer__name">{detailOffer.title}</h1>
               <OfferBookmarkButton
                 isActive={offer.isFavorite}
-                onToggle={() => handleToggleBookmark(offer.id, !offer.isFavorite)}
+                onToggle={() => void handleToggleBookmark(offer.id, !offer.isFavorite)}
                 pending={isPending(offer.id)}
               />
             </div>

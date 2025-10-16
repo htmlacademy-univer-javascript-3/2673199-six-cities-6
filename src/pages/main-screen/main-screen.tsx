@@ -2,8 +2,8 @@ import {PlaceCard, PlaceCardType} from '../../components/place-card';
 import {Offer, Offers} from '../../types/offer.ts';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../components/consts.ts';
-import {useState} from "react";
-import {useToggleBookmark} from "../../hooks.ts";
+import {useState} from 'react';
+import {useToggleBookmark} from '../../hooks.ts';
 import {useSearchParams} from 'react-router-dom';
 
 type MainScreenProps = {
@@ -15,18 +15,16 @@ export function MainScreen({offers}: MainScreenProps) {
   const activeCity = searchParams.get('city') ?? 'Paris';
 
   const [items, setItems] = useState<Offers>(offers);
-  const [activeOffer, setActiveOfferId] = useState<Offer | null>(null);
+  const [, setActiveOfferId] = useState<Offer | null>(null);
   const { isPending, toggle } = useToggleBookmark();
 
   const handleToggleBookmark = (id: string, next: boolean) =>
-    toggle(id, next, (changedId, changedVal) => {
-      setItems(prev => prev.map(o => (o.id === changedId ? { ...o, isFavorite: changedVal } : o)));
+    void toggle(id, next, (changedId, changedVal) => {
+      setItems((prev) => prev.map((o) => (o.id === changedId ? { ...o, isFavorite: changedVal } : o)));
     });
 
   const cities = Array.from(new Set(offers.map((offer) => offer.city.name)));
   const filteredOffers = items.filter((offer) => offer.city.name === activeCity);
-
-  console.log(activeOffer, activeCity, toggle);
 
   return (
     <main className="page__main page__main--index">

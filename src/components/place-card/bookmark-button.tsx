@@ -12,7 +12,9 @@ export function PlaceCardBookmarkButton({ isActive, onToggle, pending }: Bookmar
           ? 'place-card__bookmark-button place-card__bookmark-button--active button'
           : 'place-card__bookmark-button button'
       }
-      onClick={(e) => { e.preventDefault(); e.stopPropagation(); onToggle(); }}
+      onClick={(e) => {
+        e.preventDefault(); e.stopPropagation(); onToggle();
+      }}
       disabled={pending}
       type="button"
     >
@@ -38,7 +40,9 @@ export function OfferBookmarkButton({ isActive, onToggle, pending }: BookmarkBut
           ? 'offer__bookmark-button offer__bookmark-button--active button'
           : 'offer__bookmark-button button'
       }
-      onClick={(e) => { e.preventDefault(); e.stopPropagation(); onToggle(); }}
+      onClick={(e) => {
+        e.preventDefault(); e.stopPropagation(); onToggle();
+      }}
       disabled={pending}
       type="button"
     >

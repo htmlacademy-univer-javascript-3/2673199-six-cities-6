@@ -24,7 +24,8 @@ export function PlaceCard(offerProps: OfferProps) {
           <PlaceCardBookmarkButton
             isActive={offerProps.isFavorite}
             pending={offerProps.isBookmarkPending}
-            onToggle={() => offerProps.onToggleBookmark(offerProps.id, !offerProps.isFavorite)}/>
+            onToggle={() => void offerProps.onToggleBookmark(offerProps.id, !offerProps.isFavorite)}
+          />
         </div>
         <Rating rating={offerProps.rating} />
         <PlaceTitle
