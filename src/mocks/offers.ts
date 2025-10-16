@@ -1,8 +1,8 @@
-import {OfferDetailed, Offers} from '../models/offer.ts';
+import {OfferDetailed, Offers} from '../types/offer.ts';
 
 export const activeCity = 'Paris';
 
-export const places: Offers = [
+export const offers: Offers = [
   {
     'id': 'b232f05e-3e7c-435c-9158-c331b4315747',
     'title': 'Loft Studio in the Central Area',

@@ -1,16 +1,32 @@
 import {PlaceCard, PlaceCardType} from '../../components/place-card';
-import {Offers} from '../../models/offer.ts';
+import {Offer, Offers} from '../../types/offer.ts';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../components/consts.ts';
+import {useState} from "react";
+import {useToggleBookmark} from "../../hooks.ts";
+import {useSearchParams} from 'react-router-dom';
 
 type MainScreenProps = {
-  places: Offers;
-  activeCity: string;
+  offers: Offers;
 };
 
-export function MainScreen({places, activeCity}: MainScreenProps) {
-  const cities = Array.from(new Set(places.map((offer) => offer.city.name)));
-  const filteredPlaces = places.filter((offer) => offer.city.name === activeCity);
+export function MainScreen({offers}: MainScreenProps) {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const activeCity = searchParams.get('city') ?? 'Paris';
+
+  const [items, setItems] = useState<Offers>(offers);
+  const [activeOffer, setActiveOfferId] = useState<Offer | null>(null);
+  const { isPending, toggle } = useToggleBookmark();
+
+  const handleToggleBookmark = (id: string, next: boolean) =>
+    toggle(id, next, (changedId, changedVal) => {
+      setItems(prev => prev.map(o => (o.id === changedId ? { ...o, isFavorite: changedVal } : o)));
+    });
+
+  const cities = Array.from(new Set(offers.map((offer) => offer.city.name)));
+  const filteredOffers = items.filter((offer) => offer.city.name === activeCity);
+
+  console.log(activeOffer, activeCity, toggle);
 
   return (
     <main className="page__main page__main--index">
@@ -19,7 +35,7 @@ export function MainScreen({places, activeCity}: MainScreenProps) {
         <section className="locations container">
           <ul className="locations__list tabs__list">
             {cities.map((cityName) => (
-              <li className="locations__item" key={cityName}>
+              <li className="locations__item" key={cityName} onClick={() => setSearchParams({ city: cityName })}>
                 <Link
                   className={`locations__item-link tabs__item ${cityName === activeCity ? 'tabs__item--active' : ''}`}
                   to={AppRoute.Main}
@@ -36,7 +52,7 @@ export function MainScreen({places, activeCity}: MainScreenProps) {
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
             <b className="places__found">
-              {filteredPlaces.length} places to stay in {activeCity}
+              {filteredOffers.length} places to stay in {activeCity}
             </b>
             <form className="places__sorting" action="#" method="get">
               <span className="places__sorting-caption">Sort by</span>
@@ -65,12 +81,19 @@ export function MainScreen({places, activeCity}: MainScreenProps) {
               </ul>
             </form>
             <div className="cities__places-list places__list tabs__content">
-              {filteredPlaces.map((place) => (
-                <PlaceCard
+              {filteredOffers.map((place) => (
+                <div
                   key={place.id}
-                  innerType={PlaceCardType.Main}
-                  {...place}
-                />
+                  onMouseEnter={() => setActiveOfferId(place)}
+                  onMouseLeave={() => setActiveOfferId(null)}
+                >
+                  <PlaceCard
+                    innerType={PlaceCardType.Main}
+                    onToggleBookmark={handleToggleBookmark}
+                    isBookmarkPending={isPending(place.id)}
+                    {...place}
+                  />
+                </div>
               ))}
             </div>
           </section>

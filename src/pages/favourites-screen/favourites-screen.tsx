@@ -1,14 +1,23 @@
 import {PlaceCardType, PlaceCard} from '../../components/place-card';
-import {Offers} from '../../models/offer.ts';
+import {Offers} from '../../types/offer.ts';
 import {AppRoute} from '../../components/consts.ts';
 import {Link} from 'react-router-dom';
+import {useState} from "react";
+import {useToggleBookmark} from "../../hooks.ts";
 
 type FavoritesScreenProps = {
-  places: Offers;
+  offers: Offers;
 };
 
-export function FavoritesScreen({places}: FavoritesScreenProps) {
-  const favoritePlacesByCity = places
+export function FavoritesScreen({offers}: FavoritesScreenProps) {
+  const [items, setItems] = useState<Offers>(offers);
+  const { isPending, toggle } = useToggleBookmark();
+  const handleToggleBookmark = (id: string, next: boolean) =>
+    toggle(id, next, (changedId, changedVal) => {
+      setItems(prev => prev.map(o => (o.id === changedId ? { ...o, isFavorite: changedVal } : o)));
+    });
+
+  const favoriteOffersByCity = items
     .filter((offer) => offer.isFavorite)
     .reduce<Record<string, Offers>>((acc, offer) => {
       const cityName = offer.city.name;
@@ -25,11 +34,11 @@ export function FavoritesScreen({places}: FavoritesScreenProps) {
         <section className="favorites">
           <h1 className="favorites__title">Saved listing</h1>
           <ul className="favorites__list">
-            {Object.entries(favoritePlacesByCity).map(([cityName, cityOffers]) => (
+            {Object.entries(favoriteOffersByCity).map(([cityName, cityOffers]) => (
               <li className="favorites__locations-items" key={cityName}>
                 <div className="favorites__locations locations locations--current">
                   <div className="locations__item">
-                    <Link to={AppRoute.Main} className="locations__item-link">
+                    <Link to={`${AppRoute.Main}?city=${encodeURIComponent(cityName)}`} className="locations__item-link">
                       <span>{cityName}</span>
                     </Link>
                   </div>
@@ -39,6 +48,8 @@ export function FavoritesScreen({places}: FavoritesScreenProps) {
                     <PlaceCard
                       key={place.id}
                       innerType={PlaceCardType.Favourite}
+                      onToggleBookmark={handleToggleBookmark}
+                      isBookmarkPending={isPending(place.id)}
                       {...place}
                     />
                   ))}
