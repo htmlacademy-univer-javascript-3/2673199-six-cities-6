@@ -1,7 +1,9 @@
-import {PlaceCard, PlaceCardType} from '../../components/place-card';
-import {OfferDetailed, Offers} from '../../models/offer.ts';
-import {Reviews} from '../../models/review.ts';
+import {OfferBookmarkButton, PlaceCard, PlaceCardType} from '../../components/place-card';
+import {OfferDetailed, Offers} from '../../types/offer.ts';
+import {Reviews} from '../../types/review.ts';
 import {ReviewsForm} from '../../components/forms/review/review-form.tsx';
+import {useToggleBookmark} from '../../hooks.ts';
+import {useState} from 'react';
 
 type OfferScreenProps = {
   detailOffer: OfferDetailed;
@@ -10,12 +12,24 @@ type OfferScreenProps = {
 };
 
 export function OfferScreen({detailOffer, nearPlaces, reviews}: OfferScreenProps) {
+  const [items, setItems] = useState<Offers>(nearPlaces);
+  const [offer, setOffer] = useState<OfferDetailed>(detailOffer);
+
+  const { isPending, toggle } = useToggleBookmark();
+  const handleToggleBookmark = (id: string, next: boolean) =>
+    void toggle(id, next, (changedId, changedVal) => {
+      setItems((prev) => prev.map((o) => (o.id === changedId ? { ...o, isFavorite: changedVal } : o)));
+      setOffer((prev) =>
+        prev.id === changedId ? { ...prev, isFavorite: changedVal } : prev
+      );
+    });
+
   return (
     <main className="page__main page__main--offer">
       <section className="offer">
         <div className="offer__gallery-container container">
           <div className="offer__gallery">
-            {detailOffer.images.map((imgUrl, index) => (
+            {offer.images.map((imgUrl, index) => (
               <div className="offer__image-wrapper" key={`image wrapper ${index + 1}`}>
                 <img className="offer__image" src={imgUrl} alt={`Photo ${index + 1}`} />
               </div>
@@ -31,12 +45,11 @@ export function OfferScreen({detailOffer, nearPlaces, reviews}: OfferScreenProps
             )}
             <div className="offer__name-wrapper">
               <h1 className="offer__name">{detailOffer.title}</h1>
-              <button className={`offer__bookmark-button button ${detailOffer.isFavorite ? 'offer__bookmark-button--active' : ''}`} type="button">
-                <svg className="offer__bookmark-icon" width="31" height="33">
-                  <use xlinkHref="#icon-bookmark"></use>
-                </svg>
-                <span className="visually-hidden">To bookmarks</span>
-              </button>
+              <OfferBookmarkButton
+                isActive={offer.isFavorite}
+                onToggle={() => void handleToggleBookmark(offer.id, !offer.isFavorite)}
+                pending={isPending(offer.id)}
+              />
             </div>
             <div className="offer__rating rating">
               <div className="offer__stars rating__stars">
@@ -96,8 +109,14 @@ export function OfferScreen({detailOffer, nearPlaces, reviews}: OfferScreenProps
             Other places in the neighbourhood
           </h2>
           <div className="near-places__list places__list">
-            {nearPlaces.map((place) => (
-              <PlaceCard key={place.id} {...place} innerType={PlaceCardType.Offer} />
+            {items.map((place) => (
+              <PlaceCard
+                key={place.id}
+                {...place}
+                innerType={PlaceCardType.Offer}
+                onToggleBookmark={handleToggleBookmark}
+                isBookmarkPending={isPending(place.id)}
+              />
             ))}
           </div>
         </section>

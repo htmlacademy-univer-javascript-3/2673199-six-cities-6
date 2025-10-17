@@ -1,10 +1,14 @@
-import {Reviews} from '../../../models/review.ts';
+import {Reviews} from '../../../types/review.ts';
+import {useState} from 'react';
 
 type ReviewsFormProps = {
   reviews: Reviews;
 };
 
 export function ReviewsForm({ reviews }: ReviewsFormProps) {
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState('');
+
   return (
     <section className="offer__reviews reviews">
       <h2 className="reviews__title">
@@ -58,12 +62,13 @@ export function ReviewsForm({ reviews }: ReviewsFormProps) {
         </label>
         <div className="reviews__rating-form form__rating">
           {[5, 4, 3, 2, 1].map((stars) => (
-            <div key={stars}>
+            <>
               <input
                 className="form__rating-input visually-hidden"
                 name="rating"
-                value={stars}
+                value={rating}
                 id={`${stars}-stars`}
+                onChange={() => setRating(stars)}
                 type="radio"
               />
               <label
@@ -77,7 +82,7 @@ export function ReviewsForm({ reviews }: ReviewsFormProps) {
                   <use xlinkHref="#icon-star"></use>
                 </svg>
               </label>
-            </div>
+            </>
           ))}
         </div>
 
@@ -86,6 +91,8 @@ export function ReviewsForm({ reviews }: ReviewsFormProps) {
           id="review"
           name="review"
           placeholder="Tell how was your stay, what you like and what can be improved"
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
         >
         </textarea>
 

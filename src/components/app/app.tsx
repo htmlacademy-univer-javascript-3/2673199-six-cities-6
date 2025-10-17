@@ -8,11 +8,11 @@ import {OfferScreen} from '../../pages/offer-screen/offer-screen.tsx';
 import {UserHeaderProps} from '../layout/user-header.tsx';
 import {Layout, LayoutWithUser} from '../layout';
 import { PrivateRoute } from '../private-route/private-route.tsx';
-import {OfferDetailed, Offers} from '../../models/offer.ts';
-import {Reviews} from '../../models/review.ts';
+import {OfferDetailed, Offers} from '../../types/offer.ts';
+import {Reviews} from '../../types/review.ts';
 
 type AppProps = {
-  places: Offers;
+  offers: Offers;
   detailed: OfferDetailed;
   reviews: Reviews;
   activeCity: string;
@@ -21,7 +21,7 @@ type AppProps = {
 };
 
 
-export function App({places, detailed, reviews, activeCity, authStatus, userHeaderPrompts}: AppProps) {
+export function App({offers, detailed, reviews, activeCity, authStatus, userHeaderPrompts}: AppProps) {
   return (
     <BrowserRouter>
       <Routes>
@@ -35,19 +35,19 @@ export function App({places, detailed, reviews, activeCity, authStatus, userHead
         <Route element={<LayoutWithUser userHeaderPrompts={userHeaderPrompts}/>}>
           <Route
             path={AppRoute.Main}
-            element={<MainScreen places={places} activeCity={activeCity}/>}
+            element={<MainScreen offers={offers}/>}
           />
           <Route
             path={AppRoute.Favorites}
             element={
               <PrivateRoute authorizationStatus={authStatus}>
-                <FavoritesScreen places={places}/>
+                <FavoritesScreen offers={offers}/>
               </PrivateRoute>
             }
           />
           <Route
             path={AppRoute.Offer}
-            element={<OfferScreen nearPlaces={places} detailOffer={detailed} reviews={reviews}/>}
+            element={<OfferScreen nearPlaces={offers} detailOffer={detailed} reviews={reviews}/>}
           />
           <Route
             path={AppRoute.NotFound}

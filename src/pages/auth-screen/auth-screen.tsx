@@ -1,4 +1,4 @@
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { AppRoute } from '../../components/consts';
 
 export type AuthScreenProps = {
@@ -39,7 +39,7 @@ export function AuthScreen({activeCity}: AuthScreenProps) {
         </section>
         <section className="locations locations--login locations--current">
           <div className="locations__item">
-            <Link className="locations__item-link" to={AppRoute.Main}>
+            <Link className="locations__item-link" to={`${AppRoute.Main}?city=${activeCity}`}>
               <span>{activeCity}</span>
             </Link>
           </div>
