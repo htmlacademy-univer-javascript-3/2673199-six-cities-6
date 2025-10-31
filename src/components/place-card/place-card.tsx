@@ -17,7 +17,11 @@ export function PlaceCard(offerProps: OfferProps) {
   return (
     <article className={`${ToArticleType(offerProps.innerType)} place-card`}>
       <Mark isPremium={offerProps.isPremium}/>
-      <ImageWrapper imageSource={offerProps.previewImage} type={offerProps.innerType}/>
+      <ImageWrapper
+        imageSource={offerProps.previewImage}
+        type={offerProps.innerType}
+        city={offerProps.city.name}
+      />
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <Price price={offerProps.price} />

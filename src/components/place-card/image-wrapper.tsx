@@ -5,12 +5,13 @@ import {AppRoute} from '../consts.ts';
 type ImageWrapperProps = {
   type: PlaceCardType;
   imageSource: string;
+  city: string;
 };
 
-export function ImageWrapper({ type, imageSource }: ImageWrapperProps) {
+export function ImageWrapper({ type, imageSource, city }: ImageWrapperProps) {
   return (
     <div className={`${ToImageWrapperType(type)} place-card__image-wrapper`}>
-      <Link to={AppRoute.Main}>
+      <Link to={`${AppRoute.Main}?city=${city}`}>
         <img
           className="place-card__image"
           src={imageSource}
