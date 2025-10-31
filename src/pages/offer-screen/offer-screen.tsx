@@ -3,9 +3,9 @@ import {OfferDetailed, Offers} from '../../types/offer.ts';
 import {Reviews} from '../../types/review.ts';
 import {useToggleBookmark} from '../../hooks.ts';
 import {useState} from 'react';
-import {OfferReviews} from "../../components/reviews/reviews.tsx";
+import {OfferReviews} from '../../components/reviews/reviews.tsx';
 import { Map } from '../../components/map/map.tsx';
-import {PlacesList} from "../../components/places-list/places-list.tsx";
+import {PlacesList} from '../../components/places-list/places-list.tsx';
 
 type OfferScreenProps = {
   detailOffer: OfferDetailed;

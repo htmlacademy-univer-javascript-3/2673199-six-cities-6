@@ -1,6 +1,6 @@
 import { PlaceCard, PlaceCardType } from '../place-card';
 import { Offer, Offers } from '../../types/offer.ts';
-import {ToListType} from "../place-card/card-type.ts";
+import {ToListType} from '../place-card/card-type.ts';
 
 type PlacesListProps = {
   offers: Offers;

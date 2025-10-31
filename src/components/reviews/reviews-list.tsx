@@ -1,5 +1,5 @@
 import {Reviews} from '../../types/review.ts';
-import {ReviewItem} from "./review.tsx";
+import {ReviewItem} from './review.tsx';
 
 type ReviewsListProps = {
   reviews: Reviews;

@@ -1,6 +1,6 @@
-import {Reviews} from "../../types/review.ts";
-import {ReviewsList} from "./reviews-list.tsx";
-import {ReviewsForm} from "../forms/review/review-form.tsx";
+import {Reviews} from '../../types/review.ts';
+import {ReviewsList} from './reviews-list.tsx';
+import {ReviewsForm} from '../forms/review/review-form.tsx';
 
 type ReviewsProps = {
   reviews: Reviews;

@@ -10,7 +10,7 @@ import {Layout, LayoutWithUser} from '../layout';
 import { PrivateRoute } from '../private-route/private-route.tsx';
 import {OfferDetailed, Offers} from '../../types/offer.ts';
 import {Reviews} from '../../types/review.ts';
-import {nears} from "../../mocks/offers.ts";
+import {nears} from '../../mocks/offers.ts';
 
 type AppProps = {
   offers: Offers;

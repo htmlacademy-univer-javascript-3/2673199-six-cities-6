@@ -1,7 +1,7 @@
 import {Offer, Offers} from '../../types/offer.ts';
 import {PlacesList} from '../places-list/places-list.tsx';
 import {Map} from '../map/map.tsx';
-import {PlaceCardType} from "../place-card";
+import {PlaceCardType} from '../place-card';
 
 type CityPlacesProps = {
   offers: Offers;
@@ -23,10 +23,10 @@ export function CityPlaces({ offers, activeOffer, onHover, onToggleBookmark, isB
           <span className="places__sorting-caption">Sort by</span>
           <span className="places__sorting-type" tabIndex={0}>
                 Popular
-                <svg className="places__sorting-arrow" width={7} height={4}>
-                  <use xlinkHref="#icon-arrow-select"></use>
-                </svg>
-              </span>
+            <svg className="places__sorting-arrow" width={7} height={4}>
+              <use xlinkHref="#icon-arrow-select"></use>
+            </svg>
+          </span>
           <ul className="places__options places__options--custom places__options--opened">
             <li
               className="places__option places__option--active"

@@ -15,10 +15,14 @@ export function Map({ offers, className, activeOfferId }: MapProps) {
   const markersRef = useRef<L.LayerGroup | null>(null);
 
   useEffect(() => {
-    if (!mapRef.current || mapInstanceRef.current) return;
+    if (!mapRef.current || mapInstanceRef.current) {
+      return;
+    }
 
     const city = offers[0]?.city.location;
-    if (!city) return;
+    if (!city) {
+      return;
+    }
 
     const map = L.map(mapRef.current, {
       center: [city.latitude, city.longitude],
@@ -36,14 +40,18 @@ export function Map({ offers, className, activeOfferId }: MapProps) {
   useEffect(() => {
     const map = mapInstanceRef.current;
     const city = offers[0]?.city.location;
-    if (!map || !city) return;
+    if (!map || !city) {
+      return;
+    }
 
     map.flyTo([city.latitude, city.longitude], city.zoom);
   }, [offers]);
 
   useEffect(() => {
     const map = mapInstanceRef.current;
-    if (!map || !markersRef.current) return;
+    if (!map || !markersRef.current) {
+      return;
+    }
 
     markersRef.current.clearLayers();
 
