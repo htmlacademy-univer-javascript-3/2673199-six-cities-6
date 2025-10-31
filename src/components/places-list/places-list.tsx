@@ -1,16 +1,18 @@
 import { PlaceCard, PlaceCardType } from '../place-card';
 import { Offer, Offers } from '../../types/offer.ts';
+import {ToListType} from "../place-card/card-type.ts";
 
 type PlacesListProps = {
   offers: Offers;
+  type: PlaceCardType;
   onHover: (offer: Offer | null) => void;
   onToggleBookmark: (id: string, next: boolean) => void;
   isBookmarkPending: (id: string) => boolean;
 };
 
-export function PlacesList({ offers, onHover, onToggleBookmark, isBookmarkPending }: PlacesListProps) {
+export function PlacesList({ offers, type, onHover, onToggleBookmark, isBookmarkPending }: PlacesListProps) {
   return (
-    <div className="cities__places-list places__list tabs__content">
+    <div className={ToListType(type)}>
       {offers.map((place) => (
         <div
           key={place.id}
@@ -18,7 +20,7 @@ export function PlacesList({ offers, onHover, onToggleBookmark, isBookmarkPendin
           onMouseLeave={() => onHover(null)}
         >
           <PlaceCard
-            innerType={PlaceCardType.Main}
+            innerType={type}
             onToggleBookmark={onToggleBookmark}
             isBookmarkPending={isBookmarkPending(place.id)}
             {...place}

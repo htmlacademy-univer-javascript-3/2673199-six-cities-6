@@ -10,6 +10,7 @@ import {Layout, LayoutWithUser} from '../layout';
 import { PrivateRoute } from '../private-route/private-route.tsx';
 import {OfferDetailed, Offers} from '../../types/offer.ts';
 import {Reviews} from '../../types/review.ts';
+import {nears} from "../../mocks/offers.ts";
 
 type AppProps = {
   offers: Offers;
@@ -47,7 +48,7 @@ export function App({offers, detailed, reviews, activeCity, authStatus, userHead
           />
           <Route
             path={AppRoute.Offer}
-            element={<OfferScreen nearPlaces={offers} detailOffer={detailed} reviews={reviews}/>}
+            element={<OfferScreen nearPlaces={nears} detailOffer={detailed} reviews={reviews}/>}
           />
           <Route
             path={AppRoute.NotFound}

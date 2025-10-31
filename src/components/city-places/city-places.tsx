@@ -1,6 +1,7 @@
-import { Offers, Offer } from '../../types/offer.ts';
-import { PlacesList } from '../places-list/places-list.tsx';
-import { Map } from '../map/map.tsx';
+import {Offer, Offers} from '../../types/offer.ts';
+import {PlacesList} from '../places-list/places-list.tsx';
+import {Map} from '../map/map.tsx';
+import {PlaceCardType} from "../place-card";
 
 type CityPlacesProps = {
   offers: Offers;
@@ -47,6 +48,7 @@ export function CityPlaces({ offers, activeOffer, onHover, onToggleBookmark, isB
 
         <PlacesList
           offers={offers}
+          type={PlaceCardType.Main}
           onHover={onHover}
           onToggleBookmark={onToggleBookmark}
           isBookmarkPending={isBookmarkPending}

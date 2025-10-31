@@ -189,6 +189,78 @@ export const offers: Offers = [
   },
 ];
 
+export const nears: Offers = [
+  {
+    "id": "a9a1eeb1-42eb-4b66-b825-b0667e0a5dd3",
+    "title": "Waterfront with extraordinary view",
+    "type": "hotel",
+    "price": 276,
+    "previewImage": "https://14.design.htmlacademy.pro/static/hotel/18.jpg",
+    "city": {
+      "name": "Amsterdam",
+      "location": {
+        "latitude": 52.37454,
+        "longitude": 4.897976,
+        "zoom": 13
+      }
+    },
+    "location": {
+      "latitude": 52.3609553943508,
+      "longitude": 4.85309666406198,
+      "zoom": 16
+    },
+    "isFavorite": false,
+    "isPremium": false,
+    "rating": 3
+  },
+  {
+    "id": "ad283cd3-728d-45a5-acfe-44e63719a024",
+    "title": "The Joshua Tree House",
+    "type": "apartment",
+    "price": 317,
+    "previewImage": "https://14.design.htmlacademy.pro/static/hotel/18.jpg",
+    "city": {
+      "name": "Amsterdam",
+      "location": {
+        "latitude": 52.37454,
+        "longitude": 4.897976,
+        "zoom": 13
+      }
+    },
+    "location": {
+      "latitude": 52.3909553943508,
+      "longitude": 4.929309666406198,
+      "zoom": 16
+    },
+    "isFavorite": false,
+    "isPremium": true,
+    "rating": 1
+  },
+  {
+    "id": "db0cf877-f985-4c27-86f7-ccb977449c2a",
+    "title": "Tile House",
+    "type": "hotel",
+    "price": 327,
+    "previewImage": "https://14.design.htmlacademy.pro/static/hotel/1.jpg",
+    "city": {
+      "name": "Amsterdam",
+      "location": {
+        "latitude": 52.37454,
+        "longitude": 4.897976,
+        "zoom": 13
+      }
+    },
+    "location": {
+      "latitude": 52.3809553943508,
+      "longitude": 4.939309666406198,
+      "zoom": 16
+    },
+    "isFavorite": false,
+    "isPremium": false,
+    "rating": 3.9
+  },
+]
+
 export const detailed: OfferDetailed = {
   'id': '4aabcc9d-e564-439a-86a9-646c3e71d66e',
   'title': 'Beautiful & luxurious apartment at great location',
