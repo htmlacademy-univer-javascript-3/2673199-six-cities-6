@@ -47,7 +47,7 @@ export function FavoritesScreen({offers}: FavoritesScreenProps) {
                   {cityOffers.map((place) => (
                     <PlaceCard
                       key={place.id}
-                      innerType={PlaceCardType.Favourite}
+                      innerType={PlaceCardType.Favorite}
                       onToggleBookmark={handleToggleBookmark}
                       isBookmarkPending={isPending(place.id)}
                       {...place}

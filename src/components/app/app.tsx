@@ -3,13 +3,14 @@ import {MainScreen} from '../../pages/main-screen/main-screen.tsx';
 import {NotFoundScreen} from '../../pages/not-found-screen/not-found-screen.tsx';
 import {AuthScreen} from '../../pages/auth-screen/auth-screen.tsx';
 import {AppRoute, AuthorizationStatus} from '../consts.ts';
-import {FavoritesScreen} from '../../pages/favourites-screen/favourites-screen.tsx';
+import {FavoritesScreen} from '../../pages/favorites-screen/favorites-screen.tsx';
 import {OfferScreen} from '../../pages/offer-screen/offer-screen.tsx';
 import {UserHeaderProps} from '../layout/user-header.tsx';
 import {Layout, LayoutWithUser} from '../layout';
 import { PrivateRoute } from '../private-route/private-route.tsx';
 import {OfferDetailed, Offers} from '../../types/offer.ts';
 import {Reviews} from '../../types/review.ts';
+import {nears} from '../../mocks/offers.ts';
 
 type AppProps = {
   offers: Offers;
@@ -47,7 +48,7 @@ export function App({offers, detailed, reviews, activeCity, authStatus, userHead
           />
           <Route
             path={AppRoute.Offer}
-            element={<OfferScreen nearPlaces={offers} detailOffer={detailed} reviews={reviews}/>}
+            element={<OfferScreen nearPlaces={nears} detailOffer={detailed} reviews={reviews}/>}
           />
           <Route
             path={AppRoute.NotFound}

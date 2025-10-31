@@ -1,9 +1,11 @@
-import {OfferBookmarkButton, PlaceCard, PlaceCardType} from '../../components/place-card';
+import {OfferBookmarkButton, PlaceCardType} from '../../components/place-card';
 import {OfferDetailed, Offers} from '../../types/offer.ts';
 import {Reviews} from '../../types/review.ts';
-import {ReviewsForm} from '../../components/forms/review/review-form.tsx';
 import {useToggleBookmark} from '../../hooks.ts';
 import {useState} from 'react';
+import {OfferReviews} from '../../components/reviews/reviews.tsx';
+import { Map } from '../../components/map/map.tsx';
+import {PlacesList} from '../../components/places-list/places-list.tsx';
 
 type OfferScreenProps = {
   detailOffer: OfferDetailed;
@@ -98,27 +100,24 @@ export function OfferScreen({detailOffer, nearPlaces, reviews}: OfferScreenProps
                 <p className="offer__text">{detailOffer.description}</p>
               </div>
             </div>
-            <ReviewsForm reviews={reviews}/>
+            <OfferReviews reviews={reviews}/>
           </div>
         </div>
-        <section className="offer__map map"></section>
+        <Map offers={items} className="offer__map" activeOfferId={null}/>
+
       </section>
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">
             Other places in the neighbourhood
           </h2>
-          <div className="near-places__list places__list">
-            {items.map((place) => (
-              <PlaceCard
-                key={place.id}
-                {...place}
-                innerType={PlaceCardType.Offer}
-                onToggleBookmark={handleToggleBookmark}
-                isBookmarkPending={isPending(place.id)}
-              />
-            ))}
-          </div>
+          <PlacesList
+            offers={items}
+            onHover={() => {}}
+            onToggleBookmark={handleToggleBookmark}
+            isBookmarkPending={isPending}
+            type={PlaceCardType.Offer}
+          />
         </section>
       </div>
     </main>
