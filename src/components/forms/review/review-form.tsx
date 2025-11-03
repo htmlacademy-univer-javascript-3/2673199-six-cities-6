@@ -1,5 +1,5 @@
 import {FormEvent, Fragment, useState} from 'react';
-import {MAX_REVIEW_LEN, MIN_REVIEW_LEN} from "../../consts.ts";
+import {MAX_REVIEW_LEN, MIN_REVIEW_LEN} from '../../consts.ts';
 
 
 export function ReviewsForm() {
@@ -11,8 +11,9 @@ export function ReviewsForm() {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    if (!isValid)
+    if (!isValid) {
       return;
+    }
     setForm({ rating: 0, comment: '' });
   };
 
@@ -30,7 +31,7 @@ export function ReviewsForm() {
               value={stars}
               id={`${stars}-stars`}
               checked={form.rating === stars}
-              onChange={(e) => setForm(prev => ({ ...prev, rating: +e.target.value }))}
+              onChange={(e) => setForm((prev) => ({ ...prev, rating: +e.target.value }))}
               type="radio"
             />
             <label
@@ -54,7 +55,7 @@ export function ReviewsForm() {
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={form.comment}
-        onChange={(e) => setForm(prev => ({ ...prev, comment: e.target.value }))}
+        onChange={(e) => setForm((prev) => ({ ...prev, comment: e.target.value }))}
       >
       </textarea>
 

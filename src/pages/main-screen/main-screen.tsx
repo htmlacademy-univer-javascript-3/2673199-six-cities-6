@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Offers, Offer } from '../../types/offer.ts';
 import { CityPlaces } from '../../components/city-places/city-places.tsx';
 import { useToggleBookmark } from '../../hooks.ts';
-import {cities} from "../../components/consts.ts";
+import {cities} from '../../components/consts.ts';
 
 type MainScreenProps = {
   offers: Offers;

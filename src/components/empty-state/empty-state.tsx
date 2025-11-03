@@ -12,11 +12,11 @@ type EmptyStateProps = {
 
 
 export function EmptyState({
-                             title,
-                             description,
-                             header,
-                             classNames = {},
-                           }: EmptyStateProps) {
+  title,
+  description,
+  header,
+  classNames = {},
+}: EmptyStateProps) {
   return (
     <section className={classNames.section}>
       {header && <h1 className="visually-hidden">{header}</h1>}

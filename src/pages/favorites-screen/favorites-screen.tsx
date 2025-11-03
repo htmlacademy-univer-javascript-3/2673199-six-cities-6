@@ -4,7 +4,7 @@ import {AppRoute, emptyStates} from '../../components/consts.ts';
 import {Link} from 'react-router-dom';
 import {useState} from 'react';
 import {useToggleBookmark} from '../../hooks.ts';
-import {EmptyState} from "../../components/empty-state/empty-state.tsx";
+import {EmptyState} from '../../components/empty-state/empty-state.tsx';
 
 type FavoritesScreenProps = {
   offers: Offers;
@@ -60,8 +60,7 @@ export function FavoritesScreen({offers}: FavoritesScreenProps) {
                 </li>
               ))}
             </ul>
-          </section>
-        }
+          </section>}
       </div>
     </main>
   );

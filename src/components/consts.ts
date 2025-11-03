@@ -12,7 +12,7 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-export const cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf']
+export const cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
 export const MIN_REVIEW_LEN = 50;
 export const MAX_REVIEW_LEN = 300;

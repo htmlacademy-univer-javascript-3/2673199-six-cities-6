@@ -2,8 +2,8 @@ import {Offer, Offers} from '../../types/offer.ts';
 import {PlacesList} from '../places-list/places-list.tsx';
 import {Map} from '../map/map.tsx';
 import {PlaceCardType} from '../place-card';
-import {EmptyState} from "../empty-state/empty-state.tsx";
-import {emptyStates} from "../consts.ts";
+import {EmptyState} from '../empty-state/empty-state.tsx';
+import {emptyStates} from '../consts.ts';
 
 type CityPlacesProps = {
   activeCity: string;
