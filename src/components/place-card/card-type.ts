@@ -8,7 +8,7 @@ export function ToListType(type: PlaceCardType): string {
   switch (type) {
     case PlaceCardType.Main: return 'cities__places-list places__list tabs__content';
     case PlaceCardType.Offer: return 'near-places__list places__list';
-    case PlaceCardType.Favorite: return '';
+    default: return 'cities__places-list places__list tabs__content';
   }
 }
 

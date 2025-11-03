@@ -2,8 +2,11 @@ import {Offer, Offers} from '../../types/offer.ts';
 import {PlacesList} from '../places-list/places-list.tsx';
 import {Map} from '../map/map.tsx';
 import {PlaceCardType} from '../place-card';
+import {EmptyState} from '../empty-state/empty-state.tsx';
+import {emptyStates} from '../consts.ts';
 
 type CityPlacesProps = {
+  activeCity: string;
   offers: Offers;
   activeOffer: Offer | null;
   onHover: (offer: Offer | null) => void;
@@ -11,12 +14,21 @@ type CityPlacesProps = {
   isBookmarkPending: (id: string) => boolean;
 };
 
-export function CityPlaces({ offers, activeOffer, onHover, onToggleBookmark, isBookmarkPending }: CityPlacesProps) {
+export function CityPlaces({ activeCity, offers, activeOffer, onHover, onToggleBookmark, isBookmarkPending }: CityPlacesProps) {
+  if (offers.length === 0) {
+    return (
+      <div className="cities__places-container cities__places-container--empty container">
+        <EmptyState {...emptyStates.cities(activeCity)} />
+        <div className="cities__right-section"></div>
+      </div>
+    );
+  }
+
   return (
     <div className="cities__places-container container">
       <section className="cities__places places">
         <b className="places__found">
-          {offers.length} places to stay
+          {offers.length} places to stay in {activeCity}
         </b>
 
         <form className="places__sorting" action="#" method="get">
@@ -28,21 +40,10 @@ export function CityPlaces({ offers, activeOffer, onHover, onToggleBookmark, isB
             </svg>
           </span>
           <ul className="places__options places__options--custom places__options--opened">
-            <li
-              className="places__option places__option--active"
-              tabIndex={0}
-            >
-              Popular
-            </li>
-            <li className="places__option" tabIndex={0}>
-              Price: low to high
-            </li>
-            <li className="places__option" tabIndex={0}>
-              Price: high to low
-            </li>
-            <li className="places__option" tabIndex={0}>
-              Top rated first
-            </li>
+            <li className="places__option places__option--active" tabIndex={0}>Popular</li>
+            <li className="places__option" tabIndex={0}>Price: low to high</li>
+            <li className="places__option" tabIndex={0}>Price: high to low</li>
+            <li className="places__option" tabIndex={0}>Top rated first</li>
           </ul>
         </form>
 
