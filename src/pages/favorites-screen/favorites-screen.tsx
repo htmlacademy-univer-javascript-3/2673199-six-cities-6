@@ -1,9 +1,10 @@
 import {PlaceCardType, PlaceCard} from '../../components/place-card';
 import {Offers} from '../../types/offer.ts';
-import {AppRoute} from '../../components/consts.ts';
+import {AppRoute, emptyStates} from '../../components/consts.ts';
 import {Link} from 'react-router-dom';
 import {useState} from 'react';
 import {useToggleBookmark} from '../../hooks.ts';
+import {EmptyState} from "../../components/empty-state/empty-state.tsx";
 
 type FavoritesScreenProps = {
   offers: Offers;
@@ -31,33 +32,36 @@ export function FavoritesScreen({offers}: FavoritesScreenProps) {
   return (
     <main className="page__main page__main--favorites">
       <div className="page__favorites-container container">
-        <section className="favorites">
-          <h1 className="favorites__title">Saved listing</h1>
-          <ul className="favorites__list">
-            {Object.entries(favoriteOffersByCity).map(([cityName, cityOffers]) => (
-              <li className="favorites__locations-items" key={cityName}>
-                <div className="favorites__locations locations locations--current">
-                  <div className="locations__item">
-                    <Link to={`${AppRoute.Main}?city=${encodeURIComponent(cityName)}`} className="locations__item-link">
-                      <span>{cityName}</span>
-                    </Link>
+        {Object.keys(favoriteOffersByCity).length === 0 ?
+          <EmptyState {...emptyStates.favorites} /> :
+          <section className="favorites">
+            <h1 className="favorites__title">Saved listing</h1>
+            <ul className="favorites__list">
+              {Object.entries(favoriteOffersByCity).map(([cityName, cityOffers]) => (
+                <li className="favorites__locations-items" key={cityName}>
+                  <div className="favorites__locations locations locations--current">
+                    <div className="locations__item">
+                      <Link to={`${AppRoute.Main}?city=${encodeURIComponent(cityName)}`} className="locations__item-link">
+                        <span>{cityName}</span>
+                      </Link>
+                    </div>
                   </div>
-                </div>
-                <div className="favorites__places">
-                  {cityOffers.map((place) => (
-                    <PlaceCard
-                      key={place.id}
-                      innerType={PlaceCardType.Favorite}
-                      onToggleBookmark={handleToggleBookmark}
-                      isBookmarkPending={isPending(place.id)}
-                      {...place}
-                    />
-                  ))}
-                </div>
-              </li>
-            ))}
-          </ul>
-        </section>
+                  <div className="favorites__places">
+                    {cityOffers.map((place) => (
+                      <PlaceCard
+                        key={place.id}
+                        innerType={PlaceCardType.Favorite}
+                        onToggleBookmark={handleToggleBookmark}
+                        isBookmarkPending={isPending(place.id)}
+                        {...place}
+                      />
+                    ))}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </section>
+        }
       </div>
     </main>
   );
