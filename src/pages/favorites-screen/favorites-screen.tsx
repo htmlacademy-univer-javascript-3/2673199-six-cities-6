@@ -3,10 +3,18 @@ import {Offers} from '../../types/offer.ts';
 import {AppRoute, emptyStates} from '../../components/consts.ts';
 import {Link} from 'react-router-dom';
 import {EmptyState} from '../../components/empty-state/empty-state.tsx';
-import {PlacesList} from "../../components/places-list/places-list.tsx";
-import {useAppSelector} from "../../hooks/use-app-selector.ts";
+import {PlacesList} from '../../components/places-list/places-list.tsx';
+import {useAppSelector} from '../../hooks/use-app-selector.ts';
+import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
+import {useEffect} from 'react';
+import {loadOffers} from '../../store/action.ts';
 
 export function FavoritesScreen() {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(loadOffers());
+  }, [dispatch]);
+
   const items = useAppSelector((state) => state.offers);
 
   const favoriteOffersByCity = items

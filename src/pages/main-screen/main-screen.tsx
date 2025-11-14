@@ -1,10 +1,10 @@
 import {useEffect, useState} from 'react';
 import { Offer } from '../../types/offer.ts';
 import { CityPlaces } from '../../components/city-places/city-places.tsx';
-import {useAppSelector} from "../../hooks/use-app-selector.ts";
-import {useAppDispatch} from "../../hooks/use-app-dispatch.ts";
-import {loadOffers, setActiveCity} from "../../store/action.ts";
-import {CitiesList} from "../../components/cities-list/cities-list.tsx";
+import {useAppSelector} from '../../hooks/use-app-selector.ts';
+import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
+import {loadOffers, setActiveCity} from '../../store/action.ts';
+import {CitiesList} from '../../components/cities-list/cities-list.tsx';
 
 
 export function MainScreen() {

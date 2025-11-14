@@ -1,9 +1,9 @@
 import { PlaceCard, PlaceCardType } from '../place-card';
 import { Offer, Offers } from '../../types/offer.ts';
 import {ToListType} from '../place-card/card-type.ts';
-import {useAppDispatch} from "../../hooks/use-app-dispatch.ts";
-import {toggleFavorite} from "../../store/action.ts";
-import {useState} from "react";
+import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
+import {toggleFavorite} from '../../store/action.ts';
+import {useState} from 'react';
 
 type PlacesListProps = {
   offers: Offers;
@@ -36,7 +36,7 @@ export function PlacesList({ offers, type, onHover }: PlacesListProps) {
           >
             <PlaceCard
               innerType={type}
-              onToggleBookmark={onToggleBookmark}
+              onToggleBookmark={() => void onToggleBookmark(place.id, !place.isFavorite)}
               isBookmarkPending={isBookmarkPending(place.id)}
               {...place}
             />
@@ -45,7 +45,7 @@ export function PlacesList({ offers, type, onHover }: PlacesListProps) {
           <PlaceCard
             key={place.id}
             innerType={type}
-            onToggleBookmark={onToggleBookmark}
+            onToggleBookmark={() => void onToggleBookmark(place.id, !place.isFavorite)}
             isBookmarkPending={isBookmarkPending(place.id)}
             {...place}
           />

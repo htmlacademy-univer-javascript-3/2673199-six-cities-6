@@ -3,10 +3,10 @@ import {Reviews} from '../../types/review.ts';
 import {useEffect} from 'react';
 import { Map } from '../../components/map/map.tsx';
 import {PlacesList} from '../../components/places-list/places-list.tsx';
-import {useAppDispatch} from "../../hooks/use-app-dispatch.ts";
-import {loadNears, loadOffer} from "../../store/action.ts";
-import {useAppSelector} from "../../hooks/use-app-selector.ts";
-import {DetailedPlace} from "../../components/detailed-place/detailed-place.tsx";
+import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
+import {loadNears, loadOffer} from '../../store/action.ts';
+import {useAppSelector} from '../../hooks/use-app-selector.ts';
+import {DetailedPlace} from '../../components/detailed-place/detailed-place.tsx';
 
 type OfferScreenProps = {
   reviews: Reviews;
@@ -21,7 +21,7 @@ export function OfferScreen({reviews}: OfferScreenProps) {
 
   const detailOffer = useAppSelector((state) => state.detailOffer);
   const items = useAppSelector((state) => state.offers);
-  
+
   if (!detailOffer) {
     return <div>Loading...</div>;
   }

@@ -1,7 +1,7 @@
-import {OfferDetailed, Offers} from "../types/offer.ts";
-import {activeCity} from "../mocks/offers.ts";
-import {createReducer} from "@reduxjs/toolkit";
-import {setActiveCity, loadOffers, toggleFavorite, setOffers, loadOffer, loadNears, setDetailOffer} from "./action.ts";
+import {OfferDetailed, Offers} from '../types/offer.ts';
+import {activeCity} from '../mocks/offers.ts';
+import {createReducer} from '@reduxjs/toolkit';
+import {setActiveCity, loadOffers, toggleFavorite, setOffers, loadOffer, loadNears, setDetailOffer} from './action.ts';
 
 type StoreState = {
   activeCity: string;

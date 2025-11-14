@@ -1,10 +1,10 @@
-import {OfferBookmarkButton} from "../place-card";
-import {OfferReviews} from "../reviews/reviews.tsx";
-import {useAppDispatch} from "../../hooks/use-app-dispatch.ts";
-import {useState} from "react";
-import {toggleFavorite} from "../../store/action.ts";
-import {OfferDetailed} from "../../types/offer.ts";
-import {Reviews} from "../../types/review.ts";
+import {OfferBookmarkButton} from '../place-card';
+import {OfferReviews} from '../reviews/reviews.tsx';
+import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
+import {useState} from 'react';
+import {toggleFavorite} from '../../store/action.ts';
+import {OfferDetailed} from '../../types/offer.ts';
+import {Reviews} from '../../types/review.ts';
 
 type DetailedPlaceProps = {
   detailOffer: OfferDetailed;

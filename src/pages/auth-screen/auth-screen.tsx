@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../components/consts';
-import {useAppSelector} from "../../hooks/use-app-selector.ts";
+import {useAppSelector} from '../../hooks/use-app-selector.ts';
 
 export function AuthScreen() {
   const activeCity = useAppSelector((state) => state.activeCity);

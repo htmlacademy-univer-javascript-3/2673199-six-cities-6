@@ -1,19 +1,32 @@
 import {createAction, createAsyncThunk} from '@reduxjs/toolkit';
-import {detailed, nears, offers} from "../mocks/offers.ts";
-import {Offer, OfferDetailed, Offers} from "../types/offer.ts";
-import {State} from "../types/state.ts";
+import {detailed, nears, offers} from '../mocks/offers.ts';
+import {Offer, OfferDetailed, Offers} from '../types/offer.ts';
+import {State} from '../types/state.ts';
 
 export const loadOffers = createAsyncThunk(
-  'offers/load', async () => {return offers;}
+  'offers/load',
+  async () => {
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    return offers;
+  }
 );
 
 export const loadOffer = createAsyncThunk(
-  'offers/detail', async () => {return detailed;}
+  'offers/detail',
+  async () => {
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    return detailed;
+  }
 );
 
 export const loadNears = createAsyncThunk(
-  'nears/load', async () => {return nears;}
+  'nears/load',
+  async () => {
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    return nears;
+  }
 );
+
 
 export const setOffers = createAction<Offers>('offers/set');
 
