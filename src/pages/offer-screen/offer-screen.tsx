@@ -1,5 +1,4 @@
 import {PlaceCardType} from '../../components/place-card';
-import {Reviews} from '../../types/review.ts';
 import {useEffect} from 'react';
 import { Map } from '../../components/map/map.tsx';
 import {PlacesList} from '../../components/places-list/places-list.tsx';
@@ -8,11 +7,8 @@ import {loadNears, loadOffer} from '../../store/action.ts';
 import {useAppSelector} from '../../hooks/use-app-selector.ts';
 import {DetailedPlace} from '../../components/detailed-place/detailed-place.tsx';
 
-type OfferScreenProps = {
-  reviews: Reviews;
-};
 
-export function OfferScreen({reviews}: OfferScreenProps) {
+export function OfferScreen() {
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(loadNears());
@@ -38,7 +34,7 @@ export function OfferScreen({reviews}: OfferScreenProps) {
             ))}
           </div>
         </div>
-        <DetailedPlace detailOffer={detailOffer} reviews={reviews} />
+        <DetailedPlace detailOffer={detailOffer}/>
         <Map offers={items} className="offer__map" activeOfferId={null}/>
       </section>
       <div className="container">

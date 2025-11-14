@@ -4,14 +4,12 @@ import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
 import {useState} from 'react';
 import {toggleFavorite} from '../../store/action.ts';
 import {OfferDetailed} from '../../types/offer.ts';
-import {Reviews} from '../../types/review.ts';
 
 type DetailedPlaceProps = {
   detailOffer: OfferDetailed;
-  reviews: Reviews;
 };
 
-export function DetailedPlace({ detailOffer, reviews }: DetailedPlaceProps) {
+export function DetailedPlace({ detailOffer}: DetailedPlaceProps) {
   const dispatch = useAppDispatch();
 
   const [pendingId, setPendingId] = useState<string | null>(null);
@@ -88,7 +86,7 @@ export function DetailedPlace({ detailOffer, reviews }: DetailedPlaceProps) {
             <p className="offer__text">{detailOffer.description}</p>
           </div>
         </div>
-        <OfferReviews reviews={reviews}/>
+        <OfferReviews/>
       </div>
     </div>
   );

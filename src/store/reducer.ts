@@ -4,7 +4,7 @@ import {createReducer} from '@reduxjs/toolkit';
 import {
   loadNears,
   loadOffer,
-  loadOffers,
+  loadOffers, loadReviews,
   setActiveCity,
   setActiveSortingType,
   setDetailOffer,
@@ -12,12 +12,14 @@ import {
   toggleFavorite
 } from './action.ts';
 import {SortingType} from '../consts.ts';
+import {Reviews} from '../types/review.ts';
 
 type StoreState = {
   activeCity: string;
   activeSortingType: SortingType;
   offers: Offers;
   detailOffer: OfferDetailed | null;
+  reviews: Reviews;
 };
 
 const initialState: StoreState = {
@@ -25,6 +27,7 @@ const initialState: StoreState = {
   activeSortingType: SortingType.Popular,
   offers: [],
   detailOffer: null,
+  reviews: [],
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -52,5 +55,8 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setActiveSortingType, (state, action) => {
       state.activeSortingType = action.payload;
+    })
+    .addCase(loadReviews.fulfilled, (state, action) => {
+      state.reviews = action.payload;
     });
 });

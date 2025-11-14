@@ -3,6 +3,7 @@ import {detailed, nears, offers} from '../mocks/offers.ts';
 import {Offer, OfferDetailed, Offers} from '../types/offer.ts';
 import {State} from '../types/state.ts';
 import {SortingType} from '../consts.ts';
+import {reviews} from '../mocks/reviews.ts';
 
 
 export const setOffers = createAction<Offers>('offers/set');
@@ -34,6 +35,14 @@ export const loadNears = createAsyncThunk(
   async () => {
     await new Promise((resolve) => setTimeout(resolve, 500));
     return nears;
+  }
+);
+
+export const loadReviews = createAsyncThunk(
+  'reviews/load',
+  async () => {
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    return reviews;
   }
 );
 

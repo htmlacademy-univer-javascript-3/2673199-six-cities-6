@@ -8,15 +8,13 @@ import {OfferScreen} from '../../pages/offer-screen/offer-screen.tsx';
 import {UserHeaderProps} from '../layout/user-header.tsx';
 import {Layout, LayoutWithUser} from '../layout';
 import { PrivateRoute } from '../private-route/private-route.tsx';
-import {Reviews} from '../../types/review.ts';
 
 type AppProps = {
-  reviews: Reviews;
   userHeaderPrompts: UserHeaderProps;
 };
 
 
-export function App({reviews, userHeaderPrompts}: AppProps) {
+export function App({userHeaderPrompts}: AppProps) {
   return (
     <BrowserRouter>
       <Routes>
@@ -42,7 +40,7 @@ export function App({reviews, userHeaderPrompts}: AppProps) {
           />
           <Route
             path={AppRoute.Offer}
-            element={<OfferScreen reviews={reviews}/>}
+            element={<OfferScreen/>}
           />
           <Route
             path={AppRoute.NotFound}
