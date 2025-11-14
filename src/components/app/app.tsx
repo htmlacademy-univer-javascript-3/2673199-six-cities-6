@@ -2,7 +2,7 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import {MainScreen} from '../../pages/main-screen/main-screen.tsx';
 import {NotFoundScreen} from '../../pages/not-found-screen/not-found-screen.tsx';
 import {AuthScreen} from '../../pages/auth-screen/auth-screen.tsx';
-import {AppRoute} from '../consts.ts';
+import {AppRoute} from '../../consts.ts';
 import {FavoritesScreen} from '../../pages/favorites-screen/favorites-screen.tsx';
 import {OfferScreen} from '../../pages/offer-screen/offer-screen.tsx';
 import {UserHeaderProps} from '../layout/user-header.tsx';

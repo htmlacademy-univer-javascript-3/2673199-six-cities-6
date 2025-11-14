@@ -1,4 +1,4 @@
-import {AuthorizationStatus} from '../components/consts.ts';
+import {AuthorizationStatus} from '../consts.ts';
 import {UserHeaderProps} from '../components/layout/user-header.tsx';
 import {offers} from './offers.ts';
 

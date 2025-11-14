@@ -1,5 +1,5 @@
 import {FormEvent, Fragment, useState} from 'react';
-import {MAX_REVIEW_LEN, MIN_REVIEW_LEN} from '../../consts.ts';
+import {MAX_REVIEW_LEN, MIN_REVIEW_LEN} from '../../../consts.ts';
 
 
 export function ReviewsForm() {

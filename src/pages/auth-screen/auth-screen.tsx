@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../components/consts';
+import { AppRoute } from '../../consts.ts';
 import {useAppSelector} from '../../hooks/use-app-selector.ts';
 
 export function AuthScreen() {

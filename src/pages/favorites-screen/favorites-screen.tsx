@@ -1,6 +1,6 @@
 import {PlaceCardType} from '../../components/place-card';
 import {Offers} from '../../types/offer.ts';
-import {AppRoute, emptyStates} from '../../components/consts.ts';
+import {AppRoute, emptyStates} from '../../consts.ts';
 import {Link} from 'react-router-dom';
 import {EmptyState} from '../../components/empty-state/empty-state.tsx';
 import {PlacesList} from '../../components/places-list/places-list.tsx';

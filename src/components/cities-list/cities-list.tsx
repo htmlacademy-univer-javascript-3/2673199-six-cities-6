@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { cities } from '../consts';
+import { cities } from '../../consts.ts';
 
 type CitiesListProps = {
   activeCity: string;

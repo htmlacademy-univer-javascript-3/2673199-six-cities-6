@@ -5,6 +5,7 @@ import {useAppSelector} from '../../hooks/use-app-selector.ts';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
 import {loadOffers, setActiveCity} from '../../store/action.ts';
 import {CitiesList} from '../../components/cities-list/cities-list.tsx';
+import {getSortingFunc} from '../../utils/sorting.ts';
 
 
 export function MainScreen() {
@@ -14,10 +15,12 @@ export function MainScreen() {
   }, [dispatch]);
 
   const activeCity = useAppSelector((state) => state.activeCity);
-  const items = useAppSelector((state) =>
-    state.offers.filter((o) => o.city.name === activeCity)
-  );
-  const filteredOffers = items.filter((offer) => offer.city.name === activeCity);
+  const items = useAppSelector((state) => state.offers);
+  const activeSortingType = useAppSelector((state) => state.activeSortingType);
+
+  const filteredOffers = items
+    .filter((offer) => offer.city.name === activeCity)
+    .sort(getSortingFunc(activeSortingType));
   const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
 
   return (
