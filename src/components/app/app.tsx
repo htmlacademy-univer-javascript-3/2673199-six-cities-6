@@ -2,53 +2,47 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import {MainScreen} from '../../pages/main-screen/main-screen.tsx';
 import {NotFoundScreen} from '../../pages/not-found-screen/not-found-screen.tsx';
 import {AuthScreen} from '../../pages/auth-screen/auth-screen.tsx';
-import {AppRoute, AuthorizationStatus} from '../consts.ts';
+import {AppRoute} from '../consts.ts';
 import {FavoritesScreen} from '../../pages/favorites-screen/favorites-screen.tsx';
 import {OfferScreen} from '../../pages/offer-screen/offer-screen.tsx';
 import {UserHeaderProps} from '../layout/user-header.tsx';
 import {Layout, LayoutWithUser} from '../layout';
 import { PrivateRoute } from '../private-route/private-route.tsx';
-import {OfferDetailed, Offers} from '../../types/offer.ts';
 import {Reviews} from '../../types/review.ts';
-import {nears} from '../../mocks/offers.ts';
 
 type AppProps = {
-  offers: Offers;
-  detailed: OfferDetailed;
   reviews: Reviews;
-  activeCity: string;
-  authStatus: AuthorizationStatus;
   userHeaderPrompts: UserHeaderProps;
 };
 
 
-export function App({offers, detailed, reviews, activeCity, authStatus, userHeaderPrompts}: AppProps) {
+export function App({reviews, userHeaderPrompts}: AppProps) {
   return (
     <BrowserRouter>
       <Routes>
         <Route element={<Layout/>}>
           <Route
             path={AppRoute.Login}
-            element={<AuthScreen activeCity={activeCity}/>}
+            element={<AuthScreen/>}
           />
         </Route>
 
         <Route element={<LayoutWithUser userHeaderPrompts={userHeaderPrompts}/>}>
           <Route
             path={AppRoute.Main}
-            element={<MainScreen offers={offers}/>}
+            element={<MainScreen/>}
           />
           <Route
             path={AppRoute.Favorites}
             element={
-              <PrivateRoute authorizationStatus={authStatus}>
-                <FavoritesScreen offers={offers}/>
+              <PrivateRoute authorizationStatus={userHeaderPrompts.authState}>
+                <FavoritesScreen/>
               </PrivateRoute>
             }
           />
           <Route
             path={AppRoute.Offer}
-            element={<OfferScreen nearPlaces={nears} detailOffer={detailed} reviews={reviews}/>}
+            element={<OfferScreen reviews={reviews}/>}
           />
           <Route
             path={AppRoute.NotFound}

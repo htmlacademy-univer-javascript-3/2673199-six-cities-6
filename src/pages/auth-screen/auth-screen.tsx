@@ -1,11 +1,9 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../components/consts';
+import {useAppSelector} from "../../hooks/use-app-selector.ts";
 
-export type AuthScreenProps = {
-  activeCity: string;
-};
-
-export function AuthScreen({activeCity}: AuthScreenProps) {
+export function AuthScreen() {
+  const activeCity = useAppSelector((state) => state.activeCity);
   return (
     <main className="page__main page__main--login">
       <div className="page__login-container container">

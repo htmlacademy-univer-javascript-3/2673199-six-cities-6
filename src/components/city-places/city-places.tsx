@@ -10,11 +10,9 @@ type CityPlacesProps = {
   offers: Offers;
   activeOffer: Offer | null;
   onHover: (offer: Offer | null) => void;
-  onToggleBookmark: (id: string, next: boolean) => void;
-  isBookmarkPending: (id: string) => boolean;
 };
 
-export function CityPlaces({ activeCity, offers, activeOffer, onHover, onToggleBookmark, isBookmarkPending }: CityPlacesProps) {
+export function CityPlaces({ activeCity, offers, activeOffer, onHover }: CityPlacesProps) {
   if (offers.length === 0) {
     return (
       <div className="cities__places-container cities__places-container--empty container">
@@ -51,8 +49,6 @@ export function CityPlaces({ activeCity, offers, activeOffer, onHover, onToggleB
           offers={offers}
           type={PlaceCardType.Main}
           onHover={onHover}
-          onToggleBookmark={onToggleBookmark}
-          isBookmarkPending={isBookmarkPending}
         />
       </section>
       <div className="cities__right-section">
