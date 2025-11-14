@@ -1,6 +1,6 @@
 import {PlaceCardType, ToImageHight, ToImageWidth, ToImageWrapperType} from './card-type.ts';
 import {Link} from 'react-router-dom';
-import {AppRoute} from '../consts.ts';
+import {AppRoute} from '../../consts.ts';
 
 type ImageWrapperProps = {
   type: PlaceCardType;

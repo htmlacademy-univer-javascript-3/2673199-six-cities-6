@@ -1,22 +1,21 @@
-import {PlaceCardType, PlaceCard} from '../../components/place-card';
+import {PlaceCardType} from '../../components/place-card';
 import {Offers} from '../../types/offer.ts';
-import {AppRoute, emptyStates} from '../../components/consts.ts';
+import {AppRoute, emptyStates} from '../../consts.ts';
 import {Link} from 'react-router-dom';
-import {useState} from 'react';
-import {useToggleBookmark} from '../../hooks.ts';
 import {EmptyState} from '../../components/empty-state/empty-state.tsx';
+import {PlacesList} from '../../components/places-list/places-list.tsx';
+import {useAppSelector} from '../../hooks/use-app-selector.ts';
+import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
+import {useEffect} from 'react';
+import {loadOffers} from '../../store/action.ts';
 
-type FavoritesScreenProps = {
-  offers: Offers;
-};
+export function FavoritesScreen() {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(loadOffers());
+  }, [dispatch]);
 
-export function FavoritesScreen({offers}: FavoritesScreenProps) {
-  const [items, setItems] = useState<Offers>(offers);
-  const { isPending, toggle } = useToggleBookmark();
-  const handleToggleBookmark = (id: string, next: boolean) =>
-    void toggle(id, next, (changedId, changedVal) => {
-      setItems((prev) => prev.map((o) => (o.id === changedId ? { ...o, isFavorite: changedVal } : o)));
-    });
+  const items = useAppSelector((state) => state.offers);
 
   const favoriteOffersByCity = items
     .filter((offer) => offer.isFavorite)
@@ -46,17 +45,11 @@ export function FavoritesScreen({offers}: FavoritesScreenProps) {
                       </Link>
                     </div>
                   </div>
-                  <div className="favorites__places">
-                    {cityOffers.map((place) => (
-                      <PlaceCard
-                        key={place.id}
-                        innerType={PlaceCardType.Favorite}
-                        onToggleBookmark={handleToggleBookmark}
-                        isBookmarkPending={isPending(place.id)}
-                        {...place}
-                      />
-                    ))}
-                  </div>
+                  <PlacesList
+                    offers={cityOffers}
+                    type={PlaceCardType.Favorite}
+                    onHover={null}
+                  />
                 </li>
               ))}
             </ul>

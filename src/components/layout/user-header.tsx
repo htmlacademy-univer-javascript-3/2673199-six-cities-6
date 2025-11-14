@@ -1,5 +1,5 @@
 import {Link} from 'react-router-dom';
-import {AppRoute, AuthorizationStatus} from '../consts.ts';
+import {AppRoute, AuthorizationStatus} from '../../consts.ts';
 import {LogoLink} from './logo-link.tsx';
 
 export type UserHeaderProps = {
