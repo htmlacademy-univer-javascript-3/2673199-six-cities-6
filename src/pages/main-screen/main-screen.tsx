@@ -21,6 +21,7 @@ export function MainScreen() {
   const filteredOffers = items
     .filter((offer) => offer.city.name === activeCity)
     .sort(getSortingFunc(activeSortingType));
+
   const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
 
   return (
