@@ -7,18 +7,18 @@ import {PlacesList} from '../../components/places-list/places-list.tsx';
 import {useAppSelector} from '../../hooks/use-app-selector.ts';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
 import {useEffect} from 'react';
-import {loadOffers} from '../../store/action.ts';
+import {fetchFavoritesOffers} from '../../store/api-actions.ts';
+
 
 export function FavoritesScreen() {
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(loadOffers());
+    dispatch(fetchFavoritesOffers());
   }, [dispatch]);
 
-  const items = useAppSelector((state) => state.offers);
+  const items = useAppSelector((state) => state.favoriteOffers);
 
   const favoriteOffersByCity = items
-    .filter((offer) => offer.isFavorite)
     .reduce<Record<string, Offers>>((acc, offer) => {
       const cityName = offer.city.name;
       if (!acc[cityName]) {
@@ -40,7 +40,7 @@ export function FavoritesScreen() {
                 <li className="favorites__locations-items" key={cityName}>
                   <div className="favorites__locations locations locations--current">
                     <div className="locations__item">
-                      <Link to={`${AppRoute.Main}?city=${encodeURIComponent(cityName)}`} className="locations__item-link">
+                      <Link to={AppRoute.Main} className="locations__item-link">
                         <span>{cityName}</span>
                       </Link>
                     </div>

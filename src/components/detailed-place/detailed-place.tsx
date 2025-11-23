@@ -2,8 +2,8 @@ import {OfferBookmarkButton} from '../place-card';
 import {OfferReviews} from '../reviews/reviews.tsx';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
 import {useState} from 'react';
-import {toggleFavorite} from '../../store/action.ts';
 import {OfferDetailed} from '../../types/offer.ts';
+import {toggleFavorite} from '../../store/api-actions.ts';
 
 type DetailedPlaceProps = {
   detailOffer: OfferDetailed;
@@ -86,7 +86,7 @@ export function DetailedPlace({ detailOffer}: DetailedPlaceProps) {
             <p className="offer__text">{detailOffer.description}</p>
           </div>
         </div>
-        <OfferReviews/>
+        <OfferReviews offerId={detailOffer.id}/>
       </div>
     </div>
   );

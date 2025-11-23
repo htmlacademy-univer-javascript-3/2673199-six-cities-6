@@ -1,9 +1,19 @@
 import {FormEvent, Fragment, useState} from 'react';
 import {MAX_REVIEW_LEN, MIN_REVIEW_LEN} from '../../../consts.ts';
 
+export type rating = 0 | 1 | 2 | 3 | 4 | 5;
 
-export function ReviewsForm() {
-  const [form, setForm] = useState({ rating: 0, comment: '' });
+export type ReviewInfoForm = {
+  rating: rating;
+  comment: string;
+}
+
+export type LoginFormProps = {
+  onSubmit: (data: { rating: rating; comment: string }) => void;
+};
+
+export function ReviewsForm({onSubmit}: LoginFormProps) {
+  const [form, setForm] = useState<ReviewInfoForm>({ rating: 0, comment: '' });
 
   const isValid = form.rating > 0
     && form.comment.trim().length >= MIN_REVIEW_LEN
@@ -15,6 +25,10 @@ export function ReviewsForm() {
       return;
     }
     setForm({ rating: 0, comment: '' });
+    onSubmit({
+      rating: form.rating,
+      comment: form.comment.trim(),
+    });
   };
 
   return (
@@ -31,7 +45,7 @@ export function ReviewsForm() {
               value={stars}
               id={`${stars}-stars`}
               checked={form.rating === stars}
-              onChange={(e) => setForm((prev) => ({ ...prev, rating: +e.target.value }))}
+              onChange={(e) => setForm((prev) => ({ ...prev, rating: +e.target.value as rating}))}
               type="radio"
             />
             <label

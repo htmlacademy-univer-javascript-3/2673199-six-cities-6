@@ -24,20 +24,22 @@ export function CityPlaces({ activeCity, offers, activeOffer, onHover }: CityPla
   }
 
   return (
-    <div className="cities__places-container container">
-      <section className="cities__places places">
-        <b className="places__found">
-          {offers.length} places to stay in {activeCity}
-        </b>
-        <SortingOptions/>
-        <PlacesList
-          offers={offers}
-          type={PlaceCardType.Main}
-          onHover={onHover}
-        />
-      </section>
-      <div className="cities__right-section">
-        <Map offers={offers} activeOfferId={activeOffer?.id ?? null} className="cities__map map"/>
+    <div className="cities">
+      <div className="cities__places-container container">
+        <section className="cities__places places">
+          <b className="places__found">
+            {offers.length} places to stay in {activeCity}
+          </b>
+          <SortingOptions/>
+          <PlacesList
+            offers={offers}
+            type={PlaceCardType.Main}
+            onHover={onHover}
+          />
+        </section>
+        <div className="cities__right-section">
+          <Map offers={offers} activeOfferId={activeOffer?.id ?? null} className="cities__map map"/>
+        </div>
       </div>
     </div>
   );

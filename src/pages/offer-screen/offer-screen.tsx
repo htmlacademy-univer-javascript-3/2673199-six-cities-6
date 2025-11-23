@@ -3,23 +3,30 @@ import {useEffect} from 'react';
 import { Map } from '../../components/map/map.tsx';
 import {PlacesList} from '../../components/places-list/places-list.tsx';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
-import {loadNears, loadOffer} from '../../store/action.ts';
 import {useAppSelector} from '../../hooks/use-app-selector.ts';
 import {DetailedPlace} from '../../components/detailed-place/detailed-place.tsx';
+import {fetchNears, fetchOffer} from '../../store/api-actions.ts';
+import {useParams} from 'react-router-dom';
+import {Spinner} from '../../components/spinner/spinner.tsx';
 
 
 export function OfferScreen() {
   const dispatch = useAppDispatch();
+  const { id } = useParams<{ id: string }>();
+
   useEffect(() => {
-    dispatch(loadNears());
-    dispatch(loadOffer());
-  }, [dispatch]);
+    if (!id) {
+      return;
+    }
+    dispatch(fetchNears({ id }));
+    dispatch(fetchOffer({ id }));
+  }, [dispatch, id]);
 
   const detailOffer = useAppSelector((state) => state.detailOffer);
   const items = useAppSelector((state) => state.offers);
 
   if (!detailOffer) {
-    return <div>Loading...</div>;
+    return <Spinner/>;
   }
 
   return (

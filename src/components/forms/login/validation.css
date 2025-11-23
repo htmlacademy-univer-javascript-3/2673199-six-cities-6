@@ -1,0 +1,38 @@
+.form__input--error {
+  border-color: #e53935;
+}
+
+.form__error {
+  max-width: 320px;
+  padding: 6px 8px;
+
+  font-size: 12px;
+  line-height: 1.4;
+  color: #e53935;
+  background: #ffebee;
+
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+.form__error::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: 12px;
+  border-width: 0 4px 4px 4px;
+  border-style: solid;
+  border-color: transparent transparent #ffebee transparent;
+}
+
+.form__error--login-email {
+  position: relative;
+  margin-top: -15px;
+  margin-bottom: 30px;
+}
+
+.form__error--login-password {
+  position: relative;
+  margin-top: -15px;
+  margin-bottom: 30px;
+}

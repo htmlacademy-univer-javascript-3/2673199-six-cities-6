@@ -2,8 +2,8 @@ import { PlaceCard, PlaceCardType } from '../place-card';
 import { Offer, Offers } from '../../types/offer.ts';
 import {ToListType} from '../place-card/card-type.ts';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
-import {toggleFavorite} from '../../store/action.ts';
 import {useState} from 'react';
+import {toggleFavorite} from '../../store/api-actions.ts';
 
 type PlacesListProps = {
   offers: Offers;

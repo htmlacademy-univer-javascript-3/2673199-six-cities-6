@@ -1,15 +1,31 @@
-import {Outlet} from 'react-router-dom';
+import {Outlet, useLocation} from 'react-router-dom';
 import {UserHeader, UserHeaderProps} from './user-header.tsx';
 import {LogoLink} from './logo-link.tsx';
 import {ReactNode} from 'react';
+import {AppRoute} from '../../consts.ts';
 
 type LayoutBaseProps = {
   headerContent?: ReactNode;
 };
 
+
+function getPageClassName(pathname: string): string {
+  switch (pathname) {
+    case AppRoute.Main:
+      return 'page page--gray page--main';
+    case AppRoute.Login:
+      return 'page page--gray page--login';
+    default:
+      return 'page';
+  }
+}
+
 function LayoutBase({headerContent}: LayoutBaseProps) {
+  const location = useLocation();
+  const pageClassName = getPageClassName(location.pathname);
+
   return (
-    <>
+    <div className={pageClassName}>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
@@ -18,33 +34,23 @@ function LayoutBase({headerContent}: LayoutBaseProps) {
         </div>
       </header>
 
-      <main>
-        <Outlet />
-      </main>
-    </>
+      <Outlet/>
+    </div>
   );
 }
 
 export function Layout() {
   return (
-    <LayoutBase headerContent={<LogoLink src="/img/logo.svg" />} />
+    <LayoutBase
+      headerContent={<LogoLink src="/img/logo.svg" />}
+    />
   );
 }
 
-type layoutUserPrompts = {
-  userHeaderPrompts: UserHeaderProps;
-};
-
-export function LayoutWithUser({userHeaderPrompts}: layoutUserPrompts) {
+export function LayoutWithUser({authState}: UserHeaderProps) {
   return (
     <LayoutBase
-      headerContent={
-        <UserHeader
-          email={userHeaderPrompts.email}
-          favoriteCount={userHeaderPrompts.favoriteCount}
-          authState={userHeaderPrompts.authState}
-        />
-      }
+      headerContent={<UserHeader authState={authState}/>}
     />
   );
 }
