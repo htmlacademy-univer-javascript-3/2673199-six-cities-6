@@ -1,18 +1,14 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch} from '../types/state.ts';
 import {Offer, OfferDetailed, Offers} from '../types/offer.ts';
-import {
-  redirectToRoute,
-  requireAuthorization,
-  setFavorites,
-  setOffers,
-  setOffersLoadingStatus,
-  setUser
-} from './action.ts';
 import {APIRoute, AppRoute, AuthorizationStatus} from '../consts.ts';
 import {ThunkApiConfig} from '../services/api.ts';
 import {dropToken, saveToken} from '../services/token.ts';
 import {AuthData, UserInfo, UserInfoFull} from '../types/user.ts';
+import {setOffers, setOffersLoadingStatus} from './reducers/offers-slice/offers-slice.ts';
+import {requireAuthorization, setUser} from './reducers/user-slice/user-slice.ts';
+import {redirectToRoute} from './action.ts';
+import {setFavorites} from './reducers/favorites-slice/favorites-slice.ts';
 
 
 export const fetchOffers = createAsyncThunk<void, void, ThunkApiConfig>(
@@ -29,7 +25,7 @@ export const fetchFavoritesOffers = createAsyncThunk<void, void, ThunkApiConfig>
   'favorites/load',
   async (_arg, {dispatch, getState, extra: api}) => {
     const state = getState() ;
-    if (state.authorizationStatus !== AuthorizationStatus.Auth){
+    if (state.user.authorizationStatus !== AuthorizationStatus.Auth){
       dispatch(setFavorites([]));
     }
 
@@ -51,7 +47,7 @@ export const toggleFavorite = createAsyncThunk<Offer, { id: string; next: boolea
   async ({ id, next }, { getState, extra: api }) => {
     const data = await api.post<OfferDetailed>(`${APIRoute.Favorites}/${id}/${+next}`);
     const state = getState();
-    const preview = state.offers.find((offer) => offer.id === id)?.previewImage;
+    const preview = state.offers.offers.find((offer) => offer.id === id)?.previewImage;
 
     return {...data.data, previewImage: preview ?? data.data.images[0]};
   }

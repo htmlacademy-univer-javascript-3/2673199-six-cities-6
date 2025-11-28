@@ -1,4 +1,4 @@
-import {Route, Routes} from 'react-router-dom';
+import {Navigate, Route, Routes} from 'react-router-dom';
 import {MainScreen} from '../../pages/main-screen/main-screen.tsx';
 import {NotFoundScreen} from '../../pages/not-found-screen/not-found-screen.tsx';
 import {AuthScreen} from '../../pages/auth-screen/auth-screen.tsx';
@@ -14,8 +14,8 @@ import browserHistory from '../../browser-history.ts';
 import {ScrollToTop} from '../../utils/scroll-to-top.ts';
 
 export function App() {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const isOffersLoading = useAppSelector((state) => state.isOffersLoading);
+  const authorizationStatus = useAppSelector((state) => state.user.authorizationStatus);
+  const isOffersLoading = useAppSelector((state) => state.offers.isOffersLoading);
 
   if (authorizationStatus === AuthorizationStatus.Unknown || isOffersLoading) {
     return (
@@ -56,6 +56,10 @@ export function App() {
             element={<NotFoundScreen/>}
           />
         </Route>
+        <Route
+          path={AppRoute.All}
+          element={<Navigate to={AppRoute.NotFound} replace />}
+        />
       </Routes>
     </HistoryRouter>
   );

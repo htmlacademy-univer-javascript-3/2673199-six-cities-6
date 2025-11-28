@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import {SortingType} from '../../consts.ts';
-import {setActiveSortingType} from '../../store/action.ts';
 import {useAppSelector} from '../../hooks/use-app-selector.ts';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
+import {setActiveSortingType} from '../../store/reducers/city-slice/city-slice.ts';
 
 
 export function SortingOptions() {
   const dispatch = useAppDispatch();
   const [opened, setOpened] = useState(false);
-  const activeSortingType = useAppSelector((state) => state.activeSortingType);
+  const activeSortingType = useAppSelector((state) => state.city.activeSortingType);
 
   const handleSelect = (type: SortingType) => {
     dispatch(setActiveSortingType(type));

@@ -9,13 +9,14 @@ import {useNears} from '../../hooks/use-nears.ts';
 import {useMemo} from 'react';
 import {useAppSelector} from '../../hooks/use-app-selector.ts';
 import {Offers} from '../../types/offer.ts';
+import {AppRoute} from '../../consts.ts';
 
 
 export function OfferScreen() {
   const { id } = useParams<{ id: string }>();
   const detailOfferPending = useOffer(id);
   const nears = useNears(id);
-  const offersFromStore = useAppSelector((state) => state.offers);
+  const offersFromStore = useAppSelector((state) => state.offers.offers);
 
   const mergedItems: Offers = useMemo(() => {
     if (!nears.data) {
@@ -39,7 +40,7 @@ export function OfferScreen() {
     return <Spinner/>;
   }
   if (detailOfferPending.error || nears.error) {
-    return <Navigate to="/notfound" replace />;
+    return <Navigate to={AppRoute.NotFound} replace />;
   }
 
   const detailOffer = detailOfferPending.data!;

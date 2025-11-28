@@ -12,8 +12,8 @@ export type UserHeaderProps = {
 
 export function UserHeader({authState}: UserHeaderProps) {
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => state.user);
-  const favorites = useAppSelector((state) => state.favoriteOffers);
+  const user = useAppSelector((state) => state.user.user);
+  const favorites = useAppSelector((state) => state.favorites.favoriteOffers);
 
   const handleLogoutClick = (evt: MouseEvent<HTMLAnchorElement>) => {
     evt.preventDefault();
