@@ -25,7 +25,6 @@ export function OfferScreen() {
 
     return nears.data.map((item) => {
       const fromOffers = offersFromStore.find((o) => o.id === item.id);
-
       const source = fromOffers ?? item;
 
       return {
