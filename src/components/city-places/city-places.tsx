@@ -5,6 +5,7 @@ import {PlaceCardType} from '../place-card';
 import {EmptyState} from '../empty-state/empty-state.tsx';
 import {emptyStates} from '../../consts.ts';
 import {SortingOptions} from '../sorting-options/sorting-options.tsx';
+import {ScrollToTop} from '../../utils/scroll-to-top.ts';
 
 type CityPlacesProps = {
   activeCity: string;
@@ -16,28 +17,48 @@ type CityPlacesProps = {
 export function CityPlaces({ activeCity, offers, activeOffer, onHover }: CityPlacesProps) {
   if (offers.length === 0) {
     return (
-      <div className="cities__places-container cities__places-container--empty container">
-        <EmptyState {...emptyStates.cities(activeCity)} />
-        <div className="cities__right-section"></div>
-      </div>
+      <>
+        <ScrollToTop
+          deps={[activeCity]}
+          behavior="smooth"
+          getTarget={() =>
+            document.querySelector(
+              '.cities__places'
+            )}
+        />
+        <div className="cities__places-container cities__places-container--empty container">
+          <EmptyState {...emptyStates.cities(activeCity)} />
+          <div className="cities__right-section"></div>
+        </div>
+      </>
     );
   }
 
   return (
-    <div className="cities__places-container container">
-      <section className="cities__places places">
-        <b className="places__found">
-          {offers.length} places to stay in {activeCity}
-        </b>
-        <SortingOptions/>
-        <PlacesList
-          offers={offers}
-          type={PlaceCardType.Main}
-          onHover={onHover}
+    <div className="cities">
+      <div className="cities__places-container container">
+        <ScrollToTop
+          deps={[activeCity]}
+          behavior="smooth"
+          getTarget={() =>
+            document.querySelector(
+              '.cities__places'
+            )}
         />
-      </section>
-      <div className="cities__right-section">
-        <Map offers={offers} activeOfferId={activeOffer?.id ?? null} className="cities__map map"/>
+        <section className="cities__places places">
+          <b className="places__found">
+            {offers.length} places to stay in {activeCity}
+          </b>
+          <SortingOptions/>
+          <PlacesList
+            offers={offers}
+            type={PlaceCardType.Main}
+            onHover={onHover}
+          />
+        </section>
+        <div className="cities__right-section">
+          <Map offers={offers} activeOfferId={activeOffer?.id ?? null} className="cities__map map"/>
+        </div>
       </div>
     </div>
   );

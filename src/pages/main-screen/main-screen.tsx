@@ -3,15 +3,16 @@ import { Offer } from '../../types/offer.ts';
 import { CityPlaces } from '../../components/city-places/city-places.tsx';
 import {useAppSelector} from '../../hooks/use-app-selector.ts';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
-import {loadOffers, setActiveCity} from '../../store/action.ts';
+import {setActiveCity} from '../../store/action.ts';
 import {CitiesList} from '../../components/cities-list/cities-list.tsx';
 import {getSortingFunc} from '../../utils/sorting.ts';
+import {fetchOffers} from '../../store/api-actions.ts';
 
 
 export function MainScreen() {
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(loadOffers());
+    fetchOffers();
   }, [dispatch]);
 
   const activeCity = useAppSelector((state) => state.activeCity);
@@ -31,14 +32,12 @@ export function MainScreen() {
         activeCity={activeCity}
         onCityChange={(city) => dispatch(setActiveCity(city))}
       />
-      <div className="cities">
-        <CityPlaces
-          activeCity={activeCity}
-          offers={filteredOffers}
-          activeOffer={activeOffer}
-          onHover={setActiveOffer}
-        />
-      </div>
+      <CityPlaces
+        activeCity={activeCity}
+        offers={filteredOffers}
+        activeOffer={activeOffer}
+        onHover={setActiveOffer}
+      />
     </main>
   );
 }

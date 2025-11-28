@@ -20,7 +20,6 @@ export function PlaceCard(offerProps: OfferProps) {
       <ImageWrapper
         imageSource={offerProps.previewImage}
         type={offerProps.innerType}
-        city={offerProps.city.name}
       />
       <div className="place-card__info">
         <div className="place-card__price-wrapper">

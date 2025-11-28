@@ -1,22 +1,31 @@
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import {MainScreen} from '../../pages/main-screen/main-screen.tsx';
 import {NotFoundScreen} from '../../pages/not-found-screen/not-found-screen.tsx';
 import {AuthScreen} from '../../pages/auth-screen/auth-screen.tsx';
-import {AppRoute} from '../../consts.ts';
+import {AppRoute, AuthorizationStatus} from '../../consts.ts';
 import {FavoritesScreen} from '../../pages/favorites-screen/favorites-screen.tsx';
 import {OfferScreen} from '../../pages/offer-screen/offer-screen.tsx';
-import {UserHeaderProps} from '../layout/user-header.tsx';
 import {Layout, LayoutWithUser} from '../layout';
 import { PrivateRoute } from '../private-route/private-route.tsx';
+import {useAppSelector} from '../../hooks/use-app-selector.ts';
+import {Spinner} from '../spinner/spinner.tsx';
+import {HistoryRouter} from '../history-route/history-route.tsx';
+import browserHistory from '../../browser-history.ts';
+import {ScrollToTop} from '../../utils/scroll-to-top.ts';
 
-type AppProps = {
-  userHeaderPrompts: UserHeaderProps;
-};
+export function App() {
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const isOffersLoading = useAppSelector((state) => state.isOffersLoading);
 
+  if (authorizationStatus === AuthorizationStatus.Unknown || isOffersLoading) {
+    return (
+      <Spinner/>
+    );
+  }
 
-export function App({userHeaderPrompts}: AppProps) {
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
+      <ScrollToTop />
       <Routes>
         <Route element={<Layout/>}>
           <Route
@@ -25,7 +34,7 @@ export function App({userHeaderPrompts}: AppProps) {
           />
         </Route>
 
-        <Route element={<LayoutWithUser userHeaderPrompts={userHeaderPrompts}/>}>
+        <Route element={<LayoutWithUser authState={authorizationStatus}/>}>
           <Route
             path={AppRoute.Main}
             element={<MainScreen/>}
@@ -33,7 +42,7 @@ export function App({userHeaderPrompts}: AppProps) {
           <Route
             path={AppRoute.Favorites}
             element={
-              <PrivateRoute authorizationStatus={userHeaderPrompts.authState}>
+              <PrivateRoute authorizationStatus={authorizationStatus}>
                 <FavoritesScreen/>
               </PrivateRoute>
             }
@@ -48,6 +57,6 @@ export function App({userHeaderPrompts}: AppProps) {
           />
         </Route>
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 }

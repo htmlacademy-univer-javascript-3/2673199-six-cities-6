@@ -1,27 +1,19 @@
 import {OfferBookmarkButton} from '../place-card';
 import {OfferReviews} from '../reviews/reviews.tsx';
-import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
-import {useState} from 'react';
-import {toggleFavorite} from '../../store/action.ts';
 import {OfferDetailed} from '../../types/offer.ts';
+import {useFavorite} from '../../hooks/use-favorites.ts';
+import {useAppSelector} from '../../hooks/use-app-selector.ts';
 
 type DetailedPlaceProps = {
   detailOffer: OfferDetailed;
 };
 
 export function DetailedPlace({ detailOffer}: DetailedPlaceProps) {
-  const dispatch = useAppDispatch();
-
-  const [pendingId, setPendingId] = useState<string | null>(null);
-  const onToggleBookmark = async (id: string, next: boolean) => {
-    setPendingId(id);
-    try {
-      await dispatch(toggleFavorite({ id, next }));
-    } finally {
-      setPendingId(null);
-    }
-  };
-  const isBookmarkPending = (id: string) => pendingId === id;
+  const {onToggleBookmark, isBookmarkPending} = useFavorite();
+  const offerFromStore = useAppSelector((state) =>
+    state.offers.find((offer) => offer.id === detailOffer.id)
+  );
+  const isFavorite = offerFromStore?.isFavorite ?? detailOffer.isFavorite;
 
   return (
     <div className="offer__container container">
@@ -34,8 +26,8 @@ export function DetailedPlace({ detailOffer}: DetailedPlaceProps) {
         <div className="offer__name-wrapper">
           <h1 className="offer__name">{detailOffer.title}</h1>
           <OfferBookmarkButton
-            isActive={detailOffer.isFavorite}
-            onToggle={() => void onToggleBookmark(detailOffer.id, !detailOffer.isFavorite)}
+            isActive={isFavorite}
+            onToggle={() => void onToggleBookmark(detailOffer.id, !isFavorite)}
             pending={isBookmarkPending(detailOffer.id)}
           />
         </div>
@@ -86,7 +78,7 @@ export function DetailedPlace({ detailOffer}: DetailedPlaceProps) {
             <p className="offer__text">{detailOffer.description}</p>
           </div>
         </div>
-        <OfferReviews/>
+        <OfferReviews offerId={detailOffer.id}/>
       </div>
     </div>
   );

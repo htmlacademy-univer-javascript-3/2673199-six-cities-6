@@ -7,12 +7,12 @@ export type UserInfoFull = {
 }
 
 export type UserInfo = {
-  name: string;
+  email: string;
   avatarUrl: string;
   isPro: boolean;
 }
 
-export type UserCredentials = {
+export type AuthData = {
   email: string;
   password: string;
 };

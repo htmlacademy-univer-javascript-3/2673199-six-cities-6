@@ -1,26 +1,48 @@
 import {PlaceCardType} from '../../components/place-card';
-import {useEffect} from 'react';
 import { Map } from '../../components/map/map.tsx';
 import {PlacesList} from '../../components/places-list/places-list.tsx';
-import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
-import {loadNears, loadOffer} from '../../store/action.ts';
-import {useAppSelector} from '../../hooks/use-app-selector.ts';
 import {DetailedPlace} from '../../components/detailed-place/detailed-place.tsx';
+import {Navigate, useParams} from 'react-router-dom';
+import {Spinner} from '../../components/spinner/spinner.tsx';
+import {useOffer} from '../../hooks/use-offer.ts';
+import {useNears} from '../../hooks/use-nears.ts';
+import {useMemo} from 'react';
+import {useAppSelector} from '../../hooks/use-app-selector.ts';
+import {Offers} from '../../types/offer.ts';
 
 
 export function OfferScreen() {
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(loadNears());
-    dispatch(loadOffer());
-  }, [dispatch]);
+  const { id } = useParams<{ id: string }>();
+  const detailOfferPending = useOffer(id);
+  const nears = useNears(id);
+  const offersFromStore = useAppSelector((state) => state.offers);
 
-  const detailOffer = useAppSelector((state) => state.detailOffer);
-  const items = useAppSelector((state) => state.offers);
+  const mergedItems: Offers = useMemo(() => {
+    if (!nears.data) {
+      return [];
+    }
 
-  if (!detailOffer) {
-    return <div>Loading...</div>;
+    return nears.data.map((item) => {
+      const fromOffers = offersFromStore.find((o) => o.id === item.id);
+
+      const source = fromOffers ?? item;
+
+      return {
+        ...item,
+        isFavorite: source.isFavorite,
+      };
+    });
+  }, [nears.data, offersFromStore]);
+  const nearsOffers = mergedItems.slice(0, 3);
+
+  if (!detailOfferPending || detailOfferPending.isLoading || nears.isLoading) {
+    return <Spinner/>;
   }
+  if (detailOfferPending.error || nears.error) {
+    return <Navigate to="/notfound" replace />;
+  }
+
+  const detailOffer = detailOfferPending.data!;
 
   return (
     <main className="page__main page__main--offer">
@@ -35,7 +57,7 @@ export function OfferScreen() {
           </div>
         </div>
         <DetailedPlace detailOffer={detailOffer}/>
-        <Map offers={items} className="offer__map" activeOfferId={null}/>
+        <Map offers={nearsOffers.concat({...detailOffer, previewImage: detailOffer.images[0]})} className="offer__map" activeOfferId={null}/>
       </section>
       <div className="container">
         <section className="near-places places">
@@ -43,7 +65,7 @@ export function OfferScreen() {
             Other places in the neighbourhood
           </h2>
           <PlacesList
-            offers={items}
+            offers={nearsOffers}
             onHover={() => {}}
             type={PlaceCardType.Offer}
           />
