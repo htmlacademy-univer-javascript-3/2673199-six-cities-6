@@ -4,19 +4,15 @@ import {Offer, OfferDetailed, Offers} from '../types/offer.ts';
 import {
   redirectToRoute,
   requireAuthorization,
-  setDetailOffer,
   setFavorites,
   setOffers,
   setOffersLoadingStatus,
-  setReviews,
   setUser
 } from './action.ts';
 import {APIRoute, AppRoute, AuthorizationStatus} from '../consts.ts';
 import {ThunkApiConfig} from '../services/api.ts';
-import {Reviews} from '../types/review.ts';
 import {dropToken, saveToken} from '../services/token.ts';
 import {AuthData, UserInfo, UserInfoFull} from '../types/user.ts';
-import {ReviewInfoForm} from '../components/forms/review/review-form.tsx';
 
 
 export const fetchOffers = createAsyncThunk<void, void, ThunkApiConfig>(
@@ -42,18 +38,6 @@ export const fetchFavoritesOffers = createAsyncThunk<void, void, ThunkApiConfig>
   },
 );
 
-export const fetchOffer = createAsyncThunk<void, {id: string}, ThunkApiConfig>(
-  'offers/detail',
-  async ({id}, {dispatch, extra: api}) => {
-    try {
-      const {data} = await api.get<OfferDetailed>(`${APIRoute.Offers}/${id}`);
-      dispatch(setDetailOffer(data));
-    } catch (error) {
-      dispatch(redirectToRoute(AppRoute.NotFound));
-    }
-  }
-);
-
 export const fetchNears = createAsyncThunk<void, {id: string}, ThunkApiConfig>(
   'nears/load',
   async ({id}, {dispatch, extra: api}) => {
@@ -62,39 +46,16 @@ export const fetchNears = createAsyncThunk<void, {id: string}, ThunkApiConfig>(
   }
 );
 
-export const fetchReviews = createAsyncThunk<void, {id: string}, ThunkApiConfig>(
-  'reviews/load',
-  async ({ id }, {dispatch, extra: api}) => {
-    const {data} = await api.get<Reviews>(`${APIRoute.Comments}/${id}`);
-    dispatch(setReviews(data));
-  }
-);
-
-export const postReview = createAsyncThunk<void, {id: string; info: ReviewInfoForm}, ThunkApiConfig>(
-  'reviews/load',
-  async ({ id, info }, {dispatch, extra: api}) => {
-    await api.post<Reviews>(`${APIRoute.Comments}/${id}`, info);
-    dispatch(fetchReviews({id}));
-  }
-);
-
-export const toggleFavorite = createAsyncThunk<void, { id: string; next: boolean }, ThunkApiConfig>(
+export const toggleFavorite = createAsyncThunk<Offer, { id: string; next: boolean }, ThunkApiConfig>(
   'offers/toggleFavorite',
-  async ({ id, next }, { dispatch, getState, extra: api }) => {
-    await api.post<OfferDetailed>(`${APIRoute.Favorites}/${id}/${+next}`);
-    const state = getState() ;
+  async ({ id, next }, { getState, extra: api }) => {
+    const data = await api.post<OfferDetailed>(`${APIRoute.Favorites}/${id}/${+next}`);
+    const state = getState();
+    const preview = state.offers.find((offer) => offer.id === id)?.previewImage;
 
-    const updated: Offer[] = state.offers.map((o) =>
-      o.id === id ? { ...o, isFavorite: next } : o
-    );
-    dispatch(setOffers(updated));
-    if (state.detailOffer && state.detailOffer.id === id) {
-      dispatch(setDetailOffer({ ...state.detailOffer, isFavorite: next }));
-    }
-    dispatch(fetchFavoritesOffers());
+    return {...data.data, previewImage: preview ?? data.data.images[0]};
   }
 );
-
 export const setAuthData =
   (status: AuthorizationStatus, user: UserInfo | null) =>
     (dispatch: AppDispatch) => {

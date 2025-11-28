@@ -1,9 +1,8 @@
 import { PlaceCard, PlaceCardType } from '../place-card';
 import { Offer, Offers } from '../../types/offer.ts';
 import {ToListType} from '../place-card/card-type.ts';
-import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
-import {useState} from 'react';
-import {toggleFavorite} from '../../store/api-actions.ts';
+import {useFavorite} from '../../hooks/use-favorites.ts';
+
 
 type PlacesListProps = {
   offers: Offers;
@@ -12,18 +11,7 @@ type PlacesListProps = {
 };
 
 export function PlacesList({ offers, type, onHover }: PlacesListProps) {
-  const dispatch = useAppDispatch();
-
-  const [pendingId, setPendingId] = useState<string | null>(null);
-  const onToggleBookmark = async (id: string, next: boolean) => {
-    setPendingId(id);
-    try {
-      await dispatch(toggleFavorite({ id, next }));
-    } finally {
-      setPendingId(null);
-    }
-  };
-  const isBookmarkPending = (id: string) => pendingId === id;
+  const {onToggleBookmark, isBookmarkPending} = useFavorite();
 
   return (
     <div className={ToListType(type)}>

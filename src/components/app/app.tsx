@@ -11,6 +11,7 @@ import {useAppSelector} from '../../hooks/use-app-selector.ts';
 import {Spinner} from '../spinner/spinner.tsx';
 import {HistoryRouter} from '../history-route/history-route.tsx';
 import browserHistory from '../../browser-history.ts';
+import {ScrollToTop} from '../../utils/scroll-to-top.ts';
 
 export function App() {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
@@ -24,6 +25,7 @@ export function App() {
 
   return (
     <HistoryRouter history={browserHistory}>
+      <ScrollToTop />
       <Routes>
         <Route element={<Layout/>}>
           <Route

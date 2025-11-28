@@ -1,15 +1,15 @@
-import {OfferDetailed, Offers} from '../types/offer.ts';
+import {Offers} from '../types/offer.ts';
 import {createReducer} from '@reduxjs/toolkit';
 import {
   requireAuthorization,
   setActiveCity,
   setActiveSortingType,
-  setDetailOffer, setError, setFavorites,
-  setOffers, setOffersLoadingStatus, setReviews, setUser,
+  setError, setFavorites,
+  setOffers, setOffersLoadingStatus, setUser,
 } from './action.ts';
 import {AuthorizationStatus, SortingType} from '../consts.ts';
-import {Reviews} from '../types/review.ts';
 import {UserInfo} from '../types/user.ts';
+import {toggleFavorite} from './api-actions.ts';
 
 type StoreState = {
   activeCity: string;
@@ -17,8 +17,6 @@ type StoreState = {
   offers: Offers;
   isOffersLoading: boolean;
   favoriteOffers: Offers;
-  detailOffer: OfferDetailed | null;
-  reviews: Reviews;
   authorizationStatus: AuthorizationStatus;
   user: UserInfo | null;
   errors: string | null;
@@ -30,8 +28,6 @@ const initialState: StoreState = {
   offers: [],
   isOffersLoading: false,
   favoriteOffers: [],
-  detailOffer: null,
-  reviews: [],
   authorizationStatus: AuthorizationStatus.Unknown,
   user: null,
   errors: null,
@@ -51,14 +47,8 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(setOffersLoadingStatus, (state, action) => {
       state.isOffersLoading = action.payload;
     })
-    .addCase(setDetailOffer, (state, action) => {
-      state.detailOffer = action.payload;
-    })
     .addCase(setActiveSortingType, (state, action) => {
       state.activeSortingType = action.payload;
-    })
-    .addCase(setReviews, (state, action) => {
-      state.reviews = action.payload;
     })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
@@ -68,5 +58,24 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setError, (state, action) => {
       state.errors = action.payload;
+    })
+    .addCase(toggleFavorite.fulfilled, (state, action) => {
+      const updatedOffer = action.payload;
+      state.offers = state.offers.map((offer) =>
+        offer.id === updatedOffer.id ? updatedOffer : offer
+      );
+
+      if (updatedOffer.isFavorite) {
+        const exists = state.favoriteOffers.some((o) => o.id === updatedOffer.id);
+        state.favoriteOffers = exists
+          ? state.favoriteOffers.map((o) =>
+            o.id === updatedOffer.id ? updatedOffer : o
+          )
+          : [...state.favoriteOffers, updatedOffer];
+      } else {
+        state.favoriteOffers = state.favoriteOffers.filter(
+          (o) => o.id !== updatedOffer.id,
+        );
+      }
     });
 });
