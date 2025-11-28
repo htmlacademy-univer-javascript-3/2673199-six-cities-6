@@ -2,7 +2,7 @@ import {PlaceCardType} from '../../components/place-card';
 import { Map } from '../../components/map/map.tsx';
 import {PlacesList} from '../../components/places-list/places-list.tsx';
 import {DetailedPlace} from '../../components/detailed-place/detailed-place.tsx';
-import {useParams} from 'react-router-dom';
+import {Navigate, useParams} from 'react-router-dom';
 import {Spinner} from '../../components/spinner/spinner.tsx';
 import {useOffer} from '../../hooks/use-offer.ts';
 import {useNears} from '../../hooks/use-nears.ts';
@@ -37,6 +37,9 @@ export function OfferScreen() {
 
   if (!detailOfferPending || detailOfferPending.isLoading || nears.isLoading) {
     return <Spinner/>;
+  }
+  if (detailOfferPending.error || nears.error) {
+    return <Navigate to="/notfound" replace />;
   }
 
   const detailOffer = detailOfferPending.data!;
