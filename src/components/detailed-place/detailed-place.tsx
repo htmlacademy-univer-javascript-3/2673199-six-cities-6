@@ -11,7 +11,7 @@ type DetailedPlaceProps = {
 export function DetailedPlace({ detailOffer}: DetailedPlaceProps) {
   const {onToggleBookmark, isBookmarkPending} = useFavorite();
   const offerFromStore = useAppSelector((state) =>
-    state.offers.find((offer) => offer.id === detailOffer.id)
+    state.offers.offers.find((offer) => offer.id === detailOffer.id)
   );
   const isFavorite = offerFromStore?.isFavorite ?? detailOffer.isFavorite;
 

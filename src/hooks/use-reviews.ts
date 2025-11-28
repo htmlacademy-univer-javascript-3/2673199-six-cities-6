@@ -1,13 +1,8 @@
-import {useCallback, useEffect, useState} from 'react';
+import {useCallback} from 'react';
 import {Reviews, Review} from '../types/review.ts';
 import {api} from '../store';
 import {APIRoute} from '../consts.ts';
-
-type ReviewsState = {
-  data: Reviews;
-  isLoading: boolean;
-  error: string | null;
-};
+import {useFetch} from './use-fetch.ts';
 
 type ReviewInfo = {
   rating: number;
@@ -15,47 +10,19 @@ type ReviewInfo = {
 };
 
 export function useReviews(offerId?: string) {
-  const [state, setState] = useState<ReviewsState>({
-    data: [],
-    isLoading: !!offerId,
-    error: null,
+  const {data, isLoading, error, reload} = useFetch<Reviews>({
+    deps: [offerId],
+    initialData: [],
+    fetcher: async () => {
+      if (!offerId) {
+        return [];
+      }
+      const {data: response} = await api.get<Reviews>(
+        `${APIRoute.Comments}/${offerId}`,
+      );
+      return response;
+    },
   });
-
-  const loadReviews = useCallback(async () => {
-    if (!offerId) {
-      setState({
-        data: [],
-        isLoading: false,
-        error: 'Не передан id оффера',
-      });
-      return;
-    }
-
-    setState((prev) => ({
-      ...prev,
-      isLoading: true,
-      error: null,
-    }));
-
-    try {
-      const {data} = await api.get<Reviews>(`${APIRoute.Comments}/${offerId}`);
-      setState({
-        data,
-        isLoading: false,
-        error: null,
-      });
-    } catch {
-      setState({
-        data: [],
-        isLoading: false,
-        error: 'Не удалось загрузить отзывы',
-      });
-    }
-  }, [offerId]);
-
-  useEffect(() => {
-    void loadReviews();
-  }, [loadReviews]);
 
   const sendReview = useCallback(
     async (info: ReviewInfo) => {
@@ -63,34 +30,20 @@ export function useReviews(offerId?: string) {
         return;
       }
 
-      setState((prev) => ({
-        ...prev,
-        isLoading: true,
-        error: null,
-      }));
+      await api.post<Review>(
+        `${APIRoute.Comments}/${offerId}`,
+        info,
+      );
 
-      try {
-        await api.post<Review>(
-          `${APIRoute.Comments}/${offerId}`,
-          info,
-        );
-
-        await loadReviews();
-      } catch {
-        setState((prev) => ({
-          ...prev,
-          isLoading: false,
-          error: 'Не удалось отправить отзыв',
-        }));
-      }
+      reload();
     },
-    [offerId, loadReviews],
+    [offerId, reload],
   );
 
   return {
-    reviews: state.data,
-    isLoading: state.isLoading,
-    error: state.error,
+    reviews: data,
+    isLoading,
+    error,
     sendReview,
   };
 }

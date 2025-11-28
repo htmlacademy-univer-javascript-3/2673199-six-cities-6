@@ -16,7 +16,7 @@ export function FavoritesScreen() {
     dispatch(fetchFavoritesOffers());
   }, [dispatch]);
 
-  const items = useAppSelector((state) => state.favoriteOffers);
+  const items = useAppSelector((state) => state.favorites.favoriteOffers);
 
   const favoriteOffersByCity = items
     .reduce<Record<string, Offers>>((acc, offer) => {

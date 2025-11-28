@@ -6,7 +6,7 @@ import {loginAction} from '../../store/api-actions.ts';
 import {LoginForm} from '../../components/forms/login/login-form.tsx';
 
 export function AuthScreen() {
-  const activeCity = useAppSelector((state) => state.activeCity);
+  const activeCity = useAppSelector((state) => state.city.activeCity);
   const dispatch = useAppDispatch();
 
   return (

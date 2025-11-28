@@ -3,7 +3,7 @@ import {StatusCodes} from 'http-status-codes';
 import axios, {AxiosError, AxiosInstance, AxiosResponse, InternalAxiosRequestConfig} from 'axios';
 import {AppDispatch, State} from '../types/state.ts';
 import {store} from '../store';
-import {setError} from '../store/action.ts';
+import {setError} from '../store/reducers/user-slice/user-slice.ts';
 
 type DetailMessageType = {
   type: string;

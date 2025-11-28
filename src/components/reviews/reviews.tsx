@@ -11,7 +11,7 @@ export type OfferReviewsProps = {
 }
 
 export function OfferReviews({offerId}: OfferReviewsProps) {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector((state) => state.user.authorizationStatus);
   const {reviews, isLoading, sendReview } = useReviews(offerId);
 
   if (isLoading) {
