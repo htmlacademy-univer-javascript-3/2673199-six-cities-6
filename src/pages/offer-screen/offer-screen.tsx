@@ -1,6 +1,6 @@
 import {PlaceCardType} from '../../components/place-card';
 import { Map } from '../../components/map/map.tsx';
-import {PlacesList} from '../../components/places-list/places-list.tsx';
+import {PlacesListMemo} from '../../components/places-list/places-list.tsx';
 import {DetailedPlace} from '../../components/detailed-place/detailed-place.tsx';
 import {Navigate, useParams} from 'react-router-dom';
 import {Spinner} from '../../components/spinner/spinner.tsx';
@@ -64,7 +64,7 @@ export function OfferScreen() {
           <h2 className="near-places__title">
             Other places in the neighbourhood
           </h2>
-          <PlacesList
+          <PlacesListMemo
             offers={nearsOffers}
             onHover={() => {}}
             type={PlaceCardType.Offer}

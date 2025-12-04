@@ -1,8 +1,8 @@
-import {useCallback} from 'react';
-import {Reviews, Review} from '../types/review.ts';
-import {api} from '../store';
-import {APIRoute} from '../consts.ts';
-import {useFetch} from './use-fetch.ts';
+import { useCallback } from 'react';
+import { Reviews, Review } from '../types/review.ts';
+import { api } from '../store';
+import { APIRoute } from '../consts.ts';
+import { useFetch } from './use-fetch.ts';
 
 type ReviewInfo = {
   rating: number;
@@ -10,15 +10,15 @@ type ReviewInfo = {
 };
 
 export function useReviews(offerId?: string) {
-  const {data, isLoading, error, reload} = useFetch<Reviews>({
+  const { data, setData, isLoading, error } = useFetch<Reviews>({
     deps: [offerId],
     initialData: [],
     fetcher: async () => {
       if (!offerId) {
         return [];
       }
-      const {data: response} = await api.get<Reviews>(
-        `${APIRoute.Comments}/${offerId}`,
+      const { data: response } = await api.get<Reviews>(
+        `${APIRoute.Comments}/${offerId}`
       );
       return response;
     },
@@ -30,14 +30,14 @@ export function useReviews(offerId?: string) {
         return;
       }
 
-      await api.post<Review>(
+      const { data: newReview } = await api.post<Review>(
         `${APIRoute.Comments}/${offerId}`,
-        info,
+        info
       );
 
-      reload();
+      setData((prev) => [...prev, newReview]);
     },
-    [offerId, reload],
+    [offerId, setData]
   );
 
   return {

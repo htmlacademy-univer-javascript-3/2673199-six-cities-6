@@ -1,8 +1,11 @@
 import {OfferBookmarkButton} from '../place-card';
-import {OfferReviews} from '../reviews/reviews.tsx';
+import {OfferReviewsMemo} from '../reviews/reviews.tsx';
 import {OfferDetailed} from '../../types/offer.ts';
 import {useFavorite} from '../../hooks/use-favorites.ts';
 import {useAppSelector} from '../../hooks/use-app-selector.ts';
+import {MarkMemo} from '../mark/mark.tsx';
+import {PriceMemo} from '../price/price.tsx';
+import {Rating} from '../rating/rating.tsx';
 
 type DetailedPlaceProps = {
   detailOffer: OfferDetailed;
@@ -18,11 +21,7 @@ export function DetailedPlace({ detailOffer}: DetailedPlaceProps) {
   return (
     <div className="offer__container container">
       <div className="offer__wrapper">
-        {detailOffer.isPremium && (
-          <div className="offer__mark">
-            <span>Premium</span>
-          </div>
-        )}
+        <MarkMemo isPremium={detailOffer.isPremium} className="offer__mark"/>
         <div className="offer__name-wrapper">
           <h1 className="offer__name">{detailOffer.title}</h1>
           <OfferBookmarkButton
@@ -31,22 +30,13 @@ export function DetailedPlace({ detailOffer}: DetailedPlaceProps) {
             pending={isBookmarkPending(detailOffer.id)}
           />
         </div>
-        <div className="offer__rating rating">
-          <div className="offer__stars rating__stars">
-            <span style={{width: `${(detailOffer.rating / 5) * 100}%`}}></span>
-            <span className="visually-hidden">Rating</span>
-          </div>
-          <span className="offer__rating-value rating__value">{detailOffer.rating}</span>
-        </div>
+        <Rating rating={detailOffer.rating} className="offer" showValue/>
         <ul className="offer__features">
           <li className="offer__feature offer__feature--entire">{detailOffer.type}</li>
           <li className="offer__feature offer__feature--bedrooms">{detailOffer.bedrooms} Bedrooms</li>
           <li className="offer__feature offer__feature--adults">Max {detailOffer.maxAdults} adults</li>
         </ul>
-        <div className="offer__price">
-          <b className="offer__price-value">&euro;{detailOffer.price}</b>
-          <span className="offer__price-text">&nbsp;night</span>
-        </div>
+        <PriceMemo price={detailOffer.price} className="offer__price"/>
         <div className="offer__inside">
           <h2 className="offer__inside-title">What&apos;s inside</h2>
           <ul className="offer__inside-list">
@@ -78,7 +68,7 @@ export function DetailedPlace({ detailOffer}: DetailedPlaceProps) {
             <p className="offer__text">{detailOffer.description}</p>
           </div>
         </div>
-        <OfferReviews offerId={detailOffer.id}/>
+        <OfferReviewsMemo offerId={detailOffer.id}/>
       </div>
     </div>
   );

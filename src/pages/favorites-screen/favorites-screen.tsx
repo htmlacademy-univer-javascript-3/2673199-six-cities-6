@@ -1,13 +1,11 @@
-import {PlaceCardType} from '../../components/place-card';
 import {Offers} from '../../types/offer.ts';
-import {AppRoute, emptyStates} from '../../consts.ts';
-import {Link} from 'react-router-dom';
+import {emptyStates} from '../../consts.ts';
 import {EmptyState} from '../../components/empty-state/empty-state.tsx';
-import {PlacesList} from '../../components/places-list/places-list.tsx';
 import {useAppSelector} from '../../hooks/use-app-selector.ts';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
-import {useEffect} from 'react';
+import {useEffect, useMemo} from 'react';
 import {fetchFavoritesOffers} from '../../store/api-actions.ts';
+import {FavoriteCityBlockMemo} from '../../components/favorite-city-block/favorite-city-block.tsx';
 
 
 export function FavoritesScreen() {
@@ -18,15 +16,14 @@ export function FavoritesScreen() {
 
   const items = useAppSelector((state) => state.favorites.favoriteOffers);
 
-  const favoriteOffersByCity = items
-    .reduce<Record<string, Offers>>((acc, offer) => {
-      const cityName = offer.city.name;
-      if (!acc[cityName]) {
-        acc[cityName] = [];
-      }
-      acc[cityName].push(offer);
-      return acc;
-    }, {});
+  const favoriteOffersByCity = useMemo(() => items.reduce<Record<string, Offers>>((acc, offer) => {
+    const cityName = offer.city.name;
+    if (!acc[cityName]) {
+      acc[cityName] = [];
+    }
+    acc[cityName].push(offer);
+    return acc;
+  }, {}), [items]);
 
   return (
     <main className="page__main page__main--favorites">
@@ -37,20 +34,7 @@ export function FavoritesScreen() {
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
               {Object.entries(favoriteOffersByCity).map(([cityName, cityOffers]) => (
-                <li className="favorites__locations-items" key={cityName}>
-                  <div className="favorites__locations locations locations--current">
-                    <div className="locations__item">
-                      <Link to={AppRoute.Main} className="locations__item-link">
-                        <span>{cityName}</span>
-                      </Link>
-                    </div>
-                  </div>
-                  <PlacesList
-                    offers={cityOffers}
-                    type={PlaceCardType.Favorite}
-                    onHover={null}
-                  />
-                </li>
+                <FavoriteCityBlockMemo cityName={cityName} cityOffers={cityOffers} key={cityName} />
               ))}
             </ul>
           </section>}

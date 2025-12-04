@@ -1,10 +1,13 @@
 import {Link} from 'react-router-dom';
 import {MouseEvent} from 'react';
 import {AppRoute, AuthorizationStatus} from '../../consts.ts';
-import {LogoLink} from './logo-link.tsx';
+import {LogoLinkMemo} from './logo-link.tsx';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
 import {logoutAction} from '../../store/api-actions.ts';
 import {useAppSelector} from '../../hooks/use-app-selector.ts';
+import {setFavorites} from '../../store/reducers/favorites-slice/favorites-slice.ts';
+import {setUser} from '../../store/reducers/user-slice/user-slice.ts';
+import {setOffers} from '../../store/reducers/offers-slice/offers-slice.ts';
 
 export type UserHeaderProps = {
   authState: AuthorizationStatus;
@@ -14,15 +17,21 @@ export function UserHeader({authState}: UserHeaderProps) {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.user);
   const favorites = useAppSelector((state) => state.favorites.favoriteOffers);
+  const offers = useAppSelector((state) => state.offers.offers);
 
   const handleLogoutClick = (evt: MouseEvent<HTMLAnchorElement>) => {
     evt.preventDefault();
     dispatch(logoutAction());
+    dispatch(setFavorites([]));
+    dispatch(setUser(null));
+    dispatch(setOffers(
+      offers.map((offer) => ({ ...offer, isFavorite: false }))
+    ));
   };
 
   return (
     <>
-      <LogoLink src={'/img/logo.svg'}/>
+      <LogoLinkMemo src={'/img/logo.svg'}/>
 
       <nav className="header__nav">
         <ul className="header__nav-list">

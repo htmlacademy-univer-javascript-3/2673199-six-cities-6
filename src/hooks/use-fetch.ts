@@ -1,7 +1,8 @@
-import {useEffect, useState} from 'react';
+import {Dispatch, SetStateAction, useEffect, useState} from 'react';
 
 export type FetchState<T> = {
   data: T;
+  setData: Dispatch<SetStateAction<T>>;
   isLoading: boolean;
   error: string | null;
   reload: () => void;
@@ -54,5 +55,5 @@ export function useFetch<T>({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [...deps, reloadIndex]);
 
-  return {data, isLoading, error, reload};
+  return {data, setData, isLoading, error, reload};
 }

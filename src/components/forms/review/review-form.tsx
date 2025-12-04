@@ -24,11 +24,11 @@ export function ReviewsForm({onSubmit}: LoginFormProps) {
     if (!isValid) {
       return;
     }
-    setForm({ rating: 0, comment: '' });
     onSubmit({
       rating: form.rating,
       comment: form.comment.trim(),
     });
+    setForm({ rating: 0, comment: '' });
   };
 
   return (

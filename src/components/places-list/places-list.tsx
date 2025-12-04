@@ -1,7 +1,9 @@
-import { PlaceCard, PlaceCardType } from '../place-card';
+import { PlaceCardType } from '../place-card';
 import { Offer, Offers } from '../../types/offer.ts';
 import {ToListType} from '../place-card/card-type.ts';
 import {useFavorite} from '../../hooks/use-favorites.ts';
+import {PlaceCardMemo} from '../place-card/place-card.tsx';
+import {memo} from 'react';
 
 
 type PlacesListProps = {
@@ -22,7 +24,7 @@ export function PlacesList({ offers, type, onHover }: PlacesListProps) {
             onMouseEnter={() => onHover(place)}
             onMouseLeave={() => onHover(null)}
           >
-            <PlaceCard
+            <PlaceCardMemo
               innerType={type}
               onToggleBookmark={() => void onToggleBookmark(place.id, !place.isFavorite)}
               isBookmarkPending={isBookmarkPending(place.id)}
@@ -30,7 +32,7 @@ export function PlacesList({ offers, type, onHover }: PlacesListProps) {
             />
           </div>
         ) : (
-          <PlaceCard
+          <PlaceCardMemo
             key={place.id}
             innerType={type}
             onToggleBookmark={() => void onToggleBookmark(place.id, !place.isFavorite)}
@@ -43,3 +45,4 @@ export function PlacesList({ offers, type, onHover }: PlacesListProps) {
   );
 }
 
+export const PlacesListMemo = memo(PlacesList);

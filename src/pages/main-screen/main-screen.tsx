@@ -1,5 +1,4 @@
-import {useEffect, useState} from 'react';
-import { Offer } from '../../types/offer.ts';
+import {useEffect} from 'react';
 import { CityPlaces } from '../../components/city-places/city-places.tsx';
 import {useAppSelector} from '../../hooks/use-app-selector.ts';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
@@ -23,8 +22,6 @@ export function MainScreen() {
     .filter((offer) => offer.city.name === activeCity)
     .sort(getSortingFunc(activeSortingType));
 
-  const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
-
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
@@ -35,8 +32,6 @@ export function MainScreen() {
       <CityPlaces
         activeCity={activeCity}
         offers={filteredOffers}
-        activeOffer={activeOffer}
-        onHover={setActiveOffer}
       />
     </main>
   );

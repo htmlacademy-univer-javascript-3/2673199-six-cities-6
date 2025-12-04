@@ -1,26 +1,26 @@
 import {Offer, Offers} from '../../types/offer.ts';
-import {PlacesList} from '../places-list/places-list.tsx';
+import {PlacesListMemo} from '../places-list/places-list.tsx';
 import {Map} from '../map/map.tsx';
 import {PlaceCardType} from '../place-card';
 import {EmptyState} from '../empty-state/empty-state.tsx';
 import {emptyStates} from '../../consts.ts';
-import {SortingOptions} from '../sorting-options/sorting-options.tsx';
+import {SortingOptionsMemo} from '../sorting-options/sorting-options.tsx';
 import {ScrollToTop} from '../../utils/scroll-to-top.ts';
+import {useState} from 'react';
 
 type CityPlacesProps = {
   activeCity: string;
   offers: Offers;
-  activeOffer: Offer | null;
-  onHover: (offer: Offer | null) => void;
 };
 
-export function CityPlaces({ activeCity, offers, activeOffer, onHover }: CityPlacesProps) {
+export function CityPlaces({ activeCity, offers }: CityPlacesProps) {
+  const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
+
   if (offers.length === 0) {
     return (
       <>
         <ScrollToTop
           deps={[activeCity]}
-          behavior="smooth"
           getTarget={() =>
             document.querySelector(
               '.cities__places'
@@ -39,7 +39,6 @@ export function CityPlaces({ activeCity, offers, activeOffer, onHover }: CityPla
       <div className="cities__places-container container">
         <ScrollToTop
           deps={[activeCity]}
-          behavior="smooth"
           getTarget={() =>
             document.querySelector(
               '.cities__places'
@@ -49,11 +48,11 @@ export function CityPlaces({ activeCity, offers, activeOffer, onHover }: CityPla
           <b className="places__found">
             {offers.length} places to stay in {activeCity}
           </b>
-          <SortingOptions/>
-          <PlacesList
+          <SortingOptionsMemo/>
+          <PlacesListMemo
             offers={offers}
             type={PlaceCardType.Main}
-            onHover={onHover}
+            onHover={setActiveOffer}
           />
         </section>
         <div className="cities__right-section">

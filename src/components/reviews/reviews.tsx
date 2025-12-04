@@ -5,12 +5,13 @@ import {AppRoute, AuthorizationStatus} from '../../consts.ts';
 import {Link} from 'react-router-dom';
 import {useReviews} from '../../hooks/use-reviews.ts';
 import {Spinner} from '../spinner/spinner.tsx';
+import {memo} from 'react';
 
-export type OfferReviewsProps = {
+type OfferReviewsProps = {
   offerId: string;
 }
 
-export function OfferReviews({offerId}: OfferReviewsProps) {
+function OfferReviews({offerId}: OfferReviewsProps) {
   const authorizationStatus = useAppSelector((state) => state.user.authorizationStatus);
   const {reviews, isLoading, sendReview } = useReviews(offerId);
 
@@ -30,3 +31,5 @@ export function OfferReviews({offerId}: OfferReviewsProps) {
     </section>
   );
 }
+
+export const OfferReviewsMemo = memo(OfferReviews);

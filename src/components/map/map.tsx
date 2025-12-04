@@ -44,7 +44,7 @@ export function Map({ offers, className, activeOfferId }: MapProps) {
       return;
     }
 
-    map.flyTo([city.latitude, city.longitude], city.zoom);
+    map.setView([city.latitude, city.longitude], city.zoom, {animate: false});
   }, [offers]);
 
   useEffect(() => {
