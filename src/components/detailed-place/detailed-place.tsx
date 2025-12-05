@@ -1,11 +1,12 @@
-import {OfferBookmarkButton} from '../place-card';
 import {OfferReviewsMemo} from '../reviews/reviews.tsx';
 import {OfferDetailed} from '../../types/offer.ts';
 import {useFavorite} from '../../hooks/use-favorites.ts';
 import {useAppSelector} from '../../hooks/use-app-selector.ts';
 import {MarkMemo} from '../mark/mark.tsx';
 import {PriceMemo} from '../price/price.tsx';
-import {Rating} from '../rating/rating.tsx';
+import {RatingMemo} from '../rating/rating.tsx';
+import {useCallback} from 'react';
+import {OfferBookmarkButtonMemo} from '../bookmark-button/bookmark-button.tsx';
 
 type DetailedPlaceProps = {
   detailOffer: OfferDetailed;
@@ -17,6 +18,10 @@ export function DetailedPlace({ detailOffer}: DetailedPlaceProps) {
     state.offers.offers.find((offer) => offer.id === detailOffer.id)
   );
   const isFavorite = offerFromStore?.isFavorite ?? detailOffer.isFavorite;
+  const handleToggleBookmark = useCallback(
+    () => void onToggleBookmark(detailOffer.id, !isFavorite),
+    [onToggleBookmark, detailOffer.id, isFavorite]
+  );
 
   return (
     <div className="offer__container container">
@@ -24,13 +29,13 @@ export function DetailedPlace({ detailOffer}: DetailedPlaceProps) {
         <MarkMemo isPremium={detailOffer.isPremium} className="offer__mark"/>
         <div className="offer__name-wrapper">
           <h1 className="offer__name">{detailOffer.title}</h1>
-          <OfferBookmarkButton
+          <OfferBookmarkButtonMemo
             isActive={isFavorite}
-            onToggle={() => void onToggleBookmark(detailOffer.id, !isFavorite)}
+            onToggle={handleToggleBookmark}
             pending={isBookmarkPending(detailOffer.id)}
           />
         </div>
-        <Rating rating={detailOffer.rating} className="offer" showValue/>
+        <RatingMemo rating={detailOffer.rating} className="offer" showValue/>
         <ul className="offer__features">
           <li className="offer__feature offer__feature--entire">{detailOffer.type}</li>
           <li className="offer__feature offer__feature--bedrooms">{detailOffer.bedrooms} Bedrooms</li>

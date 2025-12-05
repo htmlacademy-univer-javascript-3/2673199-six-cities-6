@@ -6,7 +6,7 @@ import {Navigate, useParams} from 'react-router-dom';
 import {Spinner} from '../../components/spinner/spinner.tsx';
 import {useOffer} from '../../hooks/use-offer.ts';
 import {useNears} from '../../hooks/use-nears.ts';
-import {useMemo} from 'react';
+import {useCallback, useMemo} from 'react';
 import {useAppSelector} from '../../hooks/use-app-selector.ts';
 import {Offers} from '../../types/offer.ts';
 import {AppRoute} from '../../consts.ts';
@@ -33,7 +33,9 @@ export function OfferScreen() {
       };
     });
   }, [nears.data, offersFromStore]);
-  const nearsOffers = mergedItems.slice(0, 3);
+  const nearsOffers = useMemo(() => mergedItems.slice(0, 3), [mergedItems]);
+  const noop = useCallback(() => {}, []);
+
 
   if (!detailOfferPending || detailOfferPending.isLoading || nears.isLoading) {
     return <Spinner/>;
@@ -66,7 +68,7 @@ export function OfferScreen() {
           </h2>
           <PlacesListMemo
             offers={nearsOffers}
-            onHover={() => {}}
+            onHover={noop}
             type={PlaceCardType.Offer}
           />
         </section>

@@ -3,7 +3,7 @@ import { Offer, Offers } from '../../types/offer.ts';
 import {ToListType} from '../place-card/card-type.ts';
 import {useFavorite} from '../../hooks/use-favorites.ts';
 import {PlaceCardMemo} from '../place-card/place-card.tsx';
-import {memo} from 'react';
+import {memo, useCallback} from 'react';
 
 
 type PlacesListProps = {
@@ -14,6 +14,12 @@ type PlacesListProps = {
 
 export function PlacesList({ offers, type, onHover }: PlacesListProps) {
   const {onToggleBookmark, isBookmarkPending} = useFavorite();
+  const handleToggleBookmark = useCallback(
+    (id: string, isFavorite: boolean) => {
+      void onToggleBookmark(id, !isFavorite);
+    },
+    [onToggleBookmark]
+  );
 
   return (
     <div className={ToListType(type)}>
@@ -26,7 +32,7 @@ export function PlacesList({ offers, type, onHover }: PlacesListProps) {
           >
             <PlaceCardMemo
               innerType={type}
-              onToggleBookmark={() => void onToggleBookmark(place.id, !place.isFavorite)}
+              onToggleBookmark={handleToggleBookmark}
               isBookmarkPending={isBookmarkPending(place.id)}
               {...place}
             />
@@ -35,7 +41,7 @@ export function PlacesList({ offers, type, onHover }: PlacesListProps) {
           <PlaceCardMemo
             key={place.id}
             innerType={type}
-            onToggleBookmark={() => void onToggleBookmark(place.id, !place.isFavorite)}
+            onToggleBookmark={handleToggleBookmark}
             isBookmarkPending={isBookmarkPending(place.id)}
             {...place}
           />

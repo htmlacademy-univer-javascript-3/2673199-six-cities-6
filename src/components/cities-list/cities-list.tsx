@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom';
 import { cities } from '../../consts.ts';
+import {memo} from 'react';
 
 type CitiesListProps = {
   activeCity: string;
   onCityChange: (city: string) => void;
 };
 
-export function CitiesList({ activeCity, onCityChange }: CitiesListProps) {
+function CitiesList({ activeCity, onCityChange }: CitiesListProps) {
   return (
     <div className="tabs">
       <section className="locations container">
@@ -29,3 +30,5 @@ export function CitiesList({ activeCity, onCityChange }: CitiesListProps) {
     </div>
   );
 }
+
+export const CitiesListMemo = memo(CitiesList);

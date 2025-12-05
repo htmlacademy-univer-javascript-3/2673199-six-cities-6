@@ -66,7 +66,7 @@ function BookmarkButton({
 
 const BookmarkButtonMemo = memo(BookmarkButton);
 
-export function PlaceCardBookmarkButton(props: Omit<BookmarkButtonProps, 'className' | 'iconClassName' | 'iconWidth' | 'iconHeight'>) {
+function PlaceCardBookmarkButton(props: Omit<BookmarkButtonProps, 'className' | 'iconClassName' | 'iconWidth' | 'iconHeight'>) {
   return (
     <BookmarkButtonMemo
       {...props}
@@ -78,9 +78,11 @@ export function PlaceCardBookmarkButton(props: Omit<BookmarkButtonProps, 'classN
   );
 }
 
-export function OfferBookmarkButton(props: Omit<BookmarkButtonProps, 'className' | 'iconClassName' | 'iconWidth' | 'iconHeight'>) {
+export const PlaceCardBookmarkButtonMemo = memo(PlaceCardBookmarkButton);
+
+function OfferBookmarkButton(props: Omit<BookmarkButtonProps, 'className' | 'iconClassName' | 'iconWidth' | 'iconHeight'>) {
   return (
-    <BookmarkButton
+    <BookmarkButtonMemo
       {...props}
       className="offer__bookmark-button"
       iconClassName="offer__bookmark-icon"
@@ -90,3 +92,4 @@ export function OfferBookmarkButton(props: Omit<BookmarkButtonProps, 'className'
   );
 }
 
+export const OfferBookmarkButtonMemo = memo(OfferBookmarkButton);
