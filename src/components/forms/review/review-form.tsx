@@ -1,5 +1,5 @@
 import {FormEvent, Fragment, useState} from 'react';
-import {MAX_REVIEW_LEN, MIN_REVIEW_LEN} from '../../../consts.ts';
+import {ReviewLen} from '../../../consts.ts';
 import {useDispatch} from 'react-redux';
 import {setError} from '../../../store/reducers/user-slice/user-slice.ts';
 
@@ -21,8 +21,8 @@ export function ReviewsForm({onSubmit}: LoginFormProps) {
   const dispatch = useDispatch();
 
   const isValid = form.rating > 0
-    && form.comment.trim().length >= MIN_REVIEW_LEN
-    && form.comment.trim().length <= MAX_REVIEW_LEN;
+    && form.comment.trim().length >= ReviewLen.Min
+    && form.comment.trim().length <= ReviewLen.Max;
 
   const handleSubmit = (evt: FormEvent) => {
     evt.preventDefault();

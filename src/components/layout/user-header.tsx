@@ -9,13 +9,13 @@ import {setUser} from '../../store/reducers/user-slice/user-slice.ts';
 import {setOffers} from '../../store/reducers/offers-slice/offers-slice.ts';
 
 type LogoutProps = {
-  handleLogout: (evt: MouseEvent<HTMLAnchorElement>) => void;
+  onLogout: (evt: MouseEvent<HTMLAnchorElement>) => void;
 }
 
-function LogoutNavItem({handleLogout}: LogoutProps) {
+function LogoutNavItem({onLogout}: LogoutProps) {
   return (
     <li className="header__nav-item">
-      <Link className="header__nav-link" to={AppRoute.Main} onClick={handleLogout}>
+      <Link className="header__nav-link" to={AppRoute.Main} onClick={onLogout}>
         <span className="header__signout">Sign out</span>
       </Link>
     </li>
@@ -87,7 +87,7 @@ function UserHeader({authState}: UserHeaderProps) {
               isPro={user.isPro}
               favoriteCount={favorites.length}
             />
-            <LogoutNavItem handleLogout={handleLogoutClick}/>
+            <LogoutNavItem onLogout={handleLogoutClick}/>
           </>
         ) : (
           <UserNavItemMemo

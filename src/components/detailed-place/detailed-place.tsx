@@ -69,8 +69,8 @@ export function DetailedPlace({ detailOffer}: DetailedPlaceProps) {
         <div className="offer__inside">
           <h2 className="offer__inside-title">What&apos;s inside</h2>
           <ul className="offer__inside-list">
-            {detailOffer.goods.map((good, idx) => (
-              <li className="offer__inside-item" key={`Offer ${idx + 1}`}>{good}</li>
+            {detailOffer.goods.map((good) => (
+              <li className="offer__inside-item" key={good}>{good}</li>
             ))}
           </ul>
         </div>

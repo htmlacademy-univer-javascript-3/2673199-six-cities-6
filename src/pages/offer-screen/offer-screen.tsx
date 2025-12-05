@@ -51,7 +51,7 @@ export function OfferScreen() {
         <div className="offer__gallery-container container">
           <div className="offer__gallery">
             {detailOffer.images.map((imgUrl, index) => (
-              <div className="offer__image-wrapper" key={`image wrapper ${index + 1}`}>
+              <div className="offer__image-wrapper" key={imgUrl}>
                 <img className="offer__image" src={imgUrl} alt={`Photo ${index + 1}`} />
               </div>
             )).slice(0, MAX_PHOTOS_LEN)}

@@ -52,11 +52,12 @@ export const EmptyStates = {
   })
 };
 
+export const ReviewLen = {
+  Min: 50,
+  Max: 300,
+};
+
 export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
-
-export const MIN_REVIEW_LEN = 50;
-export const MAX_REVIEW_LEN = 300;
-
 export const MAX_REVIEWS_LEN = 10;
 export const MAX_NEARS_LEN = 3;
 export const MAX_PHOTOS_LEN = 6;
