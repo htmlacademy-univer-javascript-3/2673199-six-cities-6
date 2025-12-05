@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { Reviews, Review } from '../types/review.ts';
+import { Reviews, Review } from '../types';
 import { api } from '../store';
 import { APIRoute } from '../consts.ts';
 import { useFetch } from './use-fetch.ts';

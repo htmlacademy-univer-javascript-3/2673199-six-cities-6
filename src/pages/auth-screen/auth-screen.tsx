@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import {AppRoute, CITIES} from '../../consts.ts';
-import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
+import {useAppDispatch} from '../../hooks';
 import {loginAction} from '../../store/api-actions.ts';
 import {LoginForm} from '../../components/forms/login/login-form.tsx';
 import {setActiveCity} from '../../store/reducers/city-slice/city-slice.ts';

@@ -4,11 +4,11 @@ import {PlacesListMemo} from '../../components/places-list/places-list.tsx';
 import {DetailedPlace} from '../../components/detailed-place/detailed-place.tsx';
 import {Navigate, useParams} from 'react-router-dom';
 import {Spinner} from '../../components/spinner/spinner.tsx';
-import {useOffer} from '../../hooks/use-offer.ts';
-import {useNears} from '../../hooks/use-nears.ts';
+import {useOffer} from '../../hooks';
+import {useNears} from '../../hooks';
 import {useMemo} from 'react';
-import {useAppSelector} from '../../hooks/use-app-selector.ts';
-import {Offers} from '../../types/offer.ts';
+import {useAppSelector} from '../../hooks';
+import {Offers} from '../../types';
 import {AppRoute, MAX_NEARS_LEN, MAX_PHOTOS_LEN} from '../../consts.ts';
 
 

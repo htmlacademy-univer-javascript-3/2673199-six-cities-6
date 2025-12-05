@@ -5,10 +5,10 @@ import {PlaceTitle} from './place-title.tsx';
 import {ImageWrapper} from './image-wrapper.tsx';
 import {Mark} from '../mark/mark.tsx';
 import {PlaceCardType, ToArticleType} from './card-type.ts';
-import {Offer} from '../../types/offer.ts';
+import {Offer} from '../../types';
 import {memo} from 'react';
 
-export type OfferProps = {
+type OfferProps = {
   innerType: PlaceCardType;
   onToggleBookmark: (id: string, next: boolean) => void;
   isBookmarkPending?: boolean;

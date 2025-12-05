@@ -1,7 +1,7 @@
 import {useCallback, useEffect} from 'react';
 import { CityPlaces } from '../../components/city-places/city-places.tsx';
-import {useAppSelector} from '../../hooks/use-app-selector.ts';
-import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
+import {useAppSelector} from '../../hooks';
+import {useAppDispatch} from '../../hooks';
 import {CitiesListMemo} from '../../components/cities-list/cities-list.tsx';
 import {getSortingFunc} from '../../utils/sorting.ts';
 import {fetchOffers} from '../../store/api-actions.ts';

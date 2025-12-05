@@ -1,8 +1,8 @@
-import {Offers} from '../../types/offer.ts';
+import {Offers} from '../../types';
 import {EmptyStates} from '../../consts.ts';
 import {EmptyState} from '../../components/empty-state/empty-state.tsx';
-import {useAppSelector} from '../../hooks/use-app-selector.ts';
-import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
+import {useAppSelector} from '../../hooks';
+import {useAppDispatch} from '../../hooks';
 import {useEffect, useMemo} from 'react';
 import {fetchFavoritesOffers} from '../../store/api-actions.ts';
 import {FavoriteCityBlockMemo} from '../../components/favorite-city-block/favorite-city-block.tsx';

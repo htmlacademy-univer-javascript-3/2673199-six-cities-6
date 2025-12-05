@@ -1,7 +1,7 @@
 import {generatePath, Link} from 'react-router-dom';
 import {AppRoute} from '../../consts.ts';
 
-export type PlaceTitleProps = {
+type PlaceTitleProps = {
   placeName: string;
   placeType: string;
   id: string;

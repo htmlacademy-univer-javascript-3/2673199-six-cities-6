@@ -1,11 +1,11 @@
-import {Offer, Offers} from '../../types/offer.ts';
+import {Offer, Offers} from '../../types';
 import {PlacesListMemo} from '../places-list/places-list.tsx';
 import {Map} from '../map/map.tsx';
 import {PlaceCardType} from '../place-card';
 import {EmptyState} from '../empty-state/empty-state.tsx';
 import {EmptyStates} from '../../consts.ts';
 import {SortingOptionsMemo} from '../sorting-options/sorting-options.tsx';
-import {ScrollToTop} from '../../utils/scroll-to-top.ts';
+import {ScrollToTop} from '../../utils';
 import {useState} from 'react';
 
 type CityPlacesProps = {

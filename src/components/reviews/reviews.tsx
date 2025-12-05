@@ -1,9 +1,9 @@
 import {ReviewsList} from './reviews-list.tsx';
 import {ReviewsForm} from '../forms/review/review-form.tsx';
-import {useAppSelector} from '../../hooks/use-app-selector.ts';
+import {useAppSelector} from '../../hooks';
 import {AppRoute, AuthorizationStatus, MAX_REVIEWS_LEN} from '../../consts.ts';
 import {Link} from 'react-router-dom';
-import {useReviews} from '../../hooks/use-reviews.ts';
+import {useReviews} from '../../hooks';
 import {Spinner} from '../spinner/spinner.tsx';
 import {memo} from 'react';
 

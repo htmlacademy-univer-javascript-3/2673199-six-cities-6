@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {UserInfo} from '../../../types/user.ts';
+import {UserInfo} from '../../../types';
 import {AuthorizationStatus} from '../../../consts.ts';
 
 

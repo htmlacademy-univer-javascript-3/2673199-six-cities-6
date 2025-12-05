@@ -1,20 +1,27 @@
+// services/api.ts
 import {getToken} from './token';
 import {StatusCodes} from 'http-status-codes';
-import axios, {AxiosError, AxiosInstance, AxiosResponse, InternalAxiosRequestConfig} from 'axios';
-import {AppDispatch, State} from '../types/state.ts';
-import {store} from '../store';
-import {setError} from '../store/reducers/user-slice/user-slice.ts';
+import axios, {
+  AxiosError,
+  AxiosInstance,
+  AxiosResponse,
+  InternalAxiosRequestConfig
+} from 'axios';
+import {AppDispatch, State} from '../types';
 
 type DetailMessageType = {
   type: string;
   message: string;
-}
+};
 
 export type ThunkApiConfig = {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 };
+
+const BACKEND_URL = 'https://14.design.htmlacademy.pro/six-cities';
+const REQUEST_TIMEOUT = 5000;
 
 const StatusCodeMapping: Record<number, boolean> = {
   [StatusCodes.BAD_REQUEST]: true,
@@ -24,38 +31,33 @@ const StatusCodeMapping: Record<number, boolean> = {
   [StatusCodes.NOT_FOUND]: false,
 };
 
-export function shouldDisplayError(response: AxiosResponse) {
+function shouldDisplayError(response: AxiosResponse) {
   const status = response.status;
   return StatusCodeMapping[status] ?? true;
 }
 
-const BACKEND_URL = 'https://14.design.htmlacademy.pro/six-cities';
-const REQUEST_TIMEOUT = 5000;
-
-export const createAPI = (): AxiosInstance => {
+export const createAPI = (onError: (message: string) => void): AxiosInstance => {
   const api = axios.create({
     baseURL: BACKEND_URL,
     timeout: REQUEST_TIMEOUT,
   });
 
-  api.interceptors.request.use(
-    (config: InternalAxiosRequestConfig) => {
-      const token = getToken();
+  api.interceptors.request.use((config: InternalAxiosRequestConfig) => {
+    const token = getToken();
 
-      if (token && config.headers) {
-        config.headers['x-token'] = token;
-      }
+    if (token && config.headers) {
+      config.headers['x-token'] = token;
+    }
 
-      return config;
-    },
-  );
+    return config;
+  });
 
   api.interceptors.response.use(
     (response) => response,
     (error: AxiosError<DetailMessageType>) => {
       if (error.response && shouldDisplayError(error.response)) {
-        const detailMessage = (error.response.data);
-        store.dispatch(setError(detailMessage.message));
+        const detailMessage = error.response.data;
+        onError(detailMessage.message);
       }
 
       throw error;

@@ -1,7 +1,7 @@
 import {memo, useState} from 'react';
 import {SortingType} from '../../consts.ts';
-import {useAppSelector} from '../../hooks/use-app-selector.ts';
-import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
+import {useAppSelector} from '../../hooks';
+import {useAppDispatch} from '../../hooks';
 import {setActiveSortingType} from '../../store/reducers/city-slice/city-slice.ts';
 
 

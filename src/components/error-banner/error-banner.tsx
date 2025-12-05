@@ -1,6 +1,6 @@
 import { memo, useEffect } from 'react';
-import {useAppSelector } from '../../hooks/use-app-selector.ts';
-import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
+import {useAppSelector } from '../../hooks';
+import {useAppDispatch} from '../../hooks';
 import {setError} from '../../store/reducers/user-slice/user-slice.ts';
 import './error-banner.css';
 

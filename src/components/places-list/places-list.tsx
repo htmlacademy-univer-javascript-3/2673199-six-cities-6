@@ -1,7 +1,7 @@
 import { PlaceCardType } from '../place-card';
-import { Offer, Offers } from '../../types/offer.ts';
+import { Offer, Offers } from '../../types';
 import {ToListType} from '../place-card/card-type.ts';
-import {useFavorite} from '../../hooks/use-favorites.ts';
+import {useFavorite} from '../../hooks';
 import {PlaceCardMemo} from '../place-card/place-card.tsx';
 import {memo, useCallback} from 'react';
 

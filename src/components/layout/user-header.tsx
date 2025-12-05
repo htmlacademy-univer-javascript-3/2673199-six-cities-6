@@ -1,9 +1,9 @@
 import {Link} from 'react-router-dom';
 import {memo, MouseEvent, useCallback} from 'react';
 import {AppRoute, AuthorizationStatus} from '../../consts.ts';
-import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
+import {useAppDispatch} from '../../hooks';
 import {logoutAction} from '../../store/api-actions.ts';
-import {useAppSelector} from '../../hooks/use-app-selector.ts';
+import {useAppSelector} from '../../hooks';
 import {setFavorites} from '../../store/reducers/favorites-slice/favorites-slice.ts';
 import {setUser} from '../../store/reducers/user-slice/user-slice.ts';
 import {setOffers} from '../../store/reducers/offers-slice/offers-slice.ts';

@@ -7,11 +7,11 @@ import {FavoritesScreen} from '../../pages/favorites-screen/favorites-screen.tsx
 import {OfferScreen} from '../../pages/offer-screen/offer-screen.tsx';
 import {Layout, LayoutWithUser} from '../layout';
 import { PrivateRoute } from '../private-route/private-route.tsx';
-import {useAppSelector} from '../../hooks/use-app-selector.ts';
+import {useAppSelector} from '../../hooks';
 import {Spinner} from '../spinner/spinner.tsx';
 import {HistoryRouter} from '../history-route/history-route.tsx';
 import browserHistory from '../../browser-history.ts';
-import {ScrollToTop} from '../../utils/scroll-to-top.ts';
+import {ScrollToTop} from '../../utils';
 import {ErrorBannerMemo} from '../error-banner/error-banner.tsx';
 
 export function App() {

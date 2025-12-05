@@ -1,5 +1,5 @@
 import {useFetch} from './use-fetch.ts';
-import {Offers} from '../types/offer.ts';
+import {Offers} from '../types';
 import {APIRoute} from '../consts.ts';
 import {api} from '../store';
 

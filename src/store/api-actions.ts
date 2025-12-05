@@ -1,10 +1,10 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {AppDispatch} from '../types/state.ts';
-import {Offer, OfferDetailed, Offers} from '../types/offer.ts';
+import {AppDispatch} from '../types';
+import {Offer, OfferDetailed, Offers} from '../types';
 import {APIRoute, AppRoute, AuthorizationStatus} from '../consts.ts';
-import {ThunkApiConfig} from '../services/api.ts';
-import {dropToken, saveToken} from '../services/token.ts';
-import {AuthData, UserInfo, UserInfoFull} from '../types/user.ts';
+import {ThunkApiConfig} from '../services';
+import {dropToken, saveToken} from '../services';
+import {AuthData, UserInfo, UserInfoFull} from '../types';
 import {setOffers, setOffersLoadingStatus} from './reducers/offers-slice/offers-slice.ts';
 import {requireAuthorization, setUser} from './reducers/user-slice/user-slice.ts';
 import {redirectToRoute} from './action.ts';

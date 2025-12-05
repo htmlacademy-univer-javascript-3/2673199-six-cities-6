@@ -1,6 +1,6 @@
 import { City, Location } from './location.ts';
 
-export type OfferType = 'apartment' | 'room' | 'house' | 'hotel';
+type OfferType = 'apartment' | 'room' | 'house' | 'hotel';
 
 export type Offer = {
   id: string;

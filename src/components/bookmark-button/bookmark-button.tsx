@@ -1,4 +1,4 @@
-import {useAppSelector} from '../../hooks/use-app-selector.ts';
+import {useAppSelector} from '../../hooks';
 import {AppRoute, AuthorizationStatus} from '../../consts.ts';
 import {useNavigate} from 'react-router-dom';
 import {memo, MouseEvent} from 'react';

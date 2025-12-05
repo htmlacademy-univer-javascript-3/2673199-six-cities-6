@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {Offers} from '../../../types/offer.ts';
+import {Offers} from '../../../types';
 import {toggleFavorite} from '../../api-actions.ts';
 
 

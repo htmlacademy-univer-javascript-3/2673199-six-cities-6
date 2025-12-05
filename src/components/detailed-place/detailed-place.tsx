@@ -1,7 +1,7 @@
-import {OfferReviewsMemo} from '../reviews/reviews.tsx';
-import {OfferDetailed} from '../../types/offer.ts';
-import {useFavorite} from '../../hooks/use-favorites.ts';
-import {useAppSelector} from '../../hooks/use-app-selector.ts';
+import {OfferReviewsMemo} from '../reviews';
+import {OfferDetailed} from '../../types';
+import {useFavorite} from '../../hooks';
+import {useAppSelector} from '../../hooks';
 import {Mark} from '../mark/mark.tsx';
 import {Price} from '../price/price.tsx';
 import {Rating} from '../rating/rating.tsx';
@@ -10,21 +10,21 @@ import {OfferBookmarkButtonMemo} from '../bookmark-button/bookmark-button.tsx';
 
 type OfferFeatureProps = {
   classNamePart: string;
-  preValue?: string;
-  value?: number;
-  label: string;
+  prefix?: string;
+  count?: number;
+  postfix: string;
 };
 
-function OfferFeature({ classNamePart, preValue, value, label }: OfferFeatureProps) {
+function OfferFeature({ classNamePart, prefix, count, postfix }: OfferFeatureProps) {
   const className = `offer__feature offer__feature--${classNamePart}`;
-  let pluralLabel = label;
-  if (value) {
-    pluralLabel = value === 1 ? label : `${label}s`;
+  let pluralLabel = postfix;
+  if (count) {
+    pluralLabel = count === 1 ? postfix : `${postfix}s`;
   }
 
   const parts = [
-    preValue ? preValue : null,
-    value ? value.toString() : null,
+    prefix ? prefix : null,
+    count ? count.toString() : null,
     pluralLabel
   ].filter(Boolean);
 
@@ -61,9 +61,9 @@ export function DetailedPlace({ detailOffer}: DetailedPlaceProps) {
         </div>
         <Rating rating={detailOffer.rating} className="offer" showValue/>
         <ul className="offer__features">
-          <OfferFeature classNamePart="entire" label={detailOffer.type} />
-          <OfferFeature classNamePart="bedrooms" value={detailOffer.bedrooms} label="bedroom" />
-          <OfferFeature classNamePart="adults" preValue="Max" value={detailOffer.maxAdults} label="adult" />
+          <OfferFeature classNamePart="entire" postfix={detailOffer.type} />
+          <OfferFeature classNamePart="bedrooms" count={detailOffer.bedrooms} postfix="bedroom" />
+          <OfferFeature classNamePart="adults" prefix="Max" count={detailOffer.maxAdults} postfix="adult" />
         </ul>
         <Price price={detailOffer.price} className="offer__price"/>
         <div className="offer__inside">

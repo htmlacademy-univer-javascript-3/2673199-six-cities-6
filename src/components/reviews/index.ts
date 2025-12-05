@@ -1,0 +1,1 @@
+export {OfferReviewsMemo} from './reviews';
