@@ -1,12 +1,12 @@
 import {PlaceCardType} from '../../components/place-card';
 import { Map } from '../../components/map/map.tsx';
-import {PlacesList} from '../../components/places-list/places-list.tsx';
+import {PlacesListMemo} from '../../components/places-list/places-list.tsx';
 import {DetailedPlace} from '../../components/detailed-place/detailed-place.tsx';
 import {Navigate, useParams} from 'react-router-dom';
 import {Spinner} from '../../components/spinner/spinner.tsx';
 import {useOffer} from '../../hooks/use-offer.ts';
 import {useNears} from '../../hooks/use-nears.ts';
-import {useMemo} from 'react';
+import {useCallback, useMemo} from 'react';
 import {useAppSelector} from '../../hooks/use-app-selector.ts';
 import {Offers} from '../../types/offer.ts';
 import {AppRoute} from '../../consts.ts';
@@ -33,7 +33,9 @@ export function OfferScreen() {
       };
     });
   }, [nears.data, offersFromStore]);
-  const nearsOffers = mergedItems.slice(0, 3);
+  const nearsOffers = useMemo(() => mergedItems.slice(0, 3), [mergedItems]);
+  const noop = useCallback(() => {}, []);
+
 
   if (!detailOfferPending || detailOfferPending.isLoading || nears.isLoading) {
     return <Spinner/>;
@@ -57,16 +59,16 @@ export function OfferScreen() {
           </div>
         </div>
         <DetailedPlace detailOffer={detailOffer}/>
-        <Map offers={nearsOffers.concat({...detailOffer, previewImage: detailOffer.images[0]})} className="offer__map" activeOfferId={null}/>
+        <Map offers={nearsOffers.concat({...detailOffer, previewImage: detailOffer.images[0]})} className="offer__map" activeOfferId={detailOffer.id}/>
       </section>
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">
             Other places in the neighbourhood
           </h2>
-          <PlacesList
+          <PlacesListMemo
             offers={nearsOffers}
-            onHover={() => {}}
+            onHover={noop}
             type={PlaceCardType.Offer}
           />
         </section>

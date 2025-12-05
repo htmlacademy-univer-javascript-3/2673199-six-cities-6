@@ -1,6 +1,6 @@
 import {Outlet, useLocation} from 'react-router-dom';
-import {UserHeader, UserHeaderProps} from './user-header.tsx';
-import {LogoLink} from './logo-link.tsx';
+import {UserHeaderMemo, UserHeaderProps} from './user-header.tsx';
+import {LogoLinkMemo} from './logo-link.tsx';
 import {ReactNode} from 'react';
 import {AppRoute} from '../../consts.ts';
 
@@ -42,7 +42,7 @@ function LayoutBase({headerContent}: LayoutBaseProps) {
 export function Layout() {
   return (
     <LayoutBase
-      headerContent={<LogoLink src="/img/logo.svg" />}
+      headerContent={<LogoLinkMemo src="/img/logo.svg" />}
     />
   );
 }
@@ -50,7 +50,12 @@ export function Layout() {
 export function LayoutWithUser({authState}: UserHeaderProps) {
   return (
     <LayoutBase
-      headerContent={<UserHeader authState={authState}/>}
+      headerContent={
+        <>
+          <LogoLinkMemo src="/img/logo.svg"/>
+          <UserHeaderMemo authState={authState}/>
+        </>
+      }
     />
   );
 }

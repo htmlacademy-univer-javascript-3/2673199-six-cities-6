@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import {memo, useState} from 'react';
 import {SortingType} from '../../consts.ts';
 import {useAppSelector} from '../../hooks/use-app-selector.ts';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
 import {setActiveSortingType} from '../../store/reducers/city-slice/city-slice.ts';
 
 
-export function SortingOptions() {
+function SortingOptions() {
   const dispatch = useAppDispatch();
   const [opened, setOpened] = useState(false);
   const activeSortingType = useAppSelector((state) => state.city.activeSortingType);
@@ -49,3 +49,5 @@ export function SortingOptions() {
     </form>
   );
 }
+
+export const SortingOptionsMemo = memo(SortingOptions);

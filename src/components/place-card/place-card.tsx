@@ -1,11 +1,12 @@
-import {Price} from './price.tsx';
-import {Rating} from './rating.tsx';
-import {PlaceCardBookmarkButton} from './bookmark-button.tsx';
+import {PriceMemo} from '../price/price.tsx';
+import {RatingMemo} from '../rating/rating.tsx';
+import {PlaceCardBookmarkButtonMemo} from '../bookmark-button/bookmark-button.tsx';
 import {PlaceTitle} from './place-title.tsx';
 import {ImageWrapper} from './image-wrapper.tsx';
-import {Mark} from './mark.tsx';
+import {MarkMemo} from '../mark/mark.tsx';
 import {PlaceCardType, ToArticleType} from './card-type.ts';
 import {Offer} from '../../types/offer.ts';
+import {memo} from 'react';
 
 export type OfferProps = {
   innerType: PlaceCardType;
@@ -14,23 +15,24 @@ export type OfferProps = {
 } & Offer;
 
 export function PlaceCard(offerProps: OfferProps) {
+
   return (
     <article className={`${ToArticleType(offerProps.innerType)} place-card`}>
-      <Mark isPremium={offerProps.isPremium}/>
+      <MarkMemo isPremium={offerProps.isPremium} className="place-card__mark"/>
       <ImageWrapper
         imageSource={offerProps.previewImage}
         type={offerProps.innerType}
       />
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
-          <Price price={offerProps.price} />
-          <PlaceCardBookmarkButton
+          <PriceMemo price={offerProps.price} className="place-card__price"/>
+          <PlaceCardBookmarkButtonMemo
             isActive={offerProps.isFavorite}
             pending={offerProps.isBookmarkPending}
-            onToggle={() => void offerProps.onToggleBookmark(offerProps.id, !offerProps.isFavorite)}
+            onToggle={() => offerProps.onToggleBookmark(offerProps.id, offerProps.isFavorite)}
           />
         </div>
-        <Rating rating={offerProps.rating} />
+        <RatingMemo rating={offerProps.rating} className="place-card" showValue={false}/>
         <PlaceTitle
           placeName={offerProps.title}
           placeType={offerProps.type}
@@ -40,3 +42,5 @@ export function PlaceCard(offerProps: OfferProps) {
     </article>
   );
 }
+
+export const PlaceCardMemo = memo(PlaceCard);
