@@ -8,6 +8,30 @@ import {RatingMemo} from '../rating/rating.tsx';
 import {useCallback} from 'react';
 import {OfferBookmarkButtonMemo} from '../bookmark-button/bookmark-button.tsx';
 
+type OfferFeatureProps = {
+  classNamePart: string;
+  preValue: string | null;
+  value: number | null;
+  label: string;
+};
+
+export function OfferFeature({ classNamePart, preValue, value, label }: OfferFeatureProps) {
+  const className = `offer__feature offer__feature--${classNamePart}`;
+  let pluralLabel = label;
+  if (value !== null) {
+    pluralLabel = value === 1 ? label : `${label}s`;
+  }
+
+  const parts = [
+    preValue !== null ? preValue : null,
+    value !== null ? value : null,
+    pluralLabel
+  ].filter(Boolean);
+
+  return <li className={className}>{parts.join(' ')}</li>;
+}
+
+
 type DetailedPlaceProps = {
   detailOffer: OfferDetailed;
 };
@@ -37,9 +61,9 @@ export function DetailedPlace({ detailOffer}: DetailedPlaceProps) {
         </div>
         <RatingMemo rating={detailOffer.rating} className="offer" showValue/>
         <ul className="offer__features">
-          <li className="offer__feature offer__feature--entire">{detailOffer.type}</li>
-          <li className="offer__feature offer__feature--bedrooms">{detailOffer.bedrooms} Bedrooms</li>
-          <li className="offer__feature offer__feature--adults">Max {detailOffer.maxAdults} adults</li>
+          <OfferFeature classNamePart="entire" preValue={null} value={null} label={detailOffer.type} />
+          <OfferFeature classNamePart="bedrooms" preValue={null} value={detailOffer.bedrooms} label="bedroom" />
+          <OfferFeature classNamePart="adults" preValue="Max" value={detailOffer.maxAdults} label="adult" />
         </ul>
         <PriceMemo price={detailOffer.price} className="offer__price"/>
         <div className="offer__inside">

@@ -59,7 +59,7 @@ export function OfferScreen() {
           </div>
         </div>
         <DetailedPlace detailOffer={detailOffer}/>
-        <Map offers={nearsOffers.concat({...detailOffer, previewImage: detailOffer.images[0]})} className="offer__map" activeOfferId={null}/>
+        <Map offers={nearsOffers.concat({...detailOffer, previewImage: detailOffer.images[0]})} className="offer__map" activeOfferId={detailOffer.id}/>
       </section>
       <div className="container">
         <section className="near-places places">
