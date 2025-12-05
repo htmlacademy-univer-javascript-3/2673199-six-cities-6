@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
-import {AppRoute, cities} from '../../consts.ts';
+import {AppRoute, CITIES} from '../../consts.ts';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
 import {loginAction} from '../../store/api-actions.ts';
 import {LoginForm} from '../../components/forms/login/login-form.tsx';
 import {setActiveCity} from '../../store/reducers/city-slice/city-slice.ts';
 
 export function AuthScreen() {
-  const randomCity = cities[Math.floor(Math.random() * cities.length)];
+  const randomCity = CITIES[Math.floor(Math.random() * CITIES.length)];
   const dispatch = useAppDispatch();
   const handleCityClick = () => {
     dispatch(setActiveCity(randomCity));

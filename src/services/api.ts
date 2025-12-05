@@ -18,11 +18,16 @@ export type ThunkApiConfig = {
 
 const StatusCodeMapping: Record<number, boolean> = {
   [StatusCodes.BAD_REQUEST]: true,
-  [StatusCodes.UNAUTHORIZED]: true,
-  [StatusCodes.NOT_FOUND]: true
+  [StatusCodes.BAD_GATEWAY]: true,
+  [StatusCodes.INTERNAL_SERVER_ERROR]: true,
+  [StatusCodes.UNAUTHORIZED]: false,
+  [StatusCodes.NOT_FOUND]: false,
 };
 
-const shouldDisplayError = (response: AxiosResponse) => StatusCodeMapping[response.status];
+export function shouldDisplayError(response: AxiosResponse) {
+  const status = response.status;
+  return StatusCodeMapping[status] ?? true;
+}
 
 const BACKEND_URL = 'https://14.design.htmlacademy.pro/six-cities';
 const REQUEST_TIMEOUT = 5000;

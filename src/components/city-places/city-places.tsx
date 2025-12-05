@@ -3,7 +3,7 @@ import {PlacesListMemo} from '../places-list/places-list.tsx';
 import {Map} from '../map/map.tsx';
 import {PlaceCardType} from '../place-card';
 import {EmptyState} from '../empty-state/empty-state.tsx';
-import {emptyStates} from '../../consts.ts';
+import {EmptyStates} from '../../consts.ts';
 import {SortingOptionsMemo} from '../sorting-options/sorting-options.tsx';
 import {ScrollToTop} from '../../utils/scroll-to-top.ts';
 import {useState} from 'react';
@@ -27,7 +27,7 @@ export function CityPlaces({ activeCity, offers }: CityPlacesProps) {
             )}
         />
         <div className="cities__places-container cities__places-container--empty container">
-          <EmptyState {...emptyStates.cities(activeCity)} />
+          <EmptyState {...EmptyStates.Cities(activeCity)} />
           <div className="cities__right-section"></div>
         </div>
       </>

@@ -1,8 +1,8 @@
 import { memo, useEffect } from 'react';
 import {useAppSelector } from '../../hooks/use-app-selector.ts';
-import {useAppDispatch} from "../../hooks/use-app-dispatch.ts";
-import {setError} from "../../store/reducers/user-slice/user-slice.ts";
-import './error-banner.css'
+import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
+import {setError} from '../../store/reducers/user-slice/user-slice.ts';
+import './error-banner.css';
 
 export function ErrorBanner() {
   const dispatch = useAppDispatch();
@@ -17,7 +17,9 @@ export function ErrorBanner() {
     }
   }, [error, dispatch]);
 
-  if (!error) return null;
+  if (!error) {
+    return null;
+  }
 
   return (
     <div className="error-banner">

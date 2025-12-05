@@ -12,7 +12,7 @@ import {Spinner} from '../spinner/spinner.tsx';
 import {HistoryRouter} from '../history-route/history-route.tsx';
 import browserHistory from '../../browser-history.ts';
 import {ScrollToTop} from '../../utils/scroll-to-top.ts';
-import {ErrorBannerMemo} from '../error-banner/error-banner.tsx'
+import {ErrorBannerMemo} from '../error-banner/error-banner.tsx';
 
 export function App() {
   const authorizationStatus = useAppSelector((state) => state.user.authorizationStatus);

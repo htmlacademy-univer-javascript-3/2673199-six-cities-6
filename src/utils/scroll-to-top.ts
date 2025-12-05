@@ -16,10 +16,10 @@ export function ScrollToTop({
   const {pathname} = useLocation();
 
   useEffect(() => {
-    const el = getTarget?.();
+    const element = getTarget?.();
 
-    if (el) {
-      el.scrollTo({top: 0, left: 0, behavior});
+    if (element) {
+      element.scrollTo({top: 0, left: 0, behavior});
     } else {
       window.scrollTo({top: 0, left: 0, behavior});
     }
