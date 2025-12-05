@@ -22,7 +22,7 @@ function OfferReviews({offerId}: OfferReviewsProps) {
   return (
     <section className="offer__reviews reviews">
       <ReviewsList reviews={reviews.slice(0, MAX_REVIEWS_LEN)}/>
-      {authorizationStatus === AuthorizationStatus.Auth ? (<ReviewsForm onSubmit={({ rating, comment }) => void sendReview({rating, comment})}/>
+      {authorizationStatus === AuthorizationStatus.Auth ? (<ReviewsForm onSubmit={({ rating, comment }) => sendReview({rating, comment})}/>
       ) : (
         <p className="reviews__info">
           <Link to={AppRoute.Login}>Войдите</Link>, чтобы оставить отзыв

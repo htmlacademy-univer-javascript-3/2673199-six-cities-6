@@ -9,11 +9,13 @@ export type ReviewInfoForm = {
 }
 
 export type LoginFormProps = {
-  onSubmit: (data: { rating: rating; comment: string }) => void;
+  onSubmit: (data: { rating: rating; comment: string }) => Promise<void>;
 };
 
 export function ReviewsForm({onSubmit}: LoginFormProps) {
   const [form, setForm] = useState<ReviewInfoForm>({ rating: 0, comment: '' });
+  const [pending, setPending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const isValid = form.rating > 0
     && form.comment.trim().length >= MIN_REVIEW_LEN
@@ -21,14 +23,21 @@ export function ReviewsForm({onSubmit}: LoginFormProps) {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    if (!isValid) {
+    if (!isValid || pending) {
       return;
     }
-    onSubmit({
-      rating: form.rating,
-      comment: form.comment.trim(),
-    });
-    setForm({ rating: 0, comment: '' });
+    setError(null);
+    setPending(true);
+    (async () => {
+      try {
+        await onSubmit({ rating: form.rating, comment: form.comment.trim() });
+        setForm({ rating: 0, comment: '' });
+      } catch {
+        setError('There was an error submitting the form.');
+      } finally {
+        setPending(false);
+      }
+    })();
   };
 
   return (
@@ -72,6 +81,8 @@ export function ReviewsForm({onSubmit}: LoginFormProps) {
         onChange={(e) => setForm((prev) => ({ ...prev, comment: e.target.value }))}
       >
       </textarea>
+
+      {error && <p className="reviews__error">{error}</p>}
 
       <div className="reviews__button-wrapper">
         <p className="reviews__help">

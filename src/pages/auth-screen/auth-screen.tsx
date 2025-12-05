@@ -3,7 +3,7 @@ import {AppRoute, cities} from '../../consts.ts';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
 import {loginAction} from '../../store/api-actions.ts';
 import {LoginForm} from '../../components/forms/login/login-form.tsx';
-import {setActiveCity} from "../../store/reducers/city-slice/city-slice.ts";
+import {setActiveCity} from '../../store/reducers/city-slice/city-slice.ts';
 
 export function AuthScreen() {
   const randomCity = cities[Math.floor(Math.random() * cities.length)];
