@@ -9,7 +9,7 @@ import {useNears} from '../../hooks/use-nears.ts';
 import {useMemo} from 'react';
 import {useAppSelector} from '../../hooks/use-app-selector.ts';
 import {Offers} from '../../types/offer.ts';
-import {AppRoute, MAX_NEARS_LEN} from '../../consts.ts';
+import {AppRoute, MAX_NEARS_LEN, MAX_PHOTOS_LEN} from '../../consts.ts';
 
 
 export function OfferScreen() {
@@ -54,7 +54,7 @@ export function OfferScreen() {
               <div className="offer__image-wrapper" key={`image wrapper ${index + 1}`}>
                 <img className="offer__image" src={imgUrl} alt={`Photo ${index + 1}`} />
               </div>
-            )).slice(0, MAX_NEARS_LEN)}
+            )).slice(0, MAX_PHOTOS_LEN)}
           </div>
         </div>
         <DetailedPlace detailOffer={detailOffer}/>

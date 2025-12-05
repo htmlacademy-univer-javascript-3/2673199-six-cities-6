@@ -15,16 +15,16 @@ type OfferFeatureProps = {
   label: string;
 };
 
-export function OfferFeature({ classNamePart, preValue, value, label }: OfferFeatureProps) {
+function OfferFeature({ classNamePart, preValue, value, label }: OfferFeatureProps) {
   const className = `offer__feature offer__feature--${classNamePart}`;
   let pluralLabel = label;
-  if (value !== null) {
+  if (value) {
     pluralLabel = value === 1 ? label : `${label}s`;
   }
 
   const parts = [
-    preValue !== null ? preValue : null,
-    value !== null ? value : null,
+    preValue ? preValue : null,
+    value ? value.toString() : null,
     pluralLabel
   ].filter(Boolean);
 
