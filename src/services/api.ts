@@ -51,10 +51,6 @@ export const createAPI = (): AxiosInstance => {
       if (error.response && shouldDisplayError(error.response)) {
         const detailMessage = (error.response.data);
         store.dispatch(setError(detailMessage.message));
-
-        setTimeout(() => {
-          store.dispatch(setError(null));
-        }, 2000);
       }
 
       throw error;

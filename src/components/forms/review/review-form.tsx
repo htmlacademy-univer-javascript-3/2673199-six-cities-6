@@ -1,5 +1,7 @@
 import {FormEvent, Fragment, useState} from 'react';
 import {MAX_REVIEW_LEN, MIN_REVIEW_LEN} from '../../../consts.ts';
+import {useDispatch} from "react-redux";
+import {setError} from "../../../store/reducers/user-slice/user-slice.ts";
 
 export type rating = 0 | 1 | 2 | 3 | 4 | 5;
 
@@ -15,7 +17,8 @@ export type LoginFormProps = {
 export function ReviewsForm({onSubmit}: LoginFormProps) {
   const [form, setForm] = useState<ReviewInfoForm>({ rating: 0, comment: '' });
   const [pending, setPending] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setErrorLocal] = useState<string | null>(null);
+  const dispatch = useDispatch();
 
   const isValid = form.rating > 0
     && form.comment.trim().length >= MIN_REVIEW_LEN
@@ -26,14 +29,15 @@ export function ReviewsForm({onSubmit}: LoginFormProps) {
     if (!isValid || pending) {
       return;
     }
-    setError(null);
+    setErrorLocal(null);
     setPending(true);
     (async () => {
       try {
         await onSubmit({ rating: form.rating, comment: form.comment.trim() });
         setForm({ rating: 0, comment: '' });
       } catch {
-        setError('There was an error submitting the form.');
+        dispatch(setError(null))
+        setErrorLocal('There was an error submitting the form!');
       } finally {
         setPending(false);
       }
