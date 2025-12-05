@@ -9,7 +9,7 @@ import {memo, useCallback} from 'react';
 type PlacesListProps = {
   offers: Offers;
   type: PlaceCardType;
-  onHover: ((offer: Offer | null) => void) | null;
+  onHover?: ((offer: Offer | null) => void) | null;
 };
 
 export function PlacesList({ offers, type, onHover }: PlacesListProps) {

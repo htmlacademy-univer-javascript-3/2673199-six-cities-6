@@ -22,8 +22,6 @@ function LogoutNavItem({handleLogout}: LogoutProps) {
   );
 }
 
-const LogoutNavItemMemo = memo(LogoutNavItem);
-
 type UserNavItemProps = {
   to: string;
   avatarUrl?: string;
@@ -89,7 +87,7 @@ function UserHeader({authState}: UserHeaderProps) {
               isPro={user.isPro}
               favoriteCount={favorites.length}
             />
-            <LogoutNavItemMemo handleLogout={handleLogoutClick}/>
+            <LogoutNavItem handleLogout={handleLogoutClick}/>
           </>
         ) : (
           <UserNavItemMemo

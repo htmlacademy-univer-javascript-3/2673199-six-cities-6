@@ -1,12 +1,11 @@
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../consts.ts';
-import {memo} from 'react';
 
 type LogoLinkProps = {
   src: string;
 };
 
-function LogoLink({src}: LogoLinkProps) {
+export function LogoLink({src}: LogoLinkProps) {
   return (
     <div className="header__left">
       <Link className="header__logo-link header__logo-link--active" to={AppRoute.Main}>
@@ -21,5 +20,3 @@ function LogoLink({src}: LogoLinkProps) {
     </div>
   );
 }
-
-export const LogoLinkMemo = memo(LogoLink);

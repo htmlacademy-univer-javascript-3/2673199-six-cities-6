@@ -1,7 +1,7 @@
 import {ReviewsList} from './reviews-list.tsx';
 import {ReviewsForm} from '../forms/review/review-form.tsx';
 import {useAppSelector} from '../../hooks/use-app-selector.ts';
-import {AppRoute, AuthorizationStatus} from '../../consts.ts';
+import {AppRoute, AuthorizationStatus, MAX_REVIEWS_LEN} from '../../consts.ts';
 import {Link} from 'react-router-dom';
 import {useReviews} from '../../hooks/use-reviews.ts';
 import {Spinner} from '../spinner/spinner.tsx';
@@ -21,7 +21,7 @@ function OfferReviews({offerId}: OfferReviewsProps) {
 
   return (
     <section className="offer__reviews reviews">
-      <ReviewsList reviews={reviews}/>
+      <ReviewsList reviews={reviews.slice(0, MAX_REVIEWS_LEN)}/>
       {authorizationStatus === AuthorizationStatus.Auth ? (<ReviewsForm onSubmit={({ rating, comment }) => void sendReview({rating, comment})}/>
       ) : (
         <p className="reviews__info">

@@ -23,7 +23,6 @@ function FavoriteCityBlock({ cityName, cityOffers }: FavoriteCityBlockProps) {
       <PlacesList
         offers={cityOffers}
         type={PlaceCardType.Favorite}
-        onHover={null}
       />
     </li>
   );

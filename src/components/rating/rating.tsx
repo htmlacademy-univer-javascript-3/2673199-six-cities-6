@@ -1,12 +1,10 @@
-import {memo} from 'react';
-
 type RatingProps = {
   rating: number;
   className: string;
   showValue: boolean;
 };
 
-function Rating({ rating, className, showValue }: RatingProps) {
+export function Rating({ rating, className, showValue }: RatingProps) {
   const roundedRating = Math.round(rating);
 
   return (
@@ -19,5 +17,3 @@ function Rating({ rating, className, showValue }: RatingProps) {
     </div>
   );
 }
-
-export const RatingMemo = memo(Rating);

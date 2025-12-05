@@ -1,9 +1,9 @@
-import {PriceMemo} from '../price/price.tsx';
-import {RatingMemo} from '../rating/rating.tsx';
+import {Price} from '../price/price.tsx';
+import {Rating} from '../rating/rating.tsx';
 import {PlaceCardBookmarkButtonMemo} from '../bookmark-button/bookmark-button.tsx';
 import {PlaceTitle} from './place-title.tsx';
 import {ImageWrapper} from './image-wrapper.tsx';
-import {MarkMemo} from '../mark/mark.tsx';
+import {Mark} from '../mark/mark.tsx';
 import {PlaceCardType, ToArticleType} from './card-type.ts';
 import {Offer} from '../../types/offer.ts';
 import {memo} from 'react';
@@ -18,21 +18,21 @@ export function PlaceCard(offerProps: OfferProps) {
 
   return (
     <article className={`${ToArticleType(offerProps.innerType)} place-card`}>
-      <MarkMemo isPremium={offerProps.isPremium} className="place-card__mark"/>
+      <Mark isPremium={offerProps.isPremium} className="place-card__mark"/>
       <ImageWrapper
         imageSource={offerProps.previewImage}
         type={offerProps.innerType}
       />
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
-          <PriceMemo price={offerProps.price} className="place-card__price"/>
+          <Price price={offerProps.price} className="place-card__price"/>
           <PlaceCardBookmarkButtonMemo
             isActive={offerProps.isFavorite}
             pending={offerProps.isBookmarkPending}
             onToggle={() => offerProps.onToggleBookmark(offerProps.id, offerProps.isFavorite)}
           />
         </div>
-        <RatingMemo rating={offerProps.rating} className="place-card" showValue={false}/>
+        <Rating rating={offerProps.rating} className="place-card" showValue={false}/>
         <PlaceTitle
           placeName={offerProps.title}
           placeType={offerProps.type}

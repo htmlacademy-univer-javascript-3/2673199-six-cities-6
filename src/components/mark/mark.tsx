@@ -1,11 +1,9 @@
-import {memo} from 'react';
-
 type MarkProps = {
   isPremium: boolean;
   className: string;
 };
 
-function Mark({ isPremium, className }: MarkProps) {
+export function Mark({ isPremium, className }: MarkProps) {
   if (!isPremium) {
     return null;
   }
@@ -15,5 +13,3 @@ function Mark({ isPremium, className }: MarkProps) {
     </div>
   );
 }
-
-export const MarkMemo = memo(Mark);
