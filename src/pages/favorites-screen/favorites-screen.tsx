@@ -2,18 +2,11 @@ import {Offers} from '../../types';
 import {EmptyStates} from '../../consts.ts';
 import {EmptyState} from '../../components/empty-state/empty-state.tsx';
 import {useAppSelector} from '../../hooks';
-import {useAppDispatch} from '../../hooks';
-import {useEffect, useMemo} from 'react';
-import {fetchFavoritesOffers} from '../../store/api-actions.ts';
+import {useMemo} from 'react';
 import {FavoriteCityBlockMemo} from '../../components/favorite-city-block/favorite-city-block.tsx';
 
 
 export function FavoritesScreen() {
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(fetchFavoritesOffers());
-  }, [dispatch]);
-
   const items = useAppSelector((state) => state.favorites.favoriteOffers);
 
   const favoriteOffersByCity = useMemo(() => items.reduce<Record<string, Offers>>((acc, offer) => {

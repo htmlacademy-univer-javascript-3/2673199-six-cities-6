@@ -13,39 +13,35 @@ export function Map({ offers, className, activeOfferId }: MapProps) {
   const mapRef = useRef<HTMLDivElement | null>(null);
   const mapInstanceRef = useRef<L.Map | null>(null);
   const markersRef = useRef<L.LayerGroup | null>(null);
+  const city = offers[0]?.city.location;
 
   useEffect(() => {
     if (!mapRef.current || mapInstanceRef.current) {
       return;
     }
 
-    const city = offers[0]?.city.location;
-    if (!city) {
-      return;
-    }
-
-    const map = L.map(mapRef.current, {
-      center: [city.latitude, city.longitude],
-      zoom: city.zoom,
-    });
-
+    const map = L.map(mapRef.current);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; OpenStreetMap contributors',
     }).addTo(map);
 
     mapInstanceRef.current = map;
     markersRef.current = L.layerGroup().addTo(map);
-  }, [offers]);
+    return () => {
+      map.remove();
+      mapInstanceRef.current = null;
+      markersRef.current = null;
+    };
+  }, []);
 
   useEffect(() => {
     const map = mapInstanceRef.current;
-    const city = offers[0]?.city.location;
     if (!map || !city) {
       return;
     }
 
     map.setView([city.latitude, city.longitude], city.zoom, {animate: false});
-  }, [offers]);
+  }, [city]);
 
   useEffect(() => {
     const map = mapInstanceRef.current;

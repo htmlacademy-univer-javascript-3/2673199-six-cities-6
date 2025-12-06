@@ -1,18 +1,14 @@
-import {useCallback, useEffect} from 'react';
+import {useCallback} from 'react';
 import { CityPlaces } from '../../components/city-places/city-places.tsx';
 import {useAppSelector} from '../../hooks';
 import {useAppDispatch} from '../../hooks';
 import {CitiesListMemo} from '../../components/cities-list/cities-list.tsx';
 import {getSortingFunc} from '../../utils';
-import {fetchOffers} from '../../store/api-actions.ts';
 import {setActiveCity} from '../../store/reducers/city-slice/city-slice.ts';
 
 
 export function MainScreen() {
   const dispatch = useAppDispatch();
-  useEffect(() => {
-    fetchOffers();
-  }, [dispatch]);
 
   const activeCity = useAppSelector((state) => state.city.activeCity);
   const items = useAppSelector((state) => state.offers.offers);
