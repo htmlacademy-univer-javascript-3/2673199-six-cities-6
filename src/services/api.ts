@@ -1,4 +1,3 @@
-// services/api.ts
 import {getToken} from './token';
 import {StatusCodes} from 'http-status-codes';
 import axios, {
