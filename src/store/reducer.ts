@@ -11,5 +11,3 @@ export const reducer = combineReducers({
   favorites: favoritesSlice.reducer,
   user: userSlice.reducer,
 });
-
-export type RootState = ReturnType<typeof reducer>;

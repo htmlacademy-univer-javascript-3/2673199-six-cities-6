@@ -12,7 +12,7 @@ import {Spinner} from '../spinner/spinner.tsx';
 import {HistoryRouter} from '../history-route/history-route.tsx';
 import browserHistory from '../../browser-history.ts';
 import {ScrollToTop} from '../../utils';
-import {ErrorBannerMemo} from '../error-banner/error-banner.tsx';
+import {ToastContainer} from 'react-toastify';
 
 export function App() {
   const authorizationStatus = useAppSelector((state) => state.user.authorizationStatus);
@@ -27,7 +27,6 @@ export function App() {
   return (
     <HistoryRouter history={browserHistory}>
       <ScrollToTop />
-      <ErrorBannerMemo />
       <Routes>
         <Route element={<Layout/>}>
           <Route
@@ -63,6 +62,7 @@ export function App() {
           element={<Navigate to={AppRoute.NotFound} replace />}
         />
       </Routes>
+      <ToastContainer />
     </HistoryRouter>
   );
 }
