@@ -1,19 +1,12 @@
-import {Offers} from '../../types/offer.ts';
-import {emptyStates} from '../../consts.ts';
+import {Offers} from '../../types';
+import {EmptyStates} from '../../consts.ts';
 import {EmptyState} from '../../components/empty-state/empty-state.tsx';
-import {useAppSelector} from '../../hooks/use-app-selector.ts';
-import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
-import {useEffect, useMemo} from 'react';
-import {fetchFavoritesOffers} from '../../store/api-actions.ts';
+import {useAppSelector} from '../../hooks';
+import {useMemo} from 'react';
 import {FavoriteCityBlockMemo} from '../../components/favorite-city-block/favorite-city-block.tsx';
 
 
 export function FavoritesScreen() {
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(fetchFavoritesOffers());
-  }, [dispatch]);
-
   const items = useAppSelector((state) => state.favorites.favoriteOffers);
 
   const favoriteOffersByCity = useMemo(() => items.reduce<Record<string, Offers>>((acc, offer) => {
@@ -29,7 +22,7 @@ export function FavoritesScreen() {
     <main className="page__main page__main--favorites">
       <div className="page__favorites-container container">
         {Object.keys(favoriteOffersByCity).length === 0 ?
-          <EmptyState {...emptyStates.favorites} /> :
+          <EmptyState {...EmptyStates.Favorites} /> :
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">

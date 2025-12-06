@@ -7,19 +7,29 @@ export enum AppRoute {
   All = '*',
 }
 
+export enum APIRoute {
+  Offers = '/offers',
+  Favorites = '/favorite',
+  Comments = '/comments',
+  Login = '/login',
+  Logout = '/logout',
+}
+
 export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
 
-export const cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+export enum SortingType {
+  Popular = 'Popular',
+  PriceLowToHigh = 'Price: low to high',
+  PriceHighToLow = 'Price: high to low',
+  TopRatedFirst = 'Top rated first',
+}
 
-export const MIN_REVIEW_LEN = 50;
-export const MAX_REVIEW_LEN = 300;
-
-export const emptyStates = {
-  favorites: {
+export const EmptyStates = {
+  Favorites: {
     header: 'Favorites (empty)',
     title: 'Nothing yet saved.',
     description: 'Save properties to narrow down search or plan your future trips.',
@@ -30,7 +40,7 @@ export const emptyStates = {
       description: 'favorites__status-description'
     }
   },
-  cities: (city: string) => ({
+  Cities: (city: string) => ({
     title: 'No places to stay available',
     description: `We could not find any property available at the moment in ${city}`,
     classNames: {
@@ -42,17 +52,12 @@ export const emptyStates = {
   })
 };
 
-export enum SortingType {
-  Popular = 'Popular',
-  PriceLowToHigh = 'Price: low to high',
-  PriceHighToLow = 'Price: high to low',
-  TopRatedFirst = 'Top rated first',
-}
+export const ReviewLen = {
+  Min: 50,
+  Max: 300,
+};
 
-export enum APIRoute {
-  Offers = '/offers',
-  Favorites = '/favorite',
-  Comments = '/comments',
-  Login = '/login',
-  Logout = '/logout',
-}
+export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+export const MAX_REVIEWS_LEN = 10;
+export const MAX_NEARS_LEN = 3;
+export const MAX_PHOTOS_LEN = 6;

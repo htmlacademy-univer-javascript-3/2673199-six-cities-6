@@ -1,5 +1,5 @@
 import {FormEvent, useState, ChangeEvent} from 'react';
-import {getEmailErrorFromInput, getPasswordError} from '../../../utils/validation.ts';
+import {getEmailErrorFromInput, getPasswordError} from '../../../utils';
 import './validation.css';
 
 type LoginFormProps = {

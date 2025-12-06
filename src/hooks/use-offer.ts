@@ -1,4 +1,4 @@
-import {OfferDetailed} from '../types/offer.ts';
+import {OfferDetailed} from '../types';
 import {useFetch} from './use-fetch.ts';
 import {api} from '../store';
 import {APIRoute} from '../consts.ts';

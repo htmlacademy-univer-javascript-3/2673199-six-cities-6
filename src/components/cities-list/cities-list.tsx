@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
-import { cities } from '../../consts.ts';
+import {Link} from 'react-router-dom';
+import {CITIES} from '../../consts.ts';
 import {memo} from 'react';
 
 type CitiesListProps = {
@@ -12,7 +12,7 @@ function CitiesList({ activeCity, onCityChange }: CitiesListProps) {
     <div className="tabs">
       <section className="locations container">
         <ul className="locations__list tabs__list">
-          {cities.map((cityName) => (
+          {CITIES.map((cityName) => (
             <li key={cityName} className="locations__item">
               <Link
                 to=''

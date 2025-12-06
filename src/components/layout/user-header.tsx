@@ -1,28 +1,26 @@
 import {Link} from 'react-router-dom';
 import {memo, MouseEvent, useCallback} from 'react';
 import {AppRoute, AuthorizationStatus} from '../../consts.ts';
-import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
+import {useAppDispatch} from '../../hooks';
 import {logoutAction} from '../../store/api-actions.ts';
-import {useAppSelector} from '../../hooks/use-app-selector.ts';
+import {useAppSelector} from '../../hooks';
 import {setFavorites} from '../../store/reducers/favorites-slice/favorites-slice.ts';
 import {setUser} from '../../store/reducers/user-slice/user-slice.ts';
 import {setOffers} from '../../store/reducers/offers-slice/offers-slice.ts';
 
 type LogoutProps = {
-  handleLogout: (evt: MouseEvent<HTMLAnchorElement>) => void;
+  onLogout: (evt: MouseEvent<HTMLAnchorElement>) => void;
 }
 
-function LogoutNavItem({handleLogout}: LogoutProps) {
+function LogoutNavItem({onLogout}: LogoutProps) {
   return (
     <li className="header__nav-item">
-      <Link className="header__nav-link" to={AppRoute.Main} onClick={handleLogout}>
+      <Link className="header__nav-link" to={AppRoute.Main} onClick={onLogout}>
         <span className="header__signout">Sign out</span>
       </Link>
     </li>
   );
 }
-
-const LogoutNavItemMemo = memo(LogoutNavItem);
 
 type UserNavItemProps = {
   to: string;
@@ -89,7 +87,7 @@ function UserHeader({authState}: UserHeaderProps) {
               isPro={user.isPro}
               favoriteCount={favorites.length}
             />
-            <LogoutNavItemMemo handleLogout={handleLogoutClick}/>
+            <LogoutNavItem onLogout={handleLogoutClick}/>
           </>
         ) : (
           <UserNavItemMemo

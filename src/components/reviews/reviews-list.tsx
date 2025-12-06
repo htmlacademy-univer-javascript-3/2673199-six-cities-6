@@ -1,5 +1,6 @@
-import {Reviews} from '../../types/review.ts';
+import {Reviews} from '../../types';
 import {ReviewItem} from './review.tsx';
+import {MAX_REVIEWS_LEN} from '../../consts.ts';
 
 type ReviewsListProps = {
   reviews: Reviews;
@@ -13,7 +14,7 @@ export function ReviewsList({ reviews }: ReviewsListProps) {
       </h2>
 
       <ul className="reviews__list">
-        {reviews.map((review) => (
+        {reviews.slice(reviews.length - MAX_REVIEWS_LEN, reviews.length).map((review) => (
           <ReviewItem key={review.id} review={review} />
         ))}
       </ul>

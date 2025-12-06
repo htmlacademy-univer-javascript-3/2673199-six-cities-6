@@ -1,4 +1,4 @@
-import {useAppSelector} from '../../hooks/use-app-selector.ts';
+import {useAppSelector} from '../../hooks';
 import {AppRoute, AuthorizationStatus} from '../../consts.ts';
 import {useNavigate} from 'react-router-dom';
 import {memo, MouseEvent} from 'react';
@@ -31,9 +31,9 @@ function BookmarkButton({
   const authorizationStatus = useAppSelector((state) => state.user.authorizationStatus);
   const navigate = useNavigate();
 
-  const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
+  const handleClick = (evt: MouseEvent<HTMLButtonElement>) => {
+    evt.preventDefault();
+    evt.stopPropagation();
 
     if (authorizationStatus !== AuthorizationStatus.Auth) {
       navigate(AppRoute.Login);

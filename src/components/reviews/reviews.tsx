@@ -1,9 +1,9 @@
 import {ReviewsList} from './reviews-list.tsx';
 import {ReviewsForm} from '../forms/review/review-form.tsx';
-import {useAppSelector} from '../../hooks/use-app-selector.ts';
+import {useAppSelector} from '../../hooks';
 import {AppRoute, AuthorizationStatus} from '../../consts.ts';
 import {Link} from 'react-router-dom';
-import {useReviews} from '../../hooks/use-reviews.ts';
+import {useReviews} from '../../hooks';
 import {Spinner} from '../spinner/spinner.tsx';
 import {memo} from 'react';
 
@@ -22,7 +22,7 @@ function OfferReviews({offerId}: OfferReviewsProps) {
   return (
     <section className="offer__reviews reviews">
       <ReviewsList reviews={reviews}/>
-      {authorizationStatus === AuthorizationStatus.Auth ? (<ReviewsForm onSubmit={({ rating, comment }) => void sendReview({rating, comment})}/>
+      {authorizationStatus === AuthorizationStatus.Auth ? (<ReviewsForm onSubmit={({ rating, comment }) => sendReview({rating, comment})}/>
       ) : (
         <p className="reviews__info">
           <Link to={AppRoute.Login}>Войдите</Link>, чтобы оставить отзыв

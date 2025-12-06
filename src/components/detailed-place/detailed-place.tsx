@@ -1,30 +1,30 @@
-import {OfferReviewsMemo} from '../reviews/reviews.tsx';
-import {OfferDetailed} from '../../types/offer.ts';
-import {useFavorite} from '../../hooks/use-favorites.ts';
-import {useAppSelector} from '../../hooks/use-app-selector.ts';
-import {MarkMemo} from '../mark/mark.tsx';
-import {PriceMemo} from '../price/price.tsx';
-import {RatingMemo} from '../rating/rating.tsx';
+import {OfferReviewsMemo} from '../reviews';
+import {OfferDetailed} from '../../types';
+import {useFavorite} from '../../hooks';
+import {useAppSelector} from '../../hooks';
+import {Mark} from '../mark/mark.tsx';
+import {Price} from '../price/price.tsx';
+import {Rating} from '../rating/rating.tsx';
 import {useCallback} from 'react';
 import {OfferBookmarkButtonMemo} from '../bookmark-button/bookmark-button.tsx';
 
 type OfferFeatureProps = {
   classNamePart: string;
-  preValue: string | null;
-  value: number | null;
-  label: string;
+  prefix?: string;
+  count?: number;
+  postfix: string;
 };
 
-export function OfferFeature({ classNamePart, preValue, value, label }: OfferFeatureProps) {
+function OfferFeature({ classNamePart, prefix, count, postfix }: OfferFeatureProps) {
   const className = `offer__feature offer__feature--${classNamePart}`;
-  let pluralLabel = label;
-  if (value !== null) {
-    pluralLabel = value === 1 ? label : `${label}s`;
+  let pluralLabel = postfix;
+  if (count) {
+    pluralLabel = count === 1 ? postfix : `${postfix}s`;
   }
 
   const parts = [
-    preValue !== null ? preValue : null,
-    value !== null ? value : null,
+    prefix ? prefix : null,
+    count ? count.toString() : null,
     pluralLabel
   ].filter(Boolean);
 
@@ -50,7 +50,7 @@ export function DetailedPlace({ detailOffer}: DetailedPlaceProps) {
   return (
     <div className="offer__container container">
       <div className="offer__wrapper">
-        <MarkMemo isPremium={detailOffer.isPremium} className="offer__mark"/>
+        <Mark isPremium={detailOffer.isPremium} className="offer__mark"/>
         <div className="offer__name-wrapper">
           <h1 className="offer__name">{detailOffer.title}</h1>
           <OfferBookmarkButtonMemo
@@ -59,18 +59,18 @@ export function DetailedPlace({ detailOffer}: DetailedPlaceProps) {
             pending={isBookmarkPending(detailOffer.id)}
           />
         </div>
-        <RatingMemo rating={detailOffer.rating} className="offer" showValue/>
+        <Rating rating={detailOffer.rating} className="offer" showValue/>
         <ul className="offer__features">
-          <OfferFeature classNamePart="entire" preValue={null} value={null} label={detailOffer.type} />
-          <OfferFeature classNamePart="bedrooms" preValue={null} value={detailOffer.bedrooms} label="bedroom" />
-          <OfferFeature classNamePart="adults" preValue="Max" value={detailOffer.maxAdults} label="adult" />
+          <OfferFeature classNamePart="entire" postfix={detailOffer.type} />
+          <OfferFeature classNamePart="bedrooms" count={detailOffer.bedrooms} postfix="bedroom" />
+          <OfferFeature classNamePart="adults" prefix="Max" count={detailOffer.maxAdults} postfix="adult" />
         </ul>
-        <PriceMemo price={detailOffer.price} className="offer__price"/>
+        <Price price={detailOffer.price} className="offer__price"/>
         <div className="offer__inside">
           <h2 className="offer__inside-title">What&apos;s inside</h2>
           <ul className="offer__inside-list">
-            {detailOffer.goods.map((good, idx) => (
-              <li className="offer__inside-item" key={`Offer ${idx + 1}`}>{good}</li>
+            {detailOffer.goods.map((good) => (
+              <li className="offer__inside-item" key={good}>{good}</li>
             ))}
           </ul>
         </div>

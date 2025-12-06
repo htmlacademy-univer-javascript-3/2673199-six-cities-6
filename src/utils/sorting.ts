@@ -1,4 +1,4 @@
-import {Offer} from '../types/offer.ts';
+import {Offer} from '../types';
 import {SortingType} from '../consts.ts';
 
 export function getSortingFunc(sorting: SortingType): (left: Offer, right: Offer) => number {

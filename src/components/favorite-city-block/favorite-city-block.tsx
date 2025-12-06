@@ -1,4 +1,4 @@
-import {Offers} from '../../types/offer.ts';
+import {Offers} from '../../types';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../consts.ts';
 import {PlacesList} from '../places-list/places-list.tsx';
@@ -23,7 +23,6 @@ function FavoriteCityBlock({ cityName, cityOffers }: FavoriteCityBlockProps) {
       <PlacesList
         offers={cityOffers}
         type={PlaceCardType.Favorite}
-        onHover={null}
       />
     </li>
   );

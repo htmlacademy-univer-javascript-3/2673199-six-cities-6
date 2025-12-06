@@ -1,5 +1,5 @@
 import {FormEvent, Fragment, useState} from 'react';
-import {MAX_REVIEW_LEN, MIN_REVIEW_LEN} from '../../../consts.ts';
+import {ReviewLen} from '../../../consts.ts';
 
 export type rating = 0 | 1 | 2 | 3 | 4 | 5;
 
@@ -9,26 +9,35 @@ export type ReviewInfoForm = {
 }
 
 export type LoginFormProps = {
-  onSubmit: (data: { rating: rating; comment: string }) => void;
+  onSubmit: (data: { rating: rating; comment: string }) => Promise<void>;
 };
 
 export function ReviewsForm({onSubmit}: LoginFormProps) {
   const [form, setForm] = useState<ReviewInfoForm>({ rating: 0, comment: '' });
+  const [pending, setPending] = useState(false);
+  const [error, setErrorLocal] = useState<string | null>(null);
 
   const isValid = form.rating > 0
-    && form.comment.trim().length >= MIN_REVIEW_LEN
-    && form.comment.trim().length <= MAX_REVIEW_LEN;
+    && form.comment.trim().length >= ReviewLen.Min
+    && form.comment.trim().length <= ReviewLen.Max;
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    if (!isValid) {
+  const handleSubmit = (evt: FormEvent) => {
+    evt.preventDefault();
+    if (!isValid || pending) {
       return;
     }
-    onSubmit({
-      rating: form.rating,
-      comment: form.comment.trim(),
-    });
-    setForm({ rating: 0, comment: '' });
+    setErrorLocal(null);
+    setPending(true);
+    (async () => {
+      try {
+        await onSubmit({ rating: form.rating, comment: form.comment.trim() });
+        setForm({ rating: 0, comment: '' });
+      } catch {
+        setErrorLocal('There was an error submitting the form!');
+      } finally {
+        setPending(false);
+      }
+    })();
   };
 
   return (
@@ -45,7 +54,7 @@ export function ReviewsForm({onSubmit}: LoginFormProps) {
               value={stars}
               id={`${stars}-stars`}
               checked={form.rating === stars}
-              onChange={(e) => setForm((prev) => ({ ...prev, rating: +e.target.value as rating}))}
+              onChange={(evt) => setForm((prev) => ({ ...prev, rating: +evt.target.value as rating}))}
               type="radio"
             />
             <label
@@ -69,9 +78,11 @@ export function ReviewsForm({onSubmit}: LoginFormProps) {
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={form.comment}
-        onChange={(e) => setForm((prev) => ({ ...prev, comment: e.target.value }))}
+        onChange={(evt) => setForm((prev) => ({ ...prev, comment: evt.target.value }))}
       >
       </textarea>
+
+      {error && <p className="reviews__error">{error}</p>}
 
       <div className="reviews__button-wrapper">
         <p className="reviews__help">

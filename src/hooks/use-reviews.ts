@@ -1,8 +1,9 @@
 import { useCallback } from 'react';
-import { Reviews, Review } from '../types/review.ts';
+import { Reviews, Review } from '../types';
 import { api } from '../store';
 import { APIRoute } from '../consts.ts';
 import { useFetch } from './use-fetch.ts';
+import {apiRequestWithToastSettings} from '../services';
 
 type ReviewInfo = {
   rating: number;
@@ -30,9 +31,9 @@ export function useReviews(offerId?: string) {
         return;
       }
 
-      const { data: newReview } = await api.post<Review>(
-        `${APIRoute.Comments}/${offerId}`,
-        info
+      const newReview = await apiRequestWithToastSettings(
+        (config) => api.post<Review>(`${APIRoute.Comments}/${offerId}`, info, config),
+        {suppressToast: true},
       );
 
       setData((prev) => [...prev, newReview]);

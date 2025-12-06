@@ -1,5 +1,3 @@
-import {memo} from 'react';
-
 type PriceProps = {
   price: number;
   className: string;
@@ -13,5 +11,3 @@ export function Price({ price, className }: PriceProps) {
     </div>
   );
 }
-
-export const PriceMemo = memo(Price);
