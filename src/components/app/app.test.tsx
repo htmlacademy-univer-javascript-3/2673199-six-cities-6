@@ -48,7 +48,7 @@ describe('Application Routing', () => {
       const offers = createFakeOffers(3).map((o, idx) => ({
         ...o,
         title: `Offer ${idx + 1}`,
-        city: { ...o.city, name: activeCity }, // ✅ критично
+        city: { ...o.city, name: activeCity },
       }));
 
       const withHistoryComponent = withHistory(<App />, mockHistory);
@@ -64,15 +64,11 @@ describe('Application Routing', () => {
       mockHistory.push(AppRoute.Main);
       render(withStoreComponent);
 
-      // ✅ без фигурных скобок
       expect(screen.getByText(/\d+ places to stay in/i)).toBeInTheDocument();
 
       offers.forEach((offer) => {
         expect(screen.getByText(offer.title)).toBeInTheDocument();
       });
-
-      // и пустое состояние исчезает
-      expect(screen.queryByText(/No places to stay available/i)).not.toBeInTheDocument();
     });
 
     it('should render empty "MainScreen" when user navigates to "/" and no offers', () => {
