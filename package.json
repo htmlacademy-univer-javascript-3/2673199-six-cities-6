@@ -8,7 +8,8 @@
     "lintfix": "eslint src --ext ts,tsx --fix",
     "lint": "eslint src --ext ts,tsx",
     "preview": "vite preview",
-    "test": "vitest --passWithNoTests"
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@reduxjs/toolkit": "1.9.7",
@@ -38,6 +39,7 @@
     "@typescript-eslint/eslint-plugin": "6.7.4",
     "@typescript-eslint/parser": "6.7.4",
     "@vitejs/plugin-react": "4.1.0",
+    "@vitest/coverage-v8": "^0.34.6",
     "axios-mock-adapter": "1.22.0",
     "eslint": "8.51.0",
     "eslint-config-htmlacademy": "9.1.1",
