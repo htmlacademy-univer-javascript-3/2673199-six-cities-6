@@ -20,6 +20,7 @@ export function PlaceCard(offerProps: OfferProps) {
     <article className={`${ToArticleType(offerProps.innerType)} place-card`}>
       <Mark isPremium={offerProps.isPremium} className="place-card__mark"/>
       <ImageWrapper
+        offerId={offerProps.id}
         imageSource={offerProps.previewImage}
         type={offerProps.innerType}
       />

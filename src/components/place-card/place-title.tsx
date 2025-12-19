@@ -11,7 +11,7 @@ export function PlaceTitle({ placeName, placeType, id }: PlaceTitleProps) {
   return (
     <>
       <h2 className="place-card__name">
-        <Link to={generatePath(`${AppRoute.Offer}`, { id: String(id) })}>{placeName}</Link>
+        <Link to={generatePath(AppRoute.Offer, { id: String(id) })}>{placeName}</Link>
       </h2>
       <p className="place-card__type">{placeType}</p>
     </>
